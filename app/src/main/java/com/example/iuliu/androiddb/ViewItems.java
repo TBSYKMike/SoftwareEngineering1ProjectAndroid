@@ -1,11 +1,11 @@
 package com.example.iuliu.androiddb;
 
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import java.net.URL;
 
 public class ViewItems extends AppCompatActivity {
     String JSON_STRING;
+    String json_string;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class ViewItems extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
                 while((JSON_STRING = bufferedReader.readLine())!= null)
                 {
-                stringBuilder.append(JSON_STRING+"\n");
+                stringBuilder.append(JSON_STRING);
                 }
                 bufferedReader.close();
                 inputStream.close();
@@ -75,7 +76,18 @@ public class ViewItems extends AppCompatActivity {
         {
             TextView textView = (TextView)findViewById(R.id.textView);
             textView.setText(result);
+            json_string=result;
            // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
+    public void parseJSON(View view)
+    {
+
+
+        Intent intent=new Intent (this,DisplayList.class);
+        intent.putExtra("json_data",json_string);
+        startActivity(intent);
+
+    }
+
 }
