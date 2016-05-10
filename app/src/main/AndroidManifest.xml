@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddInfo" />
-        <activity android:name=".ViewItems"></activity>
+        <activity android:name=".ViewItems"/>
+        <activity android:name=".DisplayList">
+        </activity>
     </application>
 
 </manifest>

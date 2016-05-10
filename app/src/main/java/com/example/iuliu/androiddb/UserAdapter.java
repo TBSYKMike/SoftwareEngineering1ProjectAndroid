@@ -56,9 +56,9 @@ public class UserAdapter extends ArrayAdapter {
             TextView txv_random = (TextView)row.findViewById(R.id.txt_random);
 
 
-        /*    try {
+              try {
                 temp1=listItem.getRandom();
-                temp = Kripto.decrypt(temp1);
+                temp = Encrypt.decryptPassword(temp1);
                 System.out.println(temp1+"2222222222222222222222222222222222222222");
                 System.out.println(temp+"1111111111111111111111111111111111111111111111111111111111111");
             } catch (Exception e) {
@@ -69,11 +69,10 @@ public class UserAdapter extends ArrayAdapter {
                 System.out.println(i);
                 System.out.println("NUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUMergeWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
             }
-*/
-            txv_name.setText(listItem.getName());
 
+                txv_name.setText(listItem.getName());
                 txv_password.setText(listItem.getPassword());
-                txv_random.setText(listItem.getRandom());
+                txv_random.setText(temp);
 
 
 

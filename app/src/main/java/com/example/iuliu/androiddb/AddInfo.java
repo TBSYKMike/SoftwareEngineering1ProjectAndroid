@@ -63,11 +63,11 @@ public class AddInfo extends AppCompatActivity {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
 
                 try {
-                    //test= Encrypt.encryptPassword(random);
-                    test=Kripto.encrypt(random);
+                   test= Encrypt.encryptPassword(random);
+                   // test=Kripto.encrypt(random);
                     int i=0;
-                    i=test.length();
-                    System.out.println("LenghtTTTTTTTTTTTTTTTTTTTTTTTTT"+i);
+                  //  i=test.length();
+                   // System.out.println("LenghtTTTTTTTTTTTTTTTTTTTTTTTTT"+i);
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                     String data_string = URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
                             URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"+
