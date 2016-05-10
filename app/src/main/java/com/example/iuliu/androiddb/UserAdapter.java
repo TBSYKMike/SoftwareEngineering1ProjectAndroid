@@ -58,7 +58,8 @@ public class UserAdapter extends ArrayAdapter {
 
               try {
                 temp1=listItem.getRandom();
-                temp = Encrypt.decryptPassword(temp1);
+               // temp = Encrypt.decryptPassword(temp1);
+                  temp=Kripto.decrypt(temp1);
                 System.out.println(temp1+"2222222222222222222222222222222222222222");
                 System.out.println(temp+"1111111111111111111111111111111111111111111111111111111111111");
             } catch (Exception e) {

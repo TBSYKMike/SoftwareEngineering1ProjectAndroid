@@ -14,9 +14,11 @@ import javax.crypto.spec.DESKeySpec;
  */
 public class Encrypt {
 
-    protected static final String PASSWORD_SECRET ="0123456789abcdef";
+   /*
+   protected static final String PASSWORD_SECRET ="0123456789abcdef";
+
     static String IV = "AAAAAAAAAAAAAAAA";
-    static String plaintext = "hhh"; /*Note null padding*/
+    static String plaintext = "hhh"; /*Note null padding
 
     static String encryptionKey = "0123456789abcdef";
 
@@ -53,5 +55,5 @@ public class Encrypt {
         }
         return encryptedPwd;
     }
-
+*/
 }
