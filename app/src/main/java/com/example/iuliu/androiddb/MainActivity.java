@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
             B2.setEnabled(false);
 
         }
+        System.out.println("Hej");
 
     }
 
