@@ -33,4 +33,16 @@
         android:layout_marginTop="150dp"
         android:gravity="center_horizontal"
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Login"
+        android:id="@+id/b3"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="117dp"
+        android:onClick="testLogin"
+        android:nestedScrollingEnabled="false" />
+
 </RelativeLayout>
