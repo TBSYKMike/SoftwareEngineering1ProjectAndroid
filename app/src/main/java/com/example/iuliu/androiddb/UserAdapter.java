@@ -68,7 +68,7 @@ public class UserAdapter extends ArrayAdapter {
                 int i=0;
                 i=temp1.length();
                 System.out.println(i);
-                System.out.println("NUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUMergeWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+
             }
 
                 txv_name.setText(listItem.getName());
