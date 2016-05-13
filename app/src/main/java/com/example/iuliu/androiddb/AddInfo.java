@@ -11,6 +11,7 @@ import android.widget.Toast;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,7 +41,8 @@ public class AddInfo extends AppCompatActivity {
     public void saveInfo(View view)
     {
         name=Name.getText().toString();
-        password=this.encodeImage();
+     //   password=this.encodeImage();
+        password=Password.getText().toString();
         random=Random.getText().toString();
         BackgroundTask backgroundTask = new BackgroundTask();
         backgroundTask.execute(name,password,random);
@@ -61,7 +63,8 @@ public class AddInfo extends AppCompatActivity {
             String name,password,random;
             name=args[0];
             password=args[1];
-            random=args[2];
+           random=args[2];
+
             try {
 
                 URL url =new URL(add_info_url);
@@ -73,7 +76,6 @@ public class AddInfo extends AppCompatActivity {
                 try {
 
                     test=Kripto.encrypt(random);
-
 
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                     String data_string = URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
@@ -113,7 +115,7 @@ public class AddInfo extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
         }
     }
-    public void transferPhoto()
+/*   public void transferPhoto()
     {
 
 
@@ -126,7 +128,7 @@ public class AddInfo extends AppCompatActivity {
        //     path.mkdirs();
 
             String extr = Environment.getExternalStorageDirectory().toString();
-            File mFolder = new File(extr + "/Pictures");
+            File mFolder = new File(extr + "/Picture1");
             if (!mFolder.exists()) {
                 mFolder.mkdirs();
             }
@@ -152,10 +154,10 @@ public class AddInfo extends AppCompatActivity {
             System.out.println("Exception while reading the Image " + ioe);
         }
 
-    }
+    }*/
     public  String encodeImage() {
         Base64 base64=new Base64();
-        InputStream is = getResources().openRawResource(+ R.drawable.bug);
+        InputStream is = getResources().openRawResource(+ R.drawable.star);
 
         byte[] data = new byte[0];
         try {
@@ -171,8 +173,9 @@ public class AddInfo extends AppCompatActivity {
     }
 
 
-    public static byte[] decodeImage(String imageDataString) {
+    public  byte[] decodeImage(String imageDataString) {
         Base64 base64=new Base64();
+
         return base64.decode(imageDataString.getBytes());
     }
 

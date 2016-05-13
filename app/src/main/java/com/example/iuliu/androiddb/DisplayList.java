@@ -35,7 +35,6 @@ public class DisplayList extends AppCompatActivity {
                 JSONObject JO=jsonArray.getJSONObject(count);
                 name=JO.getString("name");
                 password=JO.getString("password");
-               // random=Kripto.decrypt(JO.getString("random"));
                 random=JO.getString("random");
                 Users user=new Users(name,password,random);
                 userAdapter.add(user);
