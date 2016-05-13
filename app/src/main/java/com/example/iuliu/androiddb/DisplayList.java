@@ -2,6 +2,7 @@ package com.example.iuliu.androiddb;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -20,7 +21,7 @@ public class DisplayList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_list);
         listView=(ListView)findViewById(R.id.listView);
-
+        ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
         userAdapter=new UserAdapter(this,R.layout.row_layout);
         listView.setAdapter(userAdapter);
         json_string=getIntent().getExtras().getString("json_data");
@@ -29,7 +30,7 @@ public class DisplayList extends AppCompatActivity {
             jsonArray=jsonObject.getJSONArray("server_response");
             int count=0;
             String name, password,random;
-            while (count<jsonObject.length())
+            while (count<jsonArray.length())
             {
                 JSONObject JO=jsonArray.getJSONObject(count);
                 name=JO.getString("name");
