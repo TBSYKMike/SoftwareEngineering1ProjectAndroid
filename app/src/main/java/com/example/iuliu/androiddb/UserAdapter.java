@@ -22,9 +22,13 @@ public class UserAdapter extends ArrayAdapter {
     List list =new ArrayList();
     String temp1="bbb";
     String temp;
-    public UserAdapter(Context context, int resource) {
-        super(context, resource);
+    ArrayList<Users> usersArrayList;
+    public UserAdapter(Context context, int resource,ArrayList<Users> usersArrayList) {
+        super(context, resource,usersArrayList);
+        this.usersArrayList=usersArrayList;
     }
+
+
 
     public void add(Users object)
     {
@@ -62,20 +66,20 @@ public class UserAdapter extends ArrayAdapter {
         else{
             userHolder=(UserHolder)row.getTag();
         }
-              try {
-                  Users users=(Users)this.getItem(position);
+        try {
+            Users users=(Users)this.getItem(position);
 
-                  temp1=users.getRandom();
-               // temp = Encrypt.decryptPassword(temp1);
-                  temp=Kripto.decrypt(temp1);
-                  userHolder.txt_name.setText(users.getName());
-                  userHolder.txt_password.setText(users.getPassword());
-                  userHolder.txt_random.setText(temp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(temp1);
+            temp1=users.getRandom();
+            // temp = Encrypt.decryptPassword(temp1);
+            temp=Kripto.decrypt(temp1);
+            userHolder.txt_name.setText(users.getName());
+            userHolder.txt_password.setText(users.getPassword());
+            userHolder.txt_random.setText(temp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(temp1);
 
-            }
+        }
              /*
                 byte[] d=object.decodeImage(listItem.getPassword());
 
