@@ -29,12 +29,12 @@ public class CheckOwnAdds extends AppCompatActivity {
         Random rand=new Random();
         //int supply=rand.nextInt(10);
         //int demand=rand.nextInt(10);
-        int supply=6;
-        int demand=6;
+        int supply=5;
+        int demand=7;
         String stringSupply=Integer.toString(supply);
         String stringDemand=Integer.toString(demand);
         BackgroundTask backgroundTask = new BackgroundTask();
-        backgroundTask.execute(stringSupply);
+        backgroundTask.execute(stringSupply,stringDemand);
      //   backgroundTask.execute(stringDemand);
 
     }
@@ -52,8 +52,9 @@ public class CheckOwnAdds extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            String  stringDemand1;
-            stringDemand1=args[0];
+            String  stringDemand1,stringSupply1;
+            stringSupply1=args[0];
+            stringDemand1=args[1];
 
             try {
 
@@ -66,7 +67,7 @@ public class CheckOwnAdds extends AppCompatActivity {
                 try {
 
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data_string = URLEncoder.encode("suply", "UTF-8")+"="+URLEncoder.encode(stringDemand1,"UTF-8")+"&"+
+                    String data_string = URLEncoder.encode("suply", "UTF-8")+"="+URLEncoder.encode(stringSupply1,"UTF-8")+"&"+
                             URLEncoder.encode("demand","UTF-8")+"="+URLEncoder.encode(stringDemand1,"UTF-8");
                     bufferedWriter.write(data_string);
 
