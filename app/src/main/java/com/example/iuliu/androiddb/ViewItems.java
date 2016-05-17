@@ -90,5 +90,8 @@ public class ViewItems extends AppCompatActivity {
         }
     }
 
-
+    public void checkOwn(View view)
+    {
+        startActivity(new Intent(this, CheckOwnAdds.class));
+    }
 }

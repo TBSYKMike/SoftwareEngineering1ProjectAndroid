@@ -18,6 +18,15 @@
         android:onClick="parseJSON"
 
         />
+    <Button
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:text="Check own"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="400dp"
+        android:onClick="checkOwn"
+
+        />
 
     <TextView
         android:layout_width="wrap_content"
