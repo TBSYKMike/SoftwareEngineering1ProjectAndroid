@@ -19,24 +19,47 @@ import java.net.URLEncoder;
 import java.util.Random;
 
 public class CheckOwnAdds extends AppCompatActivity {
-
+ String string;
+    int supply,demand;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_own_adds);
     }
-    public void acceptOffer(View view){
+    public void acceptOffer(View view)
+    {
         Random rand=new Random();
         //int supply=rand.nextInt(10);
         //int demand=rand.nextInt(10);
-        int supply=5;
-        int demand=7;
+         supply=4;
+         demand=8;
+        string="http://mybarter.net16.net/delete_accept_barter.php";
         String stringSupply=Integer.toString(supply);
         String stringDemand=Integer.toString(demand);
         BackgroundTask backgroundTask = new BackgroundTask();
-        backgroundTask.execute(stringSupply,stringDemand);
+        backgroundTask.execute(stringSupply, stringDemand);
      //   backgroundTask.execute(stringDemand);
 
+    }
+    public void declineOffer(View view)
+    {
+        string="http://mybarter.net16.net/decline_barter.php";
+        supply=1;
+        demand=0;
+        String stringSupply=Integer.toString(supply);
+        String stringDemand=Integer.toString(demand);
+        BackgroundTask backgroundTask = new BackgroundTask();
+        backgroundTask.execute(stringSupply, stringDemand);
+    }
+    public void disableAdd(View view)
+    {
+        string="http://mybarter.net16.net/disable_add.php";
+        supply=2;
+        demand=0;
+        String stringSupply=Integer.toString(supply);
+        String stringDemand=Integer.toString(demand);
+        BackgroundTask backgroundTask = new BackgroundTask();
+        backgroundTask.execute(stringSupply, stringDemand);
     }
     public void goBack(View view)
     {
@@ -44,9 +67,10 @@ public class CheckOwnAdds extends AppCompatActivity {
     }
     class BackgroundTask extends AsyncTask<String,Void,String> {
         String login_check_url;
+
         @Override
         protected void onPreExecute() {
-            login_check_url = "http://mybarter.net16.net/delete_accept_barter.php";
+            login_check_url = string;
             super.onPreExecute();
         }
 

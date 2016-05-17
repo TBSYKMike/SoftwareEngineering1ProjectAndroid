@@ -29,12 +29,28 @@
         android:id="@+id/buttonAcceptBarter"
         android:onClick="acceptOffer"
         android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:layout_toEndOf="@+id/buttonOwnBack" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Disable Add"
+        android:id="@+id/buttonDisable"
+        android:onClick="disableAdd"
+        android:layout_below="@+id/imageView"
+        android:layout_toEndOf="@+id/buttonAcceptBarter" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Decline"
+        android:id="@+id/buttonDeclineOffer"
+        android:onClick="declineOffer"
+        android:layout_below="@+id/imageView"
+        android:layout_toEndOf="@+id/buttonDisable" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewSuplies"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/buttonOwnBack" />
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
