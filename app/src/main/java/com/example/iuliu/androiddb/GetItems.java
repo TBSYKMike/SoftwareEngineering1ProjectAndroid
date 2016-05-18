@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ViewItems extends AppCompatActivity {
+public class GetItems extends AppCompatActivity {
     String JSON_STRING;
     String json_string;
     @Override

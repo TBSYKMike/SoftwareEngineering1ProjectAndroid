@@ -58,6 +58,7 @@ public class UserAdapter extends ArrayAdapter {
             LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = layoutInflater.inflate(R.layout.row_layout, parent, false);
             userHolder= new UserHolder();
+            userHolder.txt_id=(TextView)row.findViewById(R.id.txt_id);
             userHolder.txt_name=(TextView)row.findViewById(R.id.txt_name);
             userHolder.txt_password=(TextView)row.findViewById(R.id.txt_password);
             userHolder.txt_random=(TextView)row.findViewById(R.id.txt_random);
@@ -72,6 +73,7 @@ public class UserAdapter extends ArrayAdapter {
             temp1=users.getRandom();
             // temp = Encrypt.decryptPassword(temp1);
             temp=Kripto.decrypt(temp1);
+            userHolder.txt_id.setText(users.getId());
             userHolder.txt_name.setText(users.getName());
             userHolder.txt_password.setText(users.getPassword());
             userHolder.txt_random.setText(temp);
@@ -92,6 +94,6 @@ public class UserAdapter extends ArrayAdapter {
 
     static class UserHolder
     {
-        TextView txt_name,txt_password,txt_random;
+        TextView txt_id,txt_name,txt_password,txt_random;
     }
 }

@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
     }
     public void viewItems(View view)
     {
-        startActivity(new Intent(this, ViewItems.class));
+        startActivity(new Intent(this, GetItems.class));
     }
 
     public void testLogin(View view){

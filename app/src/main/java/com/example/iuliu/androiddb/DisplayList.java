@@ -39,14 +39,15 @@ public class DisplayList extends AppCompatActivity {
             jsonObject=new JSONObject(json_string);
             jsonArray=jsonObject.getJSONArray("server_response");
             int count=0;
-            String name, password,random;
+            String id,name, password,random;
             while (count<jsonArray.length())
             {
                 JSONObject JO=jsonArray.getJSONObject(count);
+                id=JO.getString("id");
                 name=JO.getString("name");
                 password=JO.getString("password");
                 random=JO.getString("random");
-                Users user=new Users(name,password,random);
+                Users user=new Users(id,name,password,random);
                 userAdapter.add(user);
                 count++;
 

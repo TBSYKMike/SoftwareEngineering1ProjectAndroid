@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddInfo" />
-        <activity android:name=".ViewItems" />
+        <activity android:name=".GetItems" />
         <activity android:name=".DisplayList" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".CheckItem" />
