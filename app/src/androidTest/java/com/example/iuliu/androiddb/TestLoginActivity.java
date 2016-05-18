@@ -1,5 +1,6 @@
 package com.example.iuliu.androiddb;
 
+import android.support.test.espresso.action.CloseKeyboardAction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.SmallTest;
@@ -20,7 +21,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class TestLoginActivity {
-    private String TestString;
+    private String TestAccount;
+    private String TestPassword;
 
     @Rule
     public ActivityTestRule<LoginActivity> myActivityRule = new ActivityTestRule<>(LoginActivity.class);
@@ -28,12 +30,15 @@ public class TestLoginActivity {
     @Before
     public void initString(){
         // create string to enter
-        TestString = "Jocke";
+        TestAccount = "Jocke";
+        TestPassword = "1234";
     }
     @Test
     public void TestClick(){
         //type text and press button
-        onView(withId(R.id.editTextAcc)).perform(typeText(TestString));
+        onView(withId(R.id.editTextAcc)).perform(typeText(TestAccount));
+        onView(withId(R.id.editTextPass)).perform(typeText(TestPassword));
+
         onView(withId(R.id.buttonLogin)).perform(click());
     }
 
