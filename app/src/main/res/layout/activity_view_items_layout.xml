@@ -8,15 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.iuliu.androiddb.ViewItems">
-    <Button
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:text="View Items"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:onClick="getJSON"
 
-        />
     <Button
         android:layout_width="170dp"
         android:layout_height="wrap_content"
@@ -24,6 +16,15 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="200dp"
         android:onClick="parseJSON"
+
+        />
+    <Button
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:text="Check own"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="400dp"
+        android:onClick="checkOwn"
 
         />
 

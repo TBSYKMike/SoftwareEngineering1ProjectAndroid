@@ -22,15 +22,24 @@ public class ViewItems extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_items_layout);
-
+        this.getJSON();
 
     }
 
-    public void getJSON(View view) {
-        BackgroundTask backgroundTask =new BackgroundTask();
+    public void getJSON() {
+       BackgroundTask backgroundTask =new BackgroundTask();
         backgroundTask.execute();
-    }
 
+    }
+    public void parseJSON(View view)
+    {
+
+
+        Intent intent=new Intent (this,DisplayList.class);
+        intent.putExtra("json_data",json_string);
+        startActivity(intent);
+
+    }
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String json_url;
         @Override
@@ -74,20 +83,15 @@ public class ViewItems extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result)
         {
-            TextView textView = (TextView)findViewById(R.id.textView);
-            textView.setText(result);
+         //   TextView textView = (TextView)findViewById(R.id.textView);
+           // textView.setText(result);
             json_string=result;
            // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
-    public void parseJSON(View view)
+
+    public void checkOwn(View view)
     {
-
-
-        Intent intent=new Intent (this,DisplayList.class);
-        intent.putExtra("json_data",json_string);
-        startActivity(intent);
-
+        startActivity(new Intent(this, CheckOwnAdds.class));
     }
-
 }

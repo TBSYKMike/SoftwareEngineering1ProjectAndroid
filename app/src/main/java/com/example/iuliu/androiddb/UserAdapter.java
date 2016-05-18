@@ -1,10 +1,15 @@
 package com.example.iuliu.androiddb;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Picture;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,9 +22,13 @@ public class UserAdapter extends ArrayAdapter {
     List list =new ArrayList();
     String temp1="bbb";
     String temp;
-    public UserAdapter(Context context, int resource) {
-        super(context, resource);
+    ArrayList<Users> usersArrayList;
+    public UserAdapter(Context context, int resource,ArrayList<Users> usersArrayList) {
+        super(context, resource,usersArrayList);
+        this.usersArrayList=usersArrayList;
     }
+
+
 
     public void add(Users object)
     {
@@ -41,48 +50,45 @@ public class UserAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row;
+        UserHolder userHolder;
         row = convertView;
 
         if(row == null){
 
             LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = layoutInflater.inflate(R.layout.row_layout, parent, false);
+            userHolder= new UserHolder();
+            userHolder.txt_name=(TextView)row.findViewById(R.id.txt_name);
+            userHolder.txt_password=(TextView)row.findViewById(R.id.txt_password);
+            userHolder.txt_random=(TextView)row.findViewById(R.id.txt_random);
+            row.setTag(userHolder);
         }
-        final Users listItem = (Users)list.get(position);
-        if(listItem != null){
+        else{
+            userHolder=(UserHolder)row.getTag();
+        }
+        try {
+            Users users=(Users)this.getItem(position);
 
-            TextView txv_name = (TextView)row.findViewById(R.id.txt_name);
-            TextView txv_password = (TextView)row.findViewById(R.id.txt_password);
-            TextView txv_random = (TextView)row.findViewById(R.id.txt_random);
-
-
-              try {
-                temp1=listItem.getRandom();
-               // temp = Encrypt.decryptPassword(temp1);
-                  temp=Kripto.decrypt(temp1);
-                System.out.println(temp1+"2222222222222222222222222222222222222222");
-                System.out.println(temp+"1111111111111111111111111111111111111111111111111111111111111");
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(temp1);
-                int i=0;
-                i=temp1.length();
-                System.out.println(i);
-                System.out.println("NUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUMergeWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
-            }
-
-                txv_name.setText(listItem.getName());
-                txv_password.setText(listItem.getPassword());
-                txv_random.setText(temp);
-
-
-
-
+            temp1=users.getRandom();
+            // temp = Encrypt.decryptPassword(temp1);
+            temp=Kripto.decrypt(temp1);
+            userHolder.txt_name.setText(users.getName());
+            userHolder.txt_password.setText(users.getPassword());
+            userHolder.txt_random.setText(temp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(temp1);
 
         }
+             /*
+                byte[] d=object.decodeImage(listItem.getPassword());
 
+            Bitmap bitmap=new BitmapFactory().decodeByteArray(d,0,d.length);
+             imageView.setImageBitmap(bitmap);
+*/
         return row;
     }
+
 
     static class UserHolder
     {

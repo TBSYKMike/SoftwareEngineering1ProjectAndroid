@@ -1,13 +1,21 @@
 package com.example.iuliu.androiddb;
 
+import android.graphics.Path;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,10 +41,12 @@ public class AddInfo extends AppCompatActivity {
     public void saveInfo(View view)
     {
         name=Name.getText().toString();
+     //   password=this.encodeImage();
         password=Password.getText().toString();
         random=Random.getText().toString();
         BackgroundTask backgroundTask = new BackgroundTask();
         backgroundTask.execute(name,password,random);
+      //  this.transferPhoto();
 
     }
     class BackgroundTask extends AsyncTask<String,Void,String>
@@ -53,7 +63,8 @@ public class AddInfo extends AppCompatActivity {
             String name,password,random;
             name=args[0];
             password=args[1];
-            random=args[2];
+           random=args[2];
+
             try {
 
                 URL url =new URL(add_info_url);
@@ -63,11 +74,9 @@ public class AddInfo extends AppCompatActivity {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
 
                 try {
-                  // test= Encrypt.encryptPassword(random);
+
                     test=Kripto.encrypt(random);
-                    int i=0;
-                  //  i=test.length();
-                   System.out.println("LenghtTTTTTTTTTTTTTTTTTTTTTTTTT"+test);
+
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                     String data_string = URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
                             URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"+
@@ -81,17 +90,9 @@ public class AddInfo extends AppCompatActivity {
                     inputStream.close();
                     httpURLConnection.disconnect();
                     return "Data insert";
-                 //   System.out.println(test+"ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZz");
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
-
-          //   String test=objectSecret.encrypt(random);
-             //
-
-              //  System.out.println(randomSecret+"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -114,4 +115,68 @@ public class AddInfo extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
         }
     }
+/*   public void transferPhoto()
+    {
+
+
+
+        //File path = Environment.getExternalStoragePublicDirectory(
+           //     Environment.DIRECTORY_PICTURES);
+      //  File file = new File(path, "DemoPicture.jpg");
+
+        try {
+       //     path.mkdirs();
+
+            String extr = Environment.getExternalStorageDirectory().toString();
+            File mFolder = new File(extr + "/Picture1");
+            if (!mFolder.exists()) {
+                mFolder.mkdirs();
+            }
+
+            String s = "tmp.png";
+
+            File f = new File(mFolder.getAbsolutePath(), s);
+
+
+            InputStream is = getResources().openRawResource(+ R.drawable.bug);
+            OutputStream os = new FileOutputStream(f);
+            byte[] data = new byte[is.available()];
+            is.read(data);
+            os.write(data);
+            is.close();
+            os.close();
+
+
+            System.out.println("Image Successfully Manipulated!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Image not found" + e);
+        } catch (IOException ioe) {
+            System.out.println("Exception while reading the Image " + ioe);
+        }
+
+    }*/
+    public  String encodeImage() {
+        Base64 base64=new Base64();
+        InputStream is = getResources().openRawResource(+ R.drawable.star);
+
+        byte[] data = new byte[0];
+        try {
+            data = new byte[is.available()];
+            is.read(data);
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String stringToStore;
+        return stringToStore = new String(base64.encode(data));
+    }
+
+
+    public  byte[] decodeImage(String imageDataString) {
+        Base64 base64=new Base64();
+
+        return base64.decode(imageDataString.getBytes());
+    }
+
 }
