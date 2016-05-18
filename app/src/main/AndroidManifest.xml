@@ -24,7 +24,8 @@
         <activity android:name=".AddInfo" />
         <activity android:name=".ViewItems"/>
         <activity android:name=".DisplayList"/>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".CreateAcc"/>
+        <activity android:name=".Login">
         </activity>
     </application>
 
