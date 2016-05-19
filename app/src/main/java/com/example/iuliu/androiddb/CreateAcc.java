@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -22,26 +25,33 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jocke on 2016-05-12.
  */
-public class CreateAcc extends AppCompatActivity {
+public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String check;
     String line;
     String accName;
     String password;
     String conPassword;
-    String phoneNr;
     String email;
+    String city;
+    int cityId;
+    String stringCityId;
     String create_acc_url = "http://mybarter.net16.net/create_account.php";
+
+    List<String> cities;
+    ArrayAdapter<String> spinnerAdapter;
 
     EditText inputAccName;
     EditText inputPassword;
     EditText inputConPassword;
-    EditText inputPhoneNr;
     EditText inputEmail;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -51,28 +61,64 @@ public class CreateAcc extends AppCompatActivity {
         inputAccName = (EditText) findViewById(R.id.editTextAccName);
         inputPassword = (EditText) findViewById(R.id.editTextPass);
         inputConPassword = (EditText) findViewById(R.id.editTextConPass);
-        inputPhoneNr = (EditText) findViewById(R.id.editTextPhoneNr);
         inputEmail = (EditText) findViewById(R.id.editTextEmail);
+        spinner = (Spinner) findViewById(R.id.spinnerCity);
+
+        spinner.setOnItemSelectedListener(this);
+
+        cities = new ArrayList<>();
+        cities.add("Helsingborg");
+        cities.add("Kristianstad");
+        cities.add("Malmo");
+
+        spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cities);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setPrompt("Select City");
+
     }
 
     public void createButton(View view) {
         accName = inputAccName.getText().toString();
         password = inputPassword.getText().toString();
         conPassword = inputConPassword.getText().toString();
-        phoneNr = inputPhoneNr.getText().toString();
         email = inputEmail.getText().toString();
 
-        if(TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(phoneNr) || TextUtils.isEmpty(email)) {
+        if(TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(email) || city == null) {
             Toast.makeText(CreateAcc.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
         }else{
             if(password.matches(conPassword)) {
                 BackgroundTask backgroundTask = new BackgroundTask();
-                backgroundTask.execute(accName, phoneNr, email);
+                backgroundTask.execute(accName,password, email, stringCityId);
             }else{
                 showError();
             }
 
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        city = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), "Selected: " + city, Toast.LENGTH_LONG).show();
+
+        if(city.matches("Helsingborg")){
+            cityId = 1;
+            stringCityId = Integer.toString(cityId);
+        }else if(city.matches("Kristianstad")){
+            cityId = 2;
+            stringCityId = Integer.toString(cityId);
+        }else if(city.matches("Malmo")){
+            cityId = 3;
+            stringCityId = Integer.toString(cityId);
+        }
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     class BackgroundTask extends AsyncTask<String,Void,String> {
@@ -87,17 +133,18 @@ public class CreateAcc extends AppCompatActivity {
             super.onPostExecute(check);
 
             if(check.contains("Success!")){
-                Toast.makeText(CreateAcc.this, "Success! Authentication code has been sent to your phone!", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateAcc.this, "Your account has been successfully registered!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(CreateAcc.this, MainActivity.class));
             }else{
-                Toast.makeText(CreateAcc.this, "Account name, phone nummber or email already exist!", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateAcc.this, "Account name or email already exist!", Toast.LENGTH_LONG).show();
             }
         }
         @Override
         protected String doInBackground(String... params) {
             String accName = params[0];
-            String phoneNr = params[1];
+            String password = params[1];
             String email = params[2];
+            String city = params[3];
 
             try{
                 URL url = new URL(create_acc_url);
@@ -109,8 +156,9 @@ public class CreateAcc extends AppCompatActivity {
 
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String data = URLEncoder.encode("accName", "UTF-8") + "=" + URLEncoder.encode(accName,"UTF-8") + "&" +
-                        URLEncoder.encode("phoneNr", "UTF-8") + "=" + URLEncoder.encode(phoneNr,"UTF-8") + "&" +
-                        URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
+                        URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password,"UTF-8") + "&" +
+                        URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email,"UTF-8") + "&" +
+                        URLEncoder.encode("city", "UTF-8") + "=" + URLEncoder.encode(city, "UTF-8");
                 bufferedWriter.write(data);
 
                 bufferedWriter.flush();

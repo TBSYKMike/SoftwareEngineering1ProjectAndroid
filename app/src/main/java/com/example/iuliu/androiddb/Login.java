@@ -26,8 +26,6 @@ import java.net.URLEncoder;
 
 public class Login extends AppCompatActivity {
 
-    //Test för att se om pull fungerar
-
     String check;
     String line;
     String accName;
