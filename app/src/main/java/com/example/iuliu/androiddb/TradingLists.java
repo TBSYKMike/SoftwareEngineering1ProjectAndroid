@@ -1,6 +1,7 @@
 package com.example.iuliu.androiddb;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +13,19 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class TradingLists extends AppCompatActivity {
-    String json_string;
+    String json_string,json_string2;
     JSONObject jsonObject;
     JSONArray jsonArray;
     AddsAdapter addsAdapter;
@@ -25,17 +35,18 @@ public class TradingLists extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trading_lists);
+
         arrayUsers=new ArrayList<Adds>();
         listView=(ListView)findViewById(R.id.listView3);
         ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
         addsAdapter =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
         listView.setAdapter(addsAdapter);
-        json_string=getIntent().getExtras().getString("json_data");
+        json_string2=getIntent().getExtras().getString("json_data2");
         try {
             ArrayList<Adds> listData = new ArrayList<>();
 
 
-            jsonObject=new JSONObject(json_string);
+            jsonObject=new JSONObject(json_string2);
             jsonArray=jsonObject.getJSONArray("server_response");
             int count=0;
             String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID;
@@ -85,8 +96,11 @@ public class TradingLists extends AppCompatActivity {
     }
     public void viewItems(View view)
     {
+        GetJSON getJSON=new GetJSON();
+        json_string=getIntent().getExtras().getString("json_data1");
         Intent intent=new Intent (this,DisplayList.class);
         intent.putExtra("json_data",json_string);
         startActivity(intent);
     }
+
 }

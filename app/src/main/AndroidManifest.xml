@@ -30,7 +30,7 @@
         <activity android:name=".CheckItem" />
         <activity android:name=".CheckOwnAdds" />
         <activity android:name=".CreateAcc" />
-        <activity android:name=".TradingLists"></activity>
+        <activity android:name=".TradingLists" />
     </application>
 
 </manifest>
