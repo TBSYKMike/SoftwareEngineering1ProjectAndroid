@@ -51,4 +51,5 @@
         android:text="Cancel"
         android:id="@+id/button2"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
