@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,9 +14,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class GetItems extends AppCompatActivity {
+public class GetJSON extends AppCompatActivity {
     String JSON_STRING;
     String json_string;
+    private String json_url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +47,20 @@ public class GetItems extends AppCompatActivity {
 
     }
 
+    public String getJson_url() {
+        return json_url;
+    }
+
+    public void setJson_url(String json_url) {
+        this.json_url = json_url;
+    }
+
     class BackgroundTask extends AsyncTask<String, Void, String> {
-        String json_url;
+
         @Override
         protected void onPreExecute()
         {
-            json_url = "http://mybarter.net16.net/json_data.php";
+            setJson_url("http://mybarter.net16.net/json_data_new.php");
         }
 
         @Override
@@ -59,7 +68,7 @@ public class GetItems extends AppCompatActivity {
         {
             try
             {
-                URL url = new URL(json_url);
+                URL url = new URL(getJson_url());
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

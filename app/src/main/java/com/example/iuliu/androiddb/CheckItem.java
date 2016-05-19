@@ -19,7 +19,7 @@ import java.net.URLEncoder;
 import java.util.Random;
 
 public class CheckItem extends AppCompatActivity {
-   // GetItems viewItems=new GetItems();
+   // GetJSON viewItems=new GetJSON();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class CheckItem extends AppCompatActivity {
     }
     public void goBack(View view)
     {
-        startActivity(new Intent(this, GetItems.class));
+        startActivity(new Intent(this, GetJSON.class));
     }
     public void createOffer(View view){
         Random rand=new Random();
