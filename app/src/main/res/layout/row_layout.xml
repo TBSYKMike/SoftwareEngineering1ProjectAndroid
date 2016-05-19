@@ -2,32 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="75dp">
-    <TextView
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
-        android:id="@+id/txt_name"
+    <ImageView
+        android:id="@+id/picture_random"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="Name"
-        android:gravity="center"
-        android:textAppearance="?android:textAppearanceLarge"
-        />
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:maxHeight="80dp"
+        android:maxWidth="80dp"
+        android:src="@drawable/star" />
     <TextView
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txt_password"
+        android:layout_alignParentRight="true"
+        android:text="Condition shown here"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
         android:id="@+id/txt_password"
-        android:layout_toRightOf="@+id/txt_name"
-        android:text="Password"
-        android:gravity="center"
-        android:textAppearance="?android:textAppearanceLarge"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/picture_random"
+        android:layout_alignLeft="@+id/txt_random"
+        android:layout_marginBottom="16dp"
+        android:text="2000" />
     <TextView
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
         android:id="@+id/txt_random"
-        android:layout_toRightOf="@+id/txt_password"
-        android:text="Random"
-        android:gravity="center"
-        android:textAppearance="?android:textAppearanceLarge"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_name"
+        android:layout_toRightOf="@+id/picture_random"
+        android:text="Make Shown Here"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/txt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Id"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/txt_random"
+        android:layout_alignEnd="@+id/txt_name"
+        android:layout_marginEnd="30dp" />
 
 </RelativeLayout>
+
+
+
+
+
+
+

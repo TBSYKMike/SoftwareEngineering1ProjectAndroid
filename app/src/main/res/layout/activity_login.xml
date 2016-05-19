@@ -12,7 +12,8 @@
         android:layout_alignStart="@+id/editTextPass"
         android:layout_alignEnd="@+id/editTextPass"
         android:hint="Account Name"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:inputType="text"/>
 
     <EditText
         android:layout_width="wrap_content"
