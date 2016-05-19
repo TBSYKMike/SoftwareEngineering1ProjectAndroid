@@ -38,6 +38,7 @@ public class AddNewAdvert extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         if(requestCode == CAM_REQUEST){
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             imgTakenPhoto.setImageBitmap(thumbnail);
