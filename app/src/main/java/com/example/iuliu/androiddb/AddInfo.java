@@ -41,7 +41,7 @@ public class AddInfo extends AppCompatActivity {
     public void saveInfo(View view)
     {
         name=Name.getText().toString();
-     //   password=this.encodeImage();
+      // password=this.encodeImage();
         password=Password.getText().toString();
         random=Random.getText().toString();
         BackgroundTask backgroundTask = new BackgroundTask();
@@ -157,7 +157,7 @@ public class AddInfo extends AppCompatActivity {
     }*/
     public  String encodeImage() {
         Base64 base64=new Base64();
-        InputStream is = getResources().openRawResource(+ R.drawable.star);
+        InputStream is = getResources().openRawResource(+ R.drawable.heart);
 
         byte[] data = new byte[0];
         try {

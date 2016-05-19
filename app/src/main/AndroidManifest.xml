@@ -26,9 +26,11 @@
         <activity android:name=".AddInfo" />
         <activity android:name=".GetItems" />
         <activity android:name=".DisplayList" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".Login" />
         <activity android:name=".CheckItem" />
-        <activity android:name=".CheckOwnAdds"></activity>
+        <activity android:name=".CheckOwnAdds" />
+        <activity android:name=".CreateAcc" />
+        <activity android:name=".TradingLists"></activity>
     </application>
 
 </manifest>

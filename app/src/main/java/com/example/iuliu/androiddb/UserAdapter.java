@@ -23,6 +23,7 @@ public class UserAdapter extends ArrayAdapter {
     String temp1="bbb";
     String temp;
     ArrayList<Users> usersArrayList;
+    AddInfo object=new AddInfo();
     public UserAdapter(Context context, int resource,ArrayList<Users> usersArrayList) {
         super(context, resource,usersArrayList);
         this.usersArrayList=usersArrayList;
@@ -62,6 +63,7 @@ public class UserAdapter extends ArrayAdapter {
             userHolder.txt_name=(TextView)row.findViewById(R.id.txt_name);
             userHolder.txt_password=(TextView)row.findViewById(R.id.txt_password);
             userHolder.txt_random=(TextView)row.findViewById(R.id.txt_random);
+            userHolder.img_view=(ImageView) row.findViewById(R.id.picture_random);
             row.setTag(userHolder);
         }
         else{
@@ -77,17 +79,19 @@ public class UserAdapter extends ArrayAdapter {
             userHolder.txt_name.setText(users.getName());
             userHolder.txt_password.setText(users.getPassword());
             userHolder.txt_random.setText(temp);
+
+
+           // byte[] d=object.decodeImage(users.getPassword());
+
+          //  Bitmap bitmap=new BitmapFactory().decodeByteArray(d,0,d.length);
+           // userHolder.img_view.setImageBitmap(bitmap);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(temp1);
 
         }
-             /*
-                byte[] d=object.decodeImage(listItem.getPassword());
 
-            Bitmap bitmap=new BitmapFactory().decodeByteArray(d,0,d.length);
-             imageView.setImageBitmap(bitmap);
-*/
+
         return row;
     }
 
@@ -95,5 +99,6 @@ public class UserAdapter extends ArrayAdapter {
     static class UserHolder
     {
         TextView txt_id,txt_name,txt_password,txt_random;
+        ImageView img_view;
     }
 }
