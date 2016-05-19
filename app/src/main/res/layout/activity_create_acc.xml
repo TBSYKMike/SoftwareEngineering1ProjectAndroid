@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:id="@+id/textViewCreateAcc"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.02"
+        android:textSize="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextAccName"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.02"
+        android:hint="Account Name"
+        android:textSize="35dp"
+        android:layout_below="@+id/textViewCreateAcc"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="44dp"
+        android:inputType="text"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editTextPass"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.02"
+        android:textSize="35dp"
+        android:hint="Password"
+        android:password="true"
+        android:layout_below="@+id/editTextAccName"
+        android:layout_alignEnd="@+id/buttonCreate" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editTextConPass"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.02"
+        android:textSize="35dp"
+        android:password="true"
+        android:hint="Confirm Password"
+        android:layout_below="@+id/editTextPass"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextPhoneNr"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.02"
+        android:hint="Phonenumber"
+        android:textSize="35dp"
+        android:layout_below="@+id/editTextConPass"
+        android:layout_alignParentStart="true"
+        android:longClickable="false"
+        android:inputType="number" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextEmail"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.02"
+        android:textSize="35dp"
+        android:hint="Email"
+        android:layout_below="@+id/editTextPhoneNr"
+        android:layout_alignParentStart="true"
+        android:inputType="textEmailAddress"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        android:id="@+id/buttonCreate"
+        android:layout_weight="0.02"
+        android:onClick="createButton"
+        android:layout_marginLeft="60dp"
+        android:layout_alignTop="@+id/buttonCancel"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/buttonCancel"
+        android:layout_weight="0.02"
+        android:layout_gravity="right"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:onClick="cancelButton" />
+
+</RelativeLayout>
