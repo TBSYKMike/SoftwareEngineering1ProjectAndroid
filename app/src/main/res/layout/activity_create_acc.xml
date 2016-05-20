@@ -38,7 +38,6 @@
         android:layout_weight="0.02"
         android:textSize="35dp"
         android:hint="Password"
-        android:password="true"
         android:layout_below="@+id/editTextAccName"
         android:layout_alignEnd="@+id/buttonCreate" />
 
@@ -51,23 +50,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.02"
         android:textSize="35dp"
-        android:password="true"
         android:hint="Confirm Password"
         android:layout_below="@+id/editTextPass"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editTextPhoneNr"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.02"
-        android:hint="Phonenumber"
-        android:textSize="35dp"
-        android:layout_below="@+id/editTextConPass"
-        android:layout_alignParentStart="true"
-        android:longClickable="false"
-        android:inputType="number" />
 
     <EditText
         android:layout_width="match_parent"
@@ -77,9 +62,9 @@
         android:layout_weight="0.02"
         android:textSize="35dp"
         android:hint="Email"
-        android:layout_below="@+id/editTextPhoneNr"
         android:layout_alignParentStart="true"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/editTextConPass" />
 
     <Button
         android:layout_width="wrap_content"
@@ -102,5 +87,25 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:onClick="cancelButton" />
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerCity"
+        android:textSize="30dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please Select City"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:textSize="30dp"
+        android:textStyle="bold|italic" />
+
 
 </RelativeLayout>
