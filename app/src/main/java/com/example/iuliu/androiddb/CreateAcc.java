@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -74,7 +75,6 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cities);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
-        spinner.setPrompt("Select City");
 
     }
 
@@ -100,7 +100,6 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         city = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), "Selected: " + city, Toast.LENGTH_LONG).show();
 
         if(city.matches("Helsingborg")){
             cityId = 1;
@@ -133,10 +132,10 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
             super.onPostExecute(check);
 
             if(check.contains("Success!")){
-                Toast.makeText(CreateAcc.this, "Your account has been successfully registered!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(CreateAcc.this, MainActivity.class));
+                Toast.makeText(CreateAcc.this, check, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(CreateAcc.this, Login.class));
             }else{
-                Toast.makeText(CreateAcc.this, "Account name or email already exist!", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateAcc.this, check, Toast.LENGTH_LONG).show();
             }
         }
         @Override
