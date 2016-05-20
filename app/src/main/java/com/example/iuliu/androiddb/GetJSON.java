@@ -63,6 +63,7 @@ public class GetJSON extends AppCompatActivity {
         Intent intent=new Intent (this,TradingLists.class);
        intent.putExtra("json_data2",json_string2);
         intent.putExtra("json_data1",json_string1);
+        Singleton.getInstance().setMyListonJSON(json_string2);
         startActivity(intent);
 
     }
