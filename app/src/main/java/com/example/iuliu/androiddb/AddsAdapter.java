@@ -1,10 +1,6 @@
 package com.example.iuliu.androiddb;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Picture;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +14,20 @@ import java.util.List;
 /**
  * Created by Iuliu on 2016-05-09.
  */
-public class UserAdapter extends ArrayAdapter {
+public class AddsAdapter extends ArrayAdapter {
     List list =new ArrayList();
     String temp1="bbb";
     String temp;
-    ArrayList<Users> usersArrayList;
+    ArrayList<Adds> addsArrayList;
     AddInfo object=new AddInfo();
-    public UserAdapter(Context context, int resource,ArrayList<Users> usersArrayList) {
-        super(context, resource,usersArrayList);
-        this.usersArrayList=usersArrayList;
+    public AddsAdapter(Context context, int resource, ArrayList<Adds> addsArrayList) {
+        super(context, resource, addsArrayList);
+        this.addsArrayList = addsArrayList;
     }
 
 
 
-    public void add(Users object)
+    public void add(Adds object)
     {
         super.add(object);
         list.add(object);
@@ -59,10 +55,10 @@ public class UserAdapter extends ArrayAdapter {
             LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = layoutInflater.inflate(R.layout.row_layout, parent, false);
             userHolder= new UserHolder();
-            userHolder.txt_id=(TextView)row.findViewById(R.id.txt_id);
-            userHolder.txt_name=(TextView)row.findViewById(R.id.txt_name);
-            userHolder.txt_password=(TextView)row.findViewById(R.id.txt_password);
-            userHolder.txt_random=(TextView)row.findViewById(R.id.txt_random);
+            userHolder.txt_item_name=(TextView)row.findViewById(R.id.txt_item_name);
+            userHolder.txt_item_condition=(TextView)row.findViewById(R.id.txt_item_condition);
+            userHolder.txt_item_date=(TextView)row.findViewById(R.id.txt_item_date);
+            userHolder.txt_item_user_userID=(TextView)row.findViewById(R.id.txt_user_name);
             userHolder.img_view=(ImageView) row.findViewById(R.id.picture_random);
             row.setTag(userHolder);
         }
@@ -70,18 +66,18 @@ public class UserAdapter extends ArrayAdapter {
             userHolder=(UserHolder)row.getTag();
         }
         try {
-            Users users=(Users)this.getItem(position);
+            Adds adds =(Adds)this.getItem(position);
 
-            temp1=users.getRandom();
+           // temp1= adds.getRandom();
             // temp = Encrypt.decryptPassword(temp1);
-            temp=Kripto.decrypt(temp1);
-            userHolder.txt_id.setText(users.getId());
-            userHolder.txt_name.setText(users.getName());
-            userHolder.txt_password.setText(users.getPassword());
-            userHolder.txt_random.setText(temp);
+         //   temp=Kripto.decrypt(temp1);
+            userHolder.txt_item_name.setText(adds.getItem_name());
+            userHolder.txt_item_condition.setText(adds.getItem_condition());
+            userHolder.txt_item_date.setText(adds.getItem_date());
+            userHolder.txt_item_user_userID.setText(adds.getItem_user_userID());
 
 
-           // byte[] d=object.decodeImage(users.getPassword());
+           // byte[] d=object.decodeImage(adds.getPassword());
 
           //  Bitmap bitmap=new BitmapFactory().decodeByteArray(d,0,d.length);
            // userHolder.img_view.setImageBitmap(bitmap);
@@ -98,7 +94,8 @@ public class UserAdapter extends ArrayAdapter {
 
     static class UserHolder
     {
-        TextView txt_id,txt_name,txt_password,txt_random;
+        TextView txt_item_id, txt_item_name, txt_item_info, txt_item_picture_small, txt_item_picture_large, txt_item_condition,
+                txt_item_date, txt_item_status, txt_item_visit_count, txt_item_winner_userID, txt_item_user_userID;
         ImageView img_view;
     }
 }

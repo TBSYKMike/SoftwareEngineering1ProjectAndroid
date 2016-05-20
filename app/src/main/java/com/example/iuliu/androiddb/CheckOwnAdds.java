@@ -63,7 +63,7 @@ public class CheckOwnAdds extends AppCompatActivity {
     }
     public void goBack(View view)
     {
-        startActivity(new Intent(this, GetItems.class));
+        startActivity(new Intent(this, GetJSON.class));
     }
     class BackgroundTask extends AsyncTask<String,Void,String> {
         String login_check_url;
