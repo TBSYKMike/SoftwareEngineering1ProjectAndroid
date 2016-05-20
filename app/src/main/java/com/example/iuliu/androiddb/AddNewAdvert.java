@@ -64,9 +64,9 @@ public class AddNewAdvert extends AppCompatActivity {
 
         @Override
         public void onClick(View v){
-            Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-            startActivityForResult(cameraintent, CAM_REQUEST);
+            startActivityForResult(cameraIntent, CAM_REQUEST);
         }
 
     }

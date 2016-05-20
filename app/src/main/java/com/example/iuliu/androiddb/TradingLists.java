@@ -78,9 +78,9 @@ public class TradingLists extends AppCompatActivity {
                     Adds newsData = (Adds) listView.getItemAtPosition(position);
                     Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_name(), Toast.LENGTH_LONG).show();
 
-                    Intent intent=new Intent (getApplicationContext(),CheckItem.class);
+                    //Intent intent=new Intent (getApplicationContext(),CheckItem.class);
 
-                    startActivity(intent);
+                   // startActivity(intent);
 
                 }
             });
@@ -90,9 +90,10 @@ public class TradingLists extends AppCompatActivity {
         }
 
     }
+   // public void
     public void addItems(View view)
     {
-        startActivity(new Intent(this, AddInfo.class));
+        startActivity(new Intent(this, AddNewAdvert.class));
     }
     public void viewItems(View view)
     {
