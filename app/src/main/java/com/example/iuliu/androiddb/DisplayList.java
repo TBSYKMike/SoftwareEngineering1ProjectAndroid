@@ -38,7 +38,7 @@ public class DisplayList extends AppCompatActivity {
             jsonObject=new JSONObject(json_string);
             jsonArray=jsonObject.getJSONArray("server_response");
             int count=0;
-            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID;
+            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
             while (count<jsonArray.length())
             {
                 JSONObject JO=jsonArray.getJSONObject(count);
@@ -53,8 +53,9 @@ public class DisplayList extends AppCompatActivity {
                 item_visit_count=JO.getString("item_visit_count");
                 item_winner_userID=JO.getString("item_winner_userID");
                 item_user_userID=JO.getString("item_user_userID");
+                accountName=JO.getString("userName");
 
-                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID);
+                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
                 addsAdapter.add(user);
                 count++;
 

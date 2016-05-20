@@ -21,7 +21,7 @@ import java.net.URLEncoder;
 
 public class GetJSON extends AppCompatActivity {
     String JSON_STRING1,JSON_STRING2,JSON_STRING3;
-    String json_string1,json_string2,json_string3;
+    String json_string1,json_string2,json_string;
     private String json_url;
 
 
@@ -42,7 +42,7 @@ public class GetJSON extends AppCompatActivity {
 
     }
     public void getJSON2() {
-         int userId=3;
+         int userId=5;
         String stringUserId=Integer.toString(userId);
         BackgroundTask2 backgroundTask2 =new BackgroundTask2();
         backgroundTask2.execute(stringUserId);
@@ -61,7 +61,7 @@ public class GetJSON extends AppCompatActivity {
     {
 
         Intent intent=new Intent (this,TradingLists.class);
-        intent.putExtra("json_data3",json_string3);
+       // intent.putExtra("json_data3",json_string3);
        intent.putExtra("json_data2",json_string2);
         intent.putExtra("json_data1",json_string1);
         Singleton.getInstance().setMyListonJSON(json_string2);
@@ -194,7 +194,7 @@ public class GetJSON extends AppCompatActivity {
             json_string2=result;
         }
     }
-    class BackgroundTask3 extends AsyncTask<String,Void,String> {
+  /*  class BackgroundTask3 extends AsyncTask<String,Void,String> {
         String login_check_url;
 
         @Override
@@ -261,7 +261,7 @@ public class GetJSON extends AppCompatActivity {
             json_string3=result;
         }
     }
-
+*/
     public void checkOwn(View view)
     {
         startActivity(new Intent(this, CheckOwnAdds.class));

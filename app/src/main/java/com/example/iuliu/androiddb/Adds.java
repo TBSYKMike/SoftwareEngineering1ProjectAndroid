@@ -15,8 +15,9 @@ public class Adds {
     private String item_visit_count;
     private String item_winner_userID;
     private String item_user_userID;
+    private String user_name;
 
-    public Adds(String item_id, String item_name, String item_info, String item_picture_small, String item_picture_large,
+    public Adds(String item_id, String item_name, String user_name,String item_info, String item_picture_small, String item_picture_large,
                 String item_condition, String item_date, String item_status, String item_visit_count, String item_winner_userID, String item_user_userID) {
         this.setItem_id(item_id);
         this.setItem_name(item_name);
@@ -24,12 +25,12 @@ public class Adds {
         this.setItem_picture_small(item_picture_small);
         this.setItem_picture_large(item_picture_large);
         this.setItem_condition(item_condition);
-        this.setItem_condition(item_condition);
+       this.setItem_visit_count(item_visit_count);
         this.setItem_date(item_date);
-        this.setItem_status(item_status);
         this.setItem_status(item_status);
         this.setItem_winner_userID(item_winner_userID);
         this.setItem_user_userID(item_user_userID);
+        this.setUser_name(user_name);
     }
     public String getItem_id() {
         return item_id;
@@ -117,5 +118,13 @@ public class Adds {
 
     public void setItem_user_userID(String item_user_userID) {
         this.item_user_userID = item_user_userID;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 }

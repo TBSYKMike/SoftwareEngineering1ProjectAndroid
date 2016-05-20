@@ -58,7 +58,7 @@ public class AddsAdapter extends ArrayAdapter {
             userHolder.txt_item_name=(TextView)row.findViewById(R.id.txt_item_name);
             userHolder.txt_item_condition=(TextView)row.findViewById(R.id.txt_item_condition);
             userHolder.txt_item_date=(TextView)row.findViewById(R.id.txt_item_date);
-            userHolder.txt_item_user_userID=(TextView)row.findViewById(R.id.txt_user_name);
+            userHolder.txt_accountName=(TextView)row.findViewById(R.id.txt_user_name);
             userHolder.img_view=(ImageView) row.findViewById(R.id.picture_random);
             row.setTag(userHolder);
         }
@@ -74,7 +74,7 @@ public class AddsAdapter extends ArrayAdapter {
             userHolder.txt_item_name.setText(adds.getItem_name());
             userHolder.txt_item_condition.setText(adds.getItem_condition());
             userHolder.txt_item_date.setText(adds.getItem_date());
-            userHolder.txt_item_user_userID.setText(adds.getItem_user_userID());
+            userHolder.txt_accountName.setText(adds.getUser_name());
 
 
            // byte[] d=object.decodeImage(adds.getPassword());
@@ -95,7 +95,7 @@ public class AddsAdapter extends ArrayAdapter {
     static class UserHolder
     {
         TextView txt_item_id, txt_item_name, txt_item_info, txt_item_picture_small, txt_item_picture_large, txt_item_condition,
-                txt_item_date, txt_item_status, txt_item_visit_count, txt_item_winner_userID, txt_item_user_userID;
+                txt_item_date, txt_item_status, txt_item_visit_count, txt_item_winner_userID, txt_item_user_userID,txt_accountName;
         ImageView img_view;
     }
 }
