@@ -42,7 +42,7 @@ public class GetJSON extends AppCompatActivity {
 
     }
     public void getJSON2() {
-         int userId=5;
+        int userId=5;
         String stringUserId=Integer.toString(userId);
         BackgroundTask2 backgroundTask2 =new BackgroundTask2();
         backgroundTask2.execute(stringUserId);
@@ -132,7 +132,7 @@ public class GetJSON extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            login_check_url ="http://mybarter.net16.net/json_data_item_user_select.php" ;
+            login_check_url ="http://mybarter.net16.net/json_data_item_user_select1.php" ;
             super.onPreExecute();
         }
 
@@ -174,9 +174,12 @@ public class GetJSON extends AppCompatActivity {
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+                System.out.println("Bou1");
             } catch (IOException e) {
+                System.out.println("Bou2");
                 e.printStackTrace();
             } catch (Exception e) {
+                System.out.println("Bou3");
                 e.printStackTrace();
             }
 

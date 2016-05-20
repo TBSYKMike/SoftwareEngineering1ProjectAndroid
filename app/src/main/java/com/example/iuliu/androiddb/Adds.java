@@ -17,8 +17,8 @@ public class Adds {
     private String item_user_userID;
     private String user_name;
 
-    public Adds(String item_id, String item_name, String user_name,String item_info, String item_picture_small, String item_picture_large,
-                String item_condition, String item_date, String item_status, String item_visit_count, String item_winner_userID, String item_user_userID) {
+    public Adds(String item_id, String item_name,String item_info, String item_picture_small, String item_picture_large,
+                String item_condition, String item_date, String item_status, String item_visit_count, String item_winner_userID, String item_user_userID, String user_name) {
         this.setItem_id(item_id);
         this.setItem_name(item_name);
         this.setItem_info(item_info);

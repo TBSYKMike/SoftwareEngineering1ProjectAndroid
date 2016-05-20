@@ -32,7 +32,7 @@ public class CheckItem extends AppCompatActivity {
     AddsAdapter addsAdapter;
     ListView listView;
     ArrayList<Adds> arrayUsers;
- private String stringJSON;
+    private String stringJSON;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +65,8 @@ public class CheckItem extends AppCompatActivity {
                 item_status=JO.getString("item_status");
                 item_visit_count=JO.getString("item_visit_count");
                 item_winner_userID=JO.getString("item_winner_userID");
-
-                accountName=JO.getString("accountName");
                 item_user_userID=JO.getString("item_user_userID");
+                accountName=JO.getString("userName");
                 Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
                 addsAdapter.add(user);
                 count++;

@@ -64,8 +64,8 @@ public class TradingLists extends AppCompatActivity {
                 item_visit_count=JO.getString("item_visit_count");
                 item_winner_userID=JO.getString("item_winner_userID");
                 item_user_userID=JO.getString("item_user_userID");
-               // accountName=JO.getString("userName");
-                accountName="bou";
+              accountName=JO.getString("userName");
+                //accountName="bou";
                 Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
                 addsAdapter.add(user);
                 count++;
@@ -77,7 +77,7 @@ public class TradingLists extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     Adds newsData = (Adds) listView.getItemAtPosition(position);
-                    Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_user_userID(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getUser_name(), Toast.LENGTH_LONG).show();
 
                     //Intent intent=new Intent (getApplicationContext(),CheckItem.class);
 
@@ -88,6 +88,7 @@ public class TradingLists extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Bou4");
         }
 
     }
