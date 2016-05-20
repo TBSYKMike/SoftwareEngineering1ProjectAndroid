@@ -1,5 +1,6 @@
 package com.example.iuliu.androiddb;
 
+import android.graphics.Bitmap;
 import android.graphics.Path;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
 
 public class AddInfo extends AppCompatActivity {
     EditText Name,Password,Random;
@@ -155,18 +157,23 @@ public class AddInfo extends AppCompatActivity {
         }
 
     }*/
-    public  String encodeImage() {
+    public  String encodeImage(Bitmap image) {
         Base64 base64=new Base64();
-        InputStream is = getResources().openRawResource(+ R.drawable.heart);
+       //InputStream is = getResources().openRawResource(+ R.drawable.heart);
 
-        byte[] data = new byte[0];
-        try {
+       byte[] data = new byte[0];
+       /* try {
             data = new byte[is.available()];
             is.read(data);
             is.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+        int size = image.getRowBytes() * image.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+        image.copyPixelsToBuffer(byteBuffer);
+        data = new byte[size];
+        data = byteBuffer.array();
 
         String stringToStore;
         return stringToStore = new String(base64.encode(data));

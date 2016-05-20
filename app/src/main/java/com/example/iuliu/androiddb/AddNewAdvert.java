@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import org.apache.commons.codec.binary.Base64;
+
+import java.nio.ByteBuffer;
+
 /**
  * Created by Mike on 2016-05-19.
  */
@@ -43,6 +47,17 @@ public class AddNewAdvert extends AppCompatActivity {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             imgTakenPhoto.setImageBitmap(thumbnail);
         }
+    }
+    public  String encodeImage(Bitmap image) {
+        Base64 base64=new Base64();
+        byte[] data = new byte[0];
+        int size = image.getRowBytes() * image.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+        image.copyPixelsToBuffer(byteBuffer);
+        data = new byte[size];
+        data = byteBuffer.array();
+        String stringToStore;
+        return stringToStore = new String(base64.encode(data));
     }
 
     class btnTakePhotoClicker implements Button.OnClickListener{
