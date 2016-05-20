@@ -33,13 +33,19 @@ public class GetItems extends AppCompatActivity {
     }
     public void parseJSON(View view)
     {
-
-
         Intent intent=new Intent (this,DisplayList.class);
         intent.putExtra("json_data",json_string);
         startActivity(intent);
 
     }
+    public void checkList(View view)
+    {
+        Intent intent=new Intent (this,TradingLists.class);
+       // intent.putExtra("json_data",json_string);
+        startActivity(intent);
+
+    }
+
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String json_url;
         @Override
