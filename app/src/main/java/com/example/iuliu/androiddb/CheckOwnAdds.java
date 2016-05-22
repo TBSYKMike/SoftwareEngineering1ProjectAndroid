@@ -32,7 +32,7 @@ import java.util.Random;
 
 public class CheckOwnAdds extends AppCompatActivity {
     private RadioGroup radioGroup1;
-    private RadioButton radio1,radio2;
+    private RadioButton radio1,radio2,radio;
     String JSON_STRING3,json_string3;
     String JSON_STRING4,json_string4;
     String stringItemId;
@@ -43,8 +43,8 @@ public class CheckOwnAdds extends AppCompatActivity {
         setContentView(R.layout.activity_check_own_adds);
         stringItemId=Singleton.getInstance().getItem_id();
         getJSON3();
-      //  getJSON4();
-
+        getJSON4();
+        this.populate(json_string4);
 
     }
 
@@ -53,15 +53,15 @@ public class CheckOwnAdds extends AppCompatActivity {
         backgroundTask.execute(stringItemId);
 
     }
-  //  public void getJSON4() {
-     //   BackgroundTask4 backgroundTask4 =new BackgroundTask4();
-      //  backgroundTask4.execute(stringItemId);
+    public void getJSON4() {
+       BackgroundTask4 backgroundTask4 =new BackgroundTask4();
+       backgroundTask4.execute(stringItemId);
 
-   // }
+    }
     public void onRadioButtonClicked(View v) {
         //require to import the RadioButton class
-        RadioButton rb1 = (RadioButton) findViewById(R.id.radio1);
-        RadioButton rb2 = (RadioButton) findViewById(R.id.radio2);
+      //  RadioButton rb1 = (RadioButton) findViewById(R.id.radio1);
+     //   RadioButton rb2 = (RadioButton) findViewById(R.id.radio2);
 
 
         //is the current radio button now checked?
@@ -73,15 +73,17 @@ public class CheckOwnAdds extends AppCompatActivity {
 
             case R.id.radio2:
                 if (checked)
-                    //if windows phone programming book is selected
+
                 this.populate(json_string3);
 
                     break;
             case R.id.radio1:
                 if (checked)
-                    //if windows phone programming book is selected
+
                     this.populate(json_string4);
 
+                break;
+            case R.id.radio:
                 break;
         }
     }
@@ -348,7 +350,7 @@ public class CheckOwnAdds extends AppCompatActivity {
             json_string3=result;
         }
     }
- /*   class BackgroundTask4 extends AsyncTask<String,Void,String> {
+    class BackgroundTask4 extends AsyncTask<String,Void,String> {
         String login_check_url;
 
         @Override
@@ -383,9 +385,9 @@ public class CheckOwnAdds extends AppCompatActivity {
                     InputStream inputStream=httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     StringBuilder stringBuilder = new StringBuilder();
-                    while((JSON_STRING3 = bufferedReader.readLine())!= null)
+                    while((JSON_STRING4 = bufferedReader.readLine())!= null)
                     {
-                        stringBuilder.append(JSON_STRING3);
+                        stringBuilder.append(JSON_STRING4);
                     }
                     bufferedReader.close();
                     inputStream.close();
@@ -414,9 +416,9 @@ public class CheckOwnAdds extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            json_string3=result;
+            json_string4=result;
         }
     }
-*/
+
 
 }
