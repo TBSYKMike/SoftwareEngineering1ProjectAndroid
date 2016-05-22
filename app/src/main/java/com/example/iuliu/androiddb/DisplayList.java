@@ -46,7 +46,7 @@ public class DisplayList extends AppCompatActivity {
                 item_name=JO.getString("item_name");
                 item_info=JO.getString("item_info");
                 item_picture_small=JO.getString("item_picture_small");
-                item_picture_large=JO.getString("item_picture_large");
+               item_picture_large=JO.getString("item_picture_large");
                 item_condition=JO.getString("item_condition");
                 item_date=JO.getString("item_date");
                 item_status=JO.getString("item_status");

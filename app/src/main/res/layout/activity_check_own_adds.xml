@@ -8,19 +8,25 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.iuliu.androiddb.CheckOwnAdds">
-    <ImageView
+    <TextView
+        android:id="@+id/txt_header"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/imageView" />
-
+        android:layout_height="100dp"
+        android:background="@color/red_bg_header"
+        android:gravity="center"
+        android:text="Barter app - your object"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
         android:id="@+id/buttonOwnBack"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentStart="true"
-        android:onClick="goBack"/>
+        android:onClick="goBack"
+        android:layout_below="@+id/txt_header"
+        android:layout_toStartOf="@+id/buttonDeclineOffer" />
 
     <Button
         android:layout_width="wrap_content"
@@ -28,29 +34,62 @@
         android:text=" Accept"
         android:id="@+id/buttonAcceptBarter"
         android:onClick="acceptOffer"
-        android:layout_below="@+id/imageView"
-        android:layout_toEndOf="@+id/buttonOwnBack" />
+        android:layout_below="@+id/txt_header"
+        android:layout_alignParentEnd="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Disable Add"
+        android:text=" Disable"
         android:id="@+id/buttonDisable"
         android:onClick="disableAdd"
-        android:layout_below="@+id/imageView"
-        android:layout_toEndOf="@+id/buttonAcceptBarter" />
+        android:layout_below="@+id/txt_header"
+        android:layout_toStartOf="@+id/buttonOwnBack" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" Decline"
         android:id="@+id/buttonDeclineOffer"
         android:onClick="declineOffer"
-        android:layout_below="@+id/imageView"
-        android:layout_toEndOf="@+id/buttonDisable" />
+        android:layout_below="@+id/txt_header"
+        android:layout_toStartOf="@+id/buttonAcceptBarter" />
 
+
+
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/buttonDisable" >
+
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:textColor="#000000"
+            android:text="You got for it:"
+
+            />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="You offered it for:"
+            android:onClick="onRadioButtonClicked"
+            android:textColor="#000000"/>
+    </RadioGroup>
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listViewSuplies"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/listView4"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/buttonDisable" />
+
 </RelativeLayout>

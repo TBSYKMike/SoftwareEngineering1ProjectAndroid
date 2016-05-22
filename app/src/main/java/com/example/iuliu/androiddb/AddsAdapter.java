@@ -1,9 +1,12 @@
 package com.example.iuliu.androiddb;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +27,7 @@ public class AddsAdapter extends ArrayAdapter {
         super(context, resource, addsArrayList);
         this.addsArrayList = addsArrayList;
     }
+
 
 
 
@@ -77,9 +81,9 @@ public class AddsAdapter extends ArrayAdapter {
             userHolder.txt_accountName.setText(adds.getUser_name());
 
 
-           // byte[] d=object.decodeImage(adds.getPassword());
+         //   byte[] d=object.decodeImage(adds.getItem_picture_small());
 
-          //  Bitmap bitmap=new BitmapFactory().decodeByteArray(d,0,d.length);
+          //  Bitmap bitmap=new BitmapFactory().decodeByteArray(d, 0, d.length);
            // userHolder.img_view.setImageBitmap(bitmap);
         } catch (Exception e) {
             e.printStackTrace();

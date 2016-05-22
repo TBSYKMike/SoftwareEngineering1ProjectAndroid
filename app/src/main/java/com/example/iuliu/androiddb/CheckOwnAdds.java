@@ -16,9 +16,11 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -31,21 +33,58 @@ import java.util.Random;
 public class CheckOwnAdds extends AppCompatActivity {
     private RadioGroup radioGroup1;
     private RadioButton radio1,radio2;
-
-
+    String JSON_STRING3,json_string3;
+    String JSON_STRING4,json_string4;
+    String stringItemId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_own_adds);
+        stringItemId=Singleton.getInstance().getItem_id();
+        getJSON3();
+      //  getJSON4();
 
-        String s=Singleton.getInstance().getMySecondListJSON();
-        this.populate(s);
 
     }
 
+    public void getJSON3() {
+        BackgroundTask3 backgroundTask =new BackgroundTask3();
+        backgroundTask.execute(stringItemId);
+
+    }
+  //  public void getJSON4() {
+     //   BackgroundTask4 backgroundTask4 =new BackgroundTask4();
+      //  backgroundTask4.execute(stringItemId);
+
+   // }
+    public void onRadioButtonClicked(View v) {
+        //require to import the RadioButton class
+        RadioButton rb1 = (RadioButton) findViewById(R.id.radio1);
+        RadioButton rb2 = (RadioButton) findViewById(R.id.radio2);
 
 
+        //is the current radio button now checked?
+        boolean checked = ((RadioButton) v).isChecked();
+
+        //now check which radio button is selected
+        //android switch statement
+        switch (v.getId()) {
+
+            case R.id.radio2:
+                if (checked)
+                    //if windows phone programming book is selected
+                this.populate(json_string3);
+
+                    break;
+            case R.id.radio1:
+                if (checked)
+                    //if windows phone programming book is selected
+                    this.populate(json_string4);
+
+                break;
+        }
+    }
    /* public void onRadioButtonClicked(View v) {
         radioGroup1 = (RadioGroup) findViewById(R.id.radioGroup1);
         //  btnDisplay = (Button) findViewById(R.id.btnDisplay);
@@ -184,45 +223,7 @@ public class CheckOwnAdds extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
-    public void populateList(){
-        String string;
-        json_string=Singleton.getInstance().getMyListonJSON();
-        arrayUsers=new ArrayList<Adds>();
 
-      //  ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
-
-        listView.setAdapter(addsAdapter);
-        try {
-            //  ArrayList<Adds> listData = new ArrayList<>();
-
-
-            jsonObject=new JSONObject(json_string);
-            jsonArray=jsonObject.getJSONArray("server_response");
-            int count=0;
-            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
-            while (count<jsonArray.length())
-            {
-                JSONObject JO=jsonArray.getJSONObject(count);
-                item_id=JO.getString("item_id");
-                item_name=JO.getString("item_name");
-                item_info=JO.getString("item_info");
-                item_picture_small=JO.getString("item_picture_small");
-                item_picture_large=JO.getString("item_picture_large");
-                item_condition=JO.getString("item_condition");
-                item_date=JO.getString("item_date");
-                item_status=JO.getString("item_status");
-                item_visit_count=JO.getString("item_visit_count");
-                item_winner_userID=JO.getString("item_winner_userID");
-                item_user_userID=JO.getString("item_user_userID");
-                accountName=JO.getString("userName");
-                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
-                addsAdapter.add(user);
-                count++;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
 
     }*/
     public void populate(String ss){
@@ -278,4 +279,144 @@ public class CheckOwnAdds extends AppCompatActivity {
 
 
     }
+
+    class BackgroundTask3 extends AsyncTask<String,Void,String> {
+        String login_check_url;
+
+        @Override
+        protected void onPreExecute() {
+            login_check_url ="http://mybarter.net16.net/json_data_item__select_to_OthersBid.php" ;
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            String  stringUserID;
+            stringUserID=args[0];
+
+
+            try {
+
+                URL url =new URL(login_check_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                try {
+
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    String data_string = URLEncoder.encode("user_id", "UTF-8")+"="+URLEncoder.encode(stringUserID,"UTF-8");
+                    bufferedWriter.write(data_string);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
+                    InputStream inputStream=httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while((JSON_STRING3 = bufferedReader.readLine())!= null)
+                    {
+                        stringBuilder.append(JSON_STRING3);
+                    }
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+                    return stringBuilder.toString().trim();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            json_string3=result;
+        }
+    }
+ /*   class BackgroundTask4 extends AsyncTask<String,Void,String> {
+        String login_check_url;
+
+        @Override
+        protected void onPreExecute() {
+            login_check_url ="http://mybarter.net16.net/json_data_item__select_fromOthersBid.php" ;
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            String  stringUserID;
+            stringUserID=args[0];
+
+
+            try {
+
+                URL url =new URL(login_check_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                try {
+
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    String data_string = URLEncoder.encode("user_id", "UTF-8")+"="+URLEncoder.encode(stringUserID,"UTF-8");
+                    bufferedWriter.write(data_string);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
+                    InputStream inputStream=httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while((JSON_STRING3 = bufferedReader.readLine())!= null)
+                    {
+                        stringBuilder.append(JSON_STRING3);
+                    }
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+                    return stringBuilder.toString().trim();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            json_string3=result;
+        }
+    }
+*/
+
 }

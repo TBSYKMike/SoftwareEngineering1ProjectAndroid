@@ -7,6 +7,8 @@ public class Singleton {
     private static Singleton mInstance = null;
 
     private String myListonJSON;
+    private String item_id;
+    private String mySecondListJSON;
 
     public Singleton(){
     }
@@ -24,5 +26,21 @@ public class Singleton {
 
     public void setMyListonJSON(String myListonJSON) {
         this.myListonJSON = myListonJSON;
+    }
+
+    public String getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(String item_id) {
+        this.item_id = item_id;
+    }
+
+    public String getMySecondListJSON() {
+        return mySecondListJSON;
+    }
+
+    public void setMySecondListJSON(String mySecondListJSON) {
+        this.mySecondListJSON = mySecondListJSON;
     }
 }
