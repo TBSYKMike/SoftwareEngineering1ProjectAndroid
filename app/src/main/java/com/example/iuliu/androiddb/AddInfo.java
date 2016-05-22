@@ -1,13 +1,17 @@
 package com.example.iuliu.androiddb;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Path;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import org.apache.commons.codec.binary.Base64;
 
@@ -39,12 +43,20 @@ public class AddInfo extends AppCompatActivity {
         Name=(EditText)findViewById(R.id.et_name);
         Password=(EditText)findViewById(R.id.et_password);
         Random=(EditText)findViewById(R.id.et_random);
+
+
+
+        btnTakePhoto = (Button) findViewById(R.id.buttonTakePhoto);
+        imgTakenPhoto = (ImageView) findViewById(R.id.imageViewNewlyTakenPhoto);
+
+        btnTakePhoto.setOnClickListener( new btnTakePhotoClicker());
+
     }
     public void saveInfo(View view)
     {
         name=Name.getText().toString();
-      // password=this.encodeImage();
-        password=Password.getText().toString();
+     //  password=this.encodeImage();
+        //password=Password.getText().toString();
         random=Random.getText().toString();
         BackgroundTask backgroundTask = new BackgroundTask();
         backgroundTask.execute(name,password,random);
@@ -157,27 +169,7 @@ public class AddInfo extends AppCompatActivity {
         }
 
     }*/
-    public  String encodeImage(Bitmap image) {
-        Base64 base64=new Base64();
-       //InputStream is = getResources().openRawResource(+ R.drawable.heart);
 
-       byte[] data = new byte[0];
-       /* try {
-            data = new byte[is.available()];
-            is.read(data);
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        int size = image.getRowBytes() * image.getHeight();
-        ByteBuffer byteBuffer = ByteBuffer.allocate(size);
-        image.copyPixelsToBuffer(byteBuffer);
-        data = new byte[size];
-        data = byteBuffer.array();
-
-        String stringToStore;
-        return stringToStore = new String(base64.encode(data));
-    }
 
 
     public  byte[] decodeImage(String imageDataString) {
@@ -185,5 +177,56 @@ public class AddInfo extends AppCompatActivity {
 
         return base64.decode(imageDataString.getBytes());
     }
+
+
+
+
+
+
+
+
+
+
+    public String encodeImage(Bitmap image) {
+        Base64 base64=new Base64();
+        byte[] data = new byte[0];
+        int size = image.getRowBytes() * image.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+        image.copyPixelsToBuffer(byteBuffer);
+        data = new byte[size];
+        data = byteBuffer.array();
+        String stringToStore;
+        return stringToStore = new String(base64.encode(data));
+    }
+
+    class btnTakePhotoClicker implements Button.OnClickListener{
+
+        @Override
+        public void onClick(View v){
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            startActivityForResult(cameraIntent, CAM_REQUEST);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if(requestCode == CAM_REQUEST){
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            imgTakenPhoto.setImageBitmap(thumbnail);
+        }
+    }
+
+    Button btnTakePhoto;
+    ImageView imgTakenPhoto;
+
+    private static final int CAM_REQUEST = 1313;
+
+
+
 
 }
