@@ -51,7 +51,7 @@ public class TradingLists extends AppCompatActivity {
         json_string2=getIntent().getExtras().getString("json_data2");
         try {
           //  ArrayList<Adds> listData = new ArrayList<>();
-
+//edfdfk
 
             jsonObject=new JSONObject(json_string2);
             jsonArray=jsonObject.getJSONArray("server_response");
