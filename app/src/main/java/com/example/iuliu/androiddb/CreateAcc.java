@@ -22,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Jocke on 2016-05-12.
@@ -56,22 +58,29 @@ public class CreateAcc extends AppCompatActivity {
     }
 
     public void createButton(View view) {
+        Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
+        Matcher ms = ps.matcher(inputAccName.getText().toString());
+        boolean verifyName = ms.matches();
         accName = inputAccName.getText().toString();
         password = inputPassword.getText().toString();
         conPassword = inputConPassword.getText().toString();
         phoneNr = inputPhoneNr.getText().toString();
         email = inputEmail.getText().toString();
 
-        if(TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(phoneNr) || TextUtils.isEmpty(email)) {
-            Toast.makeText(CreateAcc.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
-        }else{
-            if(password.matches(conPassword)) {
-                BackgroundTask backgroundTask = new BackgroundTask();
-                backgroundTask.execute(accName, phoneNr, email);
-            }else{
-                showError();
-            }
+        if(verifyName == true) {
+            if (TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(phoneNr) || TextUtils.isEmpty(email)) {
+                Toast.makeText(CreateAcc.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
+            } else {
+                if (password.matches(conPassword)) {
+                    BackgroundTask backgroundTask = new BackgroundTask();
+                    backgroundTask.execute(accName, phoneNr, email);
+                } else {
+                    showError();
+                }
 
+            }
+        } else{
+            Toast.makeText(CreateAcc.this, "You can only make a username with alphabetic letters", Toast.LENGTH_LONG).show();
         }
     }
 
