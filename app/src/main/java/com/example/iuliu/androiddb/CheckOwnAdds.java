@@ -5,7 +5,16 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -16,15 +25,62 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class CheckOwnAdds extends AppCompatActivity {
- String string;
-    int supply,demand;
+    private RadioGroup radioGroup1;
+    private RadioButton radio1,radio2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_own_adds);
+
+        String s=Singleton.getInstance().getMySecondListJSON();
+        this.populate(s);
+
+    }
+
+
+
+   /* public void onRadioButtonClicked(View v) {
+        radioGroup1 = (RadioGroup) findViewById(R.id.radioGroup1);
+        //  btnDisplay = (Button) findViewById(R.id.btnDisplay);
+        radio1 = (RadioButton) findViewById(R.id.radio1);
+        radio2 = (RadioButton) findViewById(R.id.radio2);
+        radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio1:
+                        // do operations specific to this selection
+                        string = "http://mybarter.net16.net/delete_accept_barter.php";
+                        Toast.makeText(CheckOwnAdds.this,
+                                "1", Toast.LENGTH_SHORT).show();
+                        String itemId = Singleton.getInstance().getItem_id();
+                        // GetJSON object= new GetJSON();
+                        //  String stringJson=object.getJSON3(itemId);
+
+                        ownAdd.populateList();
+
+
+                        break;
+
+                    case R.id.radio2:
+                        string = "http://mybarter.net16.net/delete_accept_barter.php";
+                        Toast.makeText(CheckOwnAdds.this,
+                                "2", Toast.LENGTH_LONG).show();
+                        // do operations specific to this selection
+                        break;
+
+                }
+
+
+            }
+        });
+
     }
     public void acceptOffer(View view)
     {
@@ -41,6 +97,7 @@ public class CheckOwnAdds extends AppCompatActivity {
      //   backgroundTask.execute(stringDemand);
 
     }
+
     public void declineOffer(View view)
     {
         string="http://mybarter.net16.net/decline_barter.php";
@@ -126,5 +183,99 @@ public class CheckOwnAdds extends AppCompatActivity {
         protected void onPostExecute(String result) {
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
+    }
+    public void populateList(){
+        String string;
+        json_string=Singleton.getInstance().getMyListonJSON();
+        arrayUsers=new ArrayList<Adds>();
+
+      //  ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
+
+        listView.setAdapter(addsAdapter);
+        try {
+            //  ArrayList<Adds> listData = new ArrayList<>();
+
+
+            jsonObject=new JSONObject(json_string);
+            jsonArray=jsonObject.getJSONArray("server_response");
+            int count=0;
+            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
+            while (count<jsonArray.length())
+            {
+                JSONObject JO=jsonArray.getJSONObject(count);
+                item_id=JO.getString("item_id");
+                item_name=JO.getString("item_name");
+                item_info=JO.getString("item_info");
+                item_picture_small=JO.getString("item_picture_small");
+                item_picture_large=JO.getString("item_picture_large");
+                item_condition=JO.getString("item_condition");
+                item_date=JO.getString("item_date");
+                item_status=JO.getString("item_status");
+                item_visit_count=JO.getString("item_visit_count");
+                item_winner_userID=JO.getString("item_winner_userID");
+                item_user_userID=JO.getString("item_user_userID");
+                accountName=JO.getString("userName");
+                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
+                addsAdapter.add(user);
+                count++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }*/
+    public void populate(String ss){
+        ArrayList<Adds> arrayUsers;
+
+        AddsAdapter addsAdapter;
+        ListView listView;
+        String json_string,json_string2;
+        JSONObject jsonObject;
+        JSONArray jsonArray;
+        arrayUsers=new ArrayList<Adds>();
+
+        listView=(ListView)findViewById(R.id.listView4);
+        addsAdapter =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
+
+        // ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
+
+        listView.setAdapter(addsAdapter);
+        json_string2=ss;
+        try {
+            //  ArrayList<Adds> listData = new ArrayList<>();
+
+
+            jsonObject=new JSONObject(json_string2);
+            jsonArray=jsonObject.getJSONArray("server_response");
+            int count=0;
+            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
+            while (count<jsonArray.length())
+            {
+                JSONObject JO=jsonArray.getJSONObject(count);
+                item_id=JO.getString("item_id");
+                item_name=JO.getString("item_name");
+                item_info=JO.getString("item_info");
+                item_picture_small=JO.getString("item_picture_small");
+                item_picture_large=JO.getString("item_picture_large");
+                item_condition=JO.getString("item_condition");
+                item_date=JO.getString("item_date");
+                item_status=JO.getString("item_status");
+                item_visit_count=JO.getString("item_visit_count");
+                item_winner_userID=JO.getString("item_winner_userID");
+                item_user_userID=JO.getString("item_user_userID");
+                accountName=JO.getString("userName");
+                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
+                addsAdapter.add(user);
+                count++;
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+
     }
 }
