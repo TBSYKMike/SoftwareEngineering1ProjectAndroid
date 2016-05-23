@@ -59,7 +59,7 @@ public class TestLoginActivity {
     public void TestCreateAcc(){
         onView(withId(R.id.editTextAccName)).perform(typeText(TestAccount));
         onView(withId(R.id.editTextPass)).perform(typeText(TestPassword));
-        onView(withId(R.id.editTextPhoneNr)).perform(typeText(TestPhone));
+        //onView(withId(R.id.editTextPhoneNr)).perform(typeText(TestPhone));
         onView(withId(R.id.editTextEmail)).perform(typeText(TestEmail));
 
         onView(withId(R.id.buttonCreate)).perform(click());

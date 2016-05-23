@@ -54,6 +54,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     EditText inputPassword;
     EditText inputConPassword;
     EditText inputEmail;
+   // EditText inputPhoneNr;
     Spinner spinner;
 
     @Override
@@ -64,6 +65,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         inputAccName = (EditText) findViewById(R.id.editTextAccName);
         inputPassword = (EditText) findViewById(R.id.editTextPass);
         inputConPassword = (EditText) findViewById(R.id.editTextConPass);
+        //inputPhoneNr = (EditText) findViewById(R.id.editTextPhoneNr);
         inputEmail = (EditText) findViewById(R.id.editTextEmail);
         spinner = (Spinner) findViewById(R.id.spinnerCity);
 
@@ -90,15 +92,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         email = inputEmail.getText().toString();
 
         if(verifyName == true) {
-            if (TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(phoneNr) || TextUtils.isEmpty(email)) {
-                Toast.makeText(CreateAcc.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
-            } else {
-                if (password.matches(conPassword)) {
-                    BackgroundTask backgroundTask = new BackgroundTask();
-                    backgroundTask.execute(accName, phoneNr, email);
-                } else {
-                    showError();
-                }
+
         if(TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(email) || city == null) {
             Toast.makeText(CreateAcc.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
         }else{
