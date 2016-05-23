@@ -13,9 +13,11 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -25,12 +27,16 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class TradingLists extends AppCompatActivity {
-    String json_string,json_string2;
+    String json_string;
+    String json_string2;
+    String json_string3;
+    String JSON_STRING3;
     JSONObject jsonObject;
     JSONArray jsonArray;
     AddsAdapter addsAdapter;
     ListView listView;
     ArrayList<Adds> arrayUsers;
+    String value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +44,14 @@ public class TradingLists extends AppCompatActivity {
 
         arrayUsers=new ArrayList<Adds>();
         listView=(ListView)findViewById(R.id.listView3);
+
         ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
         addsAdapter =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
         listView.setAdapter(addsAdapter);
         json_string2=getIntent().getExtras().getString("json_data2");
         try {
-            ArrayList<Adds> listData = new ArrayList<>();
-
+          //  ArrayList<Adds> listData = new ArrayList<>();
+//edfdfk
 
             jsonObject=new JSONObject(json_string2);
             jsonArray=jsonObject.getJSONArray("server_response");
@@ -64,46 +71,49 @@ public class TradingLists extends AppCompatActivity {
                 item_visit_count=JO.getString("item_visit_count");
                 item_winner_userID=JO.getString("item_winner_userID");
                 item_user_userID=JO.getString("item_user_userID");
-              accountName=JO.getString("userName");
-                //accountName="bou";
+                 accountName=JO.getString("userName");
                 Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
                 addsAdapter.add(user);
                 count++;
-
             }
-
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                 @Override
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     Adds newsData = (Adds) listView.getItemAtPosition(position);
-                    Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getUser_name(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_id(), Toast.LENGTH_LONG).show();
+                    value=newsData.getItem_id();
+                    Singleton.getInstance().setItem_id(value);
+                    Intent intent=new Intent (getApplicationContext(),CheckOwnAdds.class);
+                    //String g=this.json_string3;
 
-                    //Intent intent=new Intent (getApplicationContext(),CheckItem.class);
-
-                   // startActivity(intent);
-
+                     startActivity(intent);
                 }
             });
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Bou4");
+
         }
 
     }
-   // public void
+
+
+
     public void addItems(View view)
     {
         startActivity(new Intent(this, AddNewAdvert.class));
     }
     public void viewItems(View view)
     {
-        GetJSON getJSON=new GetJSON();
         json_string=getIntent().getExtras().getString("json_data1");
         Intent intent=new Intent (this,DisplayList.class);
         intent.putExtra("json_data",json_string);
         startActivity(intent);
     }
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
