@@ -13,30 +13,39 @@
         android:maxWidth="80dp"
         android:src="@drawable/star" />
     <TextView
-        android:id="@+id/txt_name"
+        android:id="@+id/txt_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txt_password"
+        android:layout_alignBottom="@+id/txt_item_condition"
         android:layout_alignParentRight="true"
         android:text="Condition shown here"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <TextView
-        android:id="@+id/txt_password"
+        android:id="@+id/txt_item_condition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/picture_random"
-        android:layout_alignLeft="@+id/txt_random"
+        android:layout_alignLeft="@+id/txt_item_date"
         android:layout_marginBottom="16dp"
         android:text="2000" />
     <TextView
-        android:id="@+id/txt_random"
+        android:id="@+id/txt_item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txt_name"
+        android:layout_above="@+id/txt_item_name"
         android:layout_toRightOf="@+id/picture_random"
         android:text="Make Shown Here"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/txt_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Id"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/txt_item_date"
+        android:layout_alignEnd="@+id/txt_item_name"
+        android:layout_marginEnd="30dp" />
 
 </RelativeLayout>
 

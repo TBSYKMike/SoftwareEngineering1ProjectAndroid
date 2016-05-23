@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.iuliu.androiddb.ViewItems">
+    tools:context=".GetJSON">
 
     <Button
         android:layout_width="170dp"
@@ -26,7 +26,16 @@
         android:layout_marginTop="400dp"
         android:onClick="checkOwn"
 
-        />
+        android:id="@+id/button3" />
+    <Button
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:text="Check list"
+        android:layout_gravity="center_horizontal"
+        android:onClick="checkList"
+
+        android:layout_alignBottom="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"

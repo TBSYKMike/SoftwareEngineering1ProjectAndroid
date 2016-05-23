@@ -44,8 +44,8 @@ public class CheckOwnAdds extends AppCompatActivity {
     public void declineOffer(View view)
     {
         string="http://mybarter.net16.net/decline_barter.php";
-        supply=1;
-        demand=0;
+        supply=7;
+        demand=9;
         String stringSupply=Integer.toString(supply);
         String stringDemand=Integer.toString(demand);
         BackgroundTask backgroundTask = new BackgroundTask();
@@ -54,7 +54,7 @@ public class CheckOwnAdds extends AppCompatActivity {
     public void disableAdd(View view)
     {
         string="http://mybarter.net16.net/disable_add.php";
-        supply=2;
+        supply=1;
         demand=0;
         String stringSupply=Integer.toString(supply);
         String stringDemand=Integer.toString(demand);
@@ -63,7 +63,7 @@ public class CheckOwnAdds extends AppCompatActivity {
     }
     public void goBack(View view)
     {
-        startActivity(new Intent(this, ViewItems.class));
+        startActivity(new Intent(this, GetJSON.class));
     }
     class BackgroundTask extends AsyncTask<String,Void,String> {
         String login_check_url;
