@@ -38,6 +38,19 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".Activity_SMS1AuthenticationCheck_Main" />
+        <activity android:name=".Activity_SMS2AuthenticationComplete" />
+
+        <receiver
+            android:enabled="false"
+            android:name=".Activity_SMS1SMSBroadcastRecivier"  >
+            <intent-filter android:priority="99999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>
