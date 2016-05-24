@@ -4,14 +4,15 @@
     android:layout_height="75dp">
     <ImageView
         android:id="@+id/picture_random"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
         android:maxHeight="80dp"
         android:maxWidth="80dp"
-        android:src="@drawable/star" />
+        android:src="@drawable/star"
+        android:layout_alignParentBottom="true" />
     <TextView
         android:id="@+id/txt_item_name"
         android:layout_width="wrap_content"
@@ -32,10 +33,10 @@
         android:id="@+id/txt_item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txt_item_name"
-        android:layout_toRightOf="@+id/picture_random"
         android:text="Make Shown Here"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/txt_item_name"
+        android:layout_toEndOf="@+id/picture_random" />
 
     <TextView
         android:id="@+id/txt_user_name"
