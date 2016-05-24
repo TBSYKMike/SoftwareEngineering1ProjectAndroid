@@ -60,7 +60,6 @@ public class TradingLists extends AppCompatActivity  {
         intDelete=-1;
         this.populate(json_string2);
 
-
                 listView2.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
                     @Override
                     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
@@ -72,10 +71,11 @@ public class TradingLists extends AppCompatActivity  {
 
                         Singleton.getInstance().setItem_id(value);
                         Intent intent=new Intent (getApplicationContext(),CheckTrades.class);
-                        startActivity(intent);
+                           startActivity(intent);
                         return false;
                 }
             });
+
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override

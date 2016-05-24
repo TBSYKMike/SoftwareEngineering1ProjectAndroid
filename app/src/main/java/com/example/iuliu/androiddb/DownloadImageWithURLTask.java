@@ -20,7 +20,6 @@ public class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
 
 
 
-
     }
 
     protected Bitmap doInBackground(String... urls) {
@@ -33,8 +32,12 @@ public class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
         try {
             InputStream in = new java.net.URL(pathToFile).openStream();
             bitmap = BitmapFactory.decodeStream(in);
-            int scale = imgWidth/bitmap.getWidth();
-            bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()*scale,bitmap.getHeight()*scale,true);
+            int scale;
+
+            scale = imgWidth / bitmap.getWidth();
+
+            bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * scale, bitmap.getHeight() * scale, true);
+
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
