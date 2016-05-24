@@ -26,6 +26,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     EditText inputPassword;
     EditText inputConPassword;
     EditText inputEmail;
+   // EditText inputPhoneNr;
     Spinner spinner;
 
     @Override
@@ -62,6 +65,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         inputAccName = (EditText) findViewById(R.id.editTextAccName);
         inputPassword = (EditText) findViewById(R.id.editTextPass);
         inputConPassword = (EditText) findViewById(R.id.editTextConPass);
+        //inputPhoneNr = (EditText) findViewById(R.id.editTextPhoneNr);
         inputEmail = (EditText) findViewById(R.id.editTextEmail);
         spinner = (Spinner) findViewById(R.id.spinnerCity);
 
@@ -79,10 +83,15 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     public void createButton(View view) {
+        Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
+        Matcher ms = ps.matcher(inputAccName.getText().toString());
+        boolean verifyName = ms.matches();
         accName = inputAccName.getText().toString();
         password = inputPassword.getText().toString();
         conPassword = inputConPassword.getText().toString();
         email = inputEmail.getText().toString();
+
+        if(verifyName == true) {
 
         if(TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(email) || city == null) {
             Toast.makeText(CreateAcc.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
@@ -94,6 +103,9 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
                 showError();
             }
 
+            }
+        } else{
+            Toast.makeText(CreateAcc.this, "You can only make a username with alphabetic letters", Toast.LENGTH_LONG).show();
         }
     }
 
