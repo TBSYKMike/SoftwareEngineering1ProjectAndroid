@@ -28,7 +28,7 @@
         <activity android:name=".DisplayList" />
         <activity android:name=".Login" />
         <activity android:name=".CheckItem" />
-        <activity android:name=".CheckOwnAdds" />
+        <activity android:name=".CheckTrades" />
         <activity android:name=".CreateAcc" />
         <activity android:name=".TradingLists" />
         <activity android:name=".AddNewAdvert" />

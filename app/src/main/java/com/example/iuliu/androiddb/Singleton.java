@@ -10,6 +10,7 @@ public class Singleton {
     private String itemOwn_id;
    // private String mySecondListJSON;
     private String itemId;
+    private String nameItem;
     public Singleton(){
     }
     public static Singleton getInstance(){
@@ -44,11 +45,12 @@ public class Singleton {
         this.itemId = itemId;
     }
 
-    //  public String getMySecondListJSON() {
-   //     return mySecondListJSON;
-   // }
+    public String getNameItem() {
+        return nameItem;
+    }
 
-   // public void setMySecondListJSON(String mySecondListJSON) {
-   //     this.mySecondListJSON = mySecondListJSON;
-  //  }
+    public void setNameItem(String nameItem) {
+        this.nameItem = nameItem;
+    }
 }
+

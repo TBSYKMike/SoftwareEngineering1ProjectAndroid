@@ -77,7 +77,7 @@ public class AddInfo extends AppCompatActivity {
             String name,password,random;
             name=args[0];
             password=args[1];
-           random=args[2];
+            random=args[2];
 
             try {
 

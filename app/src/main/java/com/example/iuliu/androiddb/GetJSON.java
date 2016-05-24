@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -209,6 +208,6 @@ public class GetJSON extends AppCompatActivity {
 
     public void checkOwn(View view)
     {
-        startActivity(new Intent(this, CheckOwnAdds.class));
+        startActivity(new Intent(this, CheckTrades.class));
     }
 }
