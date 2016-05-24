@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -59,4 +60,19 @@ public class MainActivity extends Activity {
     public void testLogin(View view){
         startActivity(new Intent(MainActivity.this, Login.class));
     }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        //android.os.Process.killProcess(android.os.Process.myPid());
+        Process.killProcess(Process.myPid());
+        super.onDestroy();
+
+    }
+
 }
