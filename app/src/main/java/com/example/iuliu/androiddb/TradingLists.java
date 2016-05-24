@@ -53,6 +53,7 @@ public class TradingLists extends AppCompatActivity  {
         setContentView(R.layout.activity_trading_lists);
         getJSONMyItem();
         getJSON();
+
         //json_string2=getIntent().getExtras().getString("json_data2");
         listView2=(ListView)findViewById(R.id.listView3);
         disableButton=(ImageButton)findViewById(R.id.btn_disable);
@@ -221,6 +222,7 @@ public class TradingLists extends AppCompatActivity  {
 
         }*/
         populate(json_string2);
+
     }
 
     protected void removeItemFromList(int position) {
@@ -450,6 +452,7 @@ public class TradingLists extends AppCompatActivity  {
         @Override
         protected void onPostExecute(String result) {
             json_string2=result;
+            Singleton.getInstance().setMyListonJSON(json_string2);
         }
 
     }
@@ -509,6 +512,7 @@ public class TradingLists extends AppCompatActivity  {
             //   TextView textView = (TextView)findViewById(R.id.textView);
             // textView.setText(result);
             json_string1=result;
+
             // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
