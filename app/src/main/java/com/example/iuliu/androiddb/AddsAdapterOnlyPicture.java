@@ -56,7 +56,7 @@ public class AddsAdapterOnlyPicture extends ArrayAdapter {
             row = layoutInflater.inflate(R.layout.row_layout_small_picture, parent, false);
             userHolder= new UserHolder();
             userHolder.txt_item_name=(TextView)row.findViewById(R.id.txt_item_name);
-
+            userHolder.img_view=(ImageView)row.findViewById(R.id.picture_randomSmall);
 
             row.setTag(userHolder);
         }
