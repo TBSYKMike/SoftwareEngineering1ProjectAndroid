@@ -1,8 +1,10 @@
 package com.example.iuliu.androiddb;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,10 +24,15 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Login extends AppCompatActivity {
 
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    SharedPreferences.Editor editor = prefs.edit();
+    Boolean imLoggedIn = false;
     String check;
     String line;
     String accName;
@@ -46,14 +53,23 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginButton(View view){
+        Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
+        Matcher ms = ps.matcher(inputAccName.getText().toString());
+        boolean verifyName = ms.matches();
         accName = inputAccName.getText().toString();
         password = inputPassword.getText().toString();
 
-        if(TextUtils.isEmpty(accName) || TextUtils.isEmpty(password)){
-            Toast.makeText(Login.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
-        }else {
-            BackgroundTask backgroundTask = new BackgroundTask();
-            backgroundTask.execute(accName, password);
+        if(verifyName == true) {
+
+            if (TextUtils.isEmpty(accName) || TextUtils.isEmpty(password)) {
+                Toast.makeText(Login.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
+            } else {
+                BackgroundTask backgroundTask = new BackgroundTask();
+                backgroundTask.execute(accName, password);
+            }
+        } else{
+            Toast.makeText(Login.this, "Invalid username please only use letters when entering username", Toast.LENGTH_LONG).show();
+
         }
     }
 
@@ -69,6 +85,8 @@ public class Login extends AppCompatActivity {
                 super.onPostExecute(check);
 
                 if(check.contains("Success!")){
+                    editor.putBoolean("imLoggedIn",true);
+                    editor.commit();
                     Toast.makeText(Login.this, "Success!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(Login.this, MainActivity.class));
                 }else{

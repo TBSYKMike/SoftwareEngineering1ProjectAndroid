@@ -20,8 +20,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class GetJSON extends AppCompatActivity {
-    String JSON_STRING1,JSON_STRING2;
-    String json_string1,json_string2;
+    String JSON_STRING1,JSON_STRING2,JSON_STRING3;
+    String json_string1,json_string2,json_string3;
     private String json_url;
 
 
@@ -32,6 +32,7 @@ public class GetJSON extends AppCompatActivity {
         setContentView(R.layout.activity_view_items_layout);
         this.getJSON1();
         this.getJSON2();
+      //  this.getJSON3();
 
     }
 
@@ -42,12 +43,13 @@ public class GetJSON extends AppCompatActivity {
 
     }
     public void getJSON2() {
-         int userId=3;
+        int userId=9;
         String stringUserId=Integer.toString(userId);
         BackgroundTask2 backgroundTask2 =new BackgroundTask2();
         backgroundTask2.execute(stringUserId);
 
     }
+
     public void parseJSON(View view)
     {
 
@@ -61,9 +63,11 @@ public class GetJSON extends AppCompatActivity {
     {
 
         Intent intent=new Intent (this,TradingLists.class);
-       intent.putExtra("json_data2",json_string2);
-        intent.putExtra("json_data1",json_string1);
+       // intent.putExtra("json_data3",json_string3);
+        intent.putExtra("json_data2",json_string2);
+        intent.putExtra("json_data1", json_string1);
         Singleton.getInstance().setMyListonJSON(json_string2);
+
         startActivity(intent);
 
     }
@@ -75,6 +79,8 @@ public class GetJSON extends AppCompatActivity {
     public void setJson_url(String json_url) {
         this.json_url = json_url;
     }
+//////////////////////////////////////////////////////////////////////////////////
+
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
 
@@ -125,16 +131,16 @@ public class GetJSON extends AppCompatActivity {
            // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
     class BackgroundTask2 extends AsyncTask<String,Void,String> {
         String login_check_url;
 
         @Override
         protected void onPreExecute() {
-            login_check_url ="http://mybarter.net16.net/json_data_item_user_select.php" ;
+            login_check_url ="http://mybarter.net16.net/json_data_item_user_select1.php" ;
             super.onPreExecute();
         }
-
+//http://mybarter.net16.net/json_data_item__select_to_OthersBid.php
         @Override
         protected String doInBackground(String... args) {
             String  stringUserID;
@@ -173,9 +179,12 @@ public class GetJSON extends AppCompatActivity {
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+
             } catch (IOException e) {
+
                 e.printStackTrace();
             } catch (Exception e) {
+
                 e.printStackTrace();
             }
 
@@ -192,7 +201,11 @@ public class GetJSON extends AppCompatActivity {
         protected void onPostExecute(String result) {
             json_string2=result;
         }
+
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     public void checkOwn(View view)
     {

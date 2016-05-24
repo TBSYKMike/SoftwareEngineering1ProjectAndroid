@@ -15,7 +15,8 @@
         android:layout_centerHorizontal="true"
         android:background="@color/red_bg_header"
         android:gravity="center"
-        android:text="@string/all_houses"
+        android:text="Barter app- your items"
+
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white" />
     <ImageButton
@@ -48,50 +49,8 @@
         android:layout_height="250dp"
         android:id="@+id/listView3"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txt_header" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView4"
-        android:layout_below="@+id/listView3"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="63dp" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You bid on"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/listView3"
-        android:layout_alignStart="@+id/btn_list_pdf"
-        android:layout_marginTop="27dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You got:"
-        android:id="@+id/textView3"
-        android:layout_marginEnd="55dp"
-        android:layout_alignBottom="@+id/radioButton2"
-        android:layout_toStartOf="@+id/btn_add_employee" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/radioButton"
-        android:layout_alignTop="@+id/radioButton2"
-        android:layout_alignStart="@+id/btn_add_employee"
-        android:layout_alignBottom="@+id/textView3" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/radioButton2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2"
-        android:layout_marginStart="31dp" />
+        android:layout_below="@+id/txt_header"
+        android:layout_alignParentBottom="true" />
 
 
 </RelativeLayout>

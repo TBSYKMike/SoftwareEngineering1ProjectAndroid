@@ -38,7 +38,7 @@ public class DisplayList extends AppCompatActivity {
             jsonObject=new JSONObject(json_string);
             jsonArray=jsonObject.getJSONArray("server_response");
             int count=0;
-            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID;
+            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
             while (count<jsonArray.length())
             {
                 JSONObject JO=jsonArray.getJSONObject(count);
@@ -46,15 +46,16 @@ public class DisplayList extends AppCompatActivity {
                 item_name=JO.getString("item_name");
                 item_info=JO.getString("item_info");
                 item_picture_small=JO.getString("item_picture_small");
-                item_picture_large=JO.getString("item_picture_large");
+               item_picture_large=JO.getString("item_picture_large");
                 item_condition=JO.getString("item_condition");
                 item_date=JO.getString("item_date");
                 item_status=JO.getString("item_status");
                 item_visit_count=JO.getString("item_visit_count");
                 item_winner_userID=JO.getString("item_winner_userID");
                 item_user_userID=JO.getString("item_user_userID");
+                accountName=JO.getString("userName");
 
-                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID);
+                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
                 addsAdapter.add(user);
                 count++;
 
@@ -66,8 +67,8 @@ public class DisplayList extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     Adds newsData = (Adds) listView.getItemAtPosition(position);
                     Toast.makeText(DisplayList.this, "Selected :" + " " + newsData.getItem_name(), Toast.LENGTH_LONG).show();
-
-                    Intent intent=new Intent (getApplicationContext(),CheckItem.class);
+                    Singleton.getInstance().setItemId(newsData.getItem_id());
+                    Intent intent=new Intent (getApplicationContext(),New_Transaction.class);
 
                     startActivity(intent);
 

@@ -27,22 +27,34 @@
         android:layout_gravity="center_horizontal" />
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:id="@+id/imageViewNewlyTakenPhoto"
         android:layout_gravity="center_horizontal" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/editTextInputItemName"
+        android:hint="Input Name of Item" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextInputItemInfo"
         android:hint="Input Details" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerItemCondition"
+        android:spinnerMode="dropdown" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create"
-        android:id="@+id/button"
+        android:id="@+id/buttonCreateNewAdvert"
         android:layout_gravity="center_horizontal" />
 
     <Button
