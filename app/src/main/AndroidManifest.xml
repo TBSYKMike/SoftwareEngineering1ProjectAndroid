@@ -39,6 +39,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!-- Authentication Codes Start-->
         <activity android:name=".Activity_SMS1AuthenticationCheck_Main" />
         <activity android:name=".Activity_SMS2AuthenticationComplete" />
 
@@ -50,6 +51,7 @@
             </intent-filter>
         </receiver>
 
+        <!-- Authentication Codes End-->
 
     </application>
 
