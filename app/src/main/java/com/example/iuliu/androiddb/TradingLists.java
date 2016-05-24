@@ -16,9 +16,11 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -32,9 +34,9 @@ import android.content.DialogInterface.OnClickListener;
 
 public class TradingLists extends AppCompatActivity  {
     String json_string;
-    String json_string2;
+   String json_string2;
     String json_string3;
-    String JSON_STRING3;
+    String JSON_STRING2;
     JSONObject jsonObject2;
     JSONArray jsonArray2;
     AddsAdapter addsAdapter2;
@@ -48,7 +50,8 @@ public class TradingLists extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trading_lists);
-        json_string2=getIntent().getExtras().getString("json_data2");
+        getJSON();
+        //json_string2=getIntent().getExtras().getString("json_data2");
         listView2=(ListView)findViewById(R.id.listView3);
         disableButton=(ImageButton)findViewById(R.id.btn_disable);
         stringDisable =null;
@@ -104,9 +107,28 @@ public class TradingLists extends AppCompatActivity  {
             });
         }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populate(json_string2);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        populate(json_string2);
+    }
+
+    public void getJSON(){
+    int userId=9;
+    String stringUserId=Integer.toString(userId);
+    BackgroundTask2 backgroundTask2 =new BackgroundTask2();
+    backgroundTask2.execute(stringUserId);
+}
 
 
-    public void populate(String ss){
+        public void populate(String ss){
         arrayUsers=new ArrayList<Adds>();
 
 
@@ -176,7 +198,7 @@ public class TradingLists extends AppCompatActivity  {
 
 
     public void disableItem(View view){
-        if(intDelete ==-1){
+       /* if(intDelete ==-1){
             Toast.makeText(TradingLists.this, "You must select by long click an item", Toast.LENGTH_LONG).show();
         }
         else
@@ -190,7 +212,8 @@ public class TradingLists extends AppCompatActivity  {
             intDelete=-1;
 
 
-        }
+        }*/
+        populate(json_string2);
     }
 
     protected void removeItemFromList(int position) {
@@ -352,6 +375,77 @@ public class TradingLists extends AppCompatActivity  {
         }
     }
 
+    class BackgroundTask2 extends AsyncTask<String,Void,String> {
+        String login_check_url;
+
+        @Override
+        protected void onPreExecute() {
+            login_check_url ="http://mybarter.net16.net/json_data_item_user_select1.php" ;
+            super.onPreExecute();
+        }
+        //http://mybarter.net16.net/json_data_item__select_to_OthersBid.php
+        @Override
+        protected String doInBackground(String... args) {
+            String  stringUserID;
+            stringUserID=args[0];
+
+
+            try {
+
+                URL url =new URL(login_check_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                try {
+
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    String data_string = URLEncoder.encode("user_id", "UTF-8")+"="+URLEncoder.encode(stringUserID,"UTF-8");
+                    bufferedWriter.write(data_string);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
+                    InputStream inputStream=httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while((JSON_STRING2 = bufferedReader.readLine())!= null)
+                    {
+                        stringBuilder.append(JSON_STRING2);
+                    }
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+                    return stringBuilder.toString().trim();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            json_string2=result;
+        }
+
+    }
 
 }
 

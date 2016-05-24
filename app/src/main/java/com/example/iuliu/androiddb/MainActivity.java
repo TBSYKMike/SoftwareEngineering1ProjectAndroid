@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
     }
     public void viewItems(View view)
     {
-        startActivity(new Intent(this, GetJSON.class));
+        startActivity(new Intent(this, TradingLists.class));
     }
 
     public void testLogin(View view){
