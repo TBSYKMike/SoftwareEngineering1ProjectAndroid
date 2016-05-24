@@ -19,7 +19,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class GetJSON extends AppCompatActivity {
-    String JSON_STRING1,JSON_STRING2,JSON_STRING3;
+   /* String JSON_STRING1,JSON_STRING2,JSON_STRING3;
     String json_string1,json_string2,json_string3;
     private String json_url;
 
@@ -30,7 +30,7 @@ public class GetJSON extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_items_layout);
         this.getJSON1();
-        this.getJSON2();
+       // this.getJSON2();
       //  this.getJSON3();
 
     }
@@ -41,13 +41,7 @@ public class GetJSON extends AppCompatActivity {
 
 
     }
-    public void getJSON2() {
-        int userId=9;
-        String stringUserId=Integer.toString(userId);
-        BackgroundTask2 backgroundTask2 =new BackgroundTask2();
-        backgroundTask2.execute(stringUserId);
 
-    }
 
     public void parseJSON(View view)
     {
@@ -131,83 +125,10 @@ public class GetJSON extends AppCompatActivity {
         }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    class BackgroundTask2 extends AsyncTask<String,Void,String> {
-        String login_check_url;
-
-        @Override
-        protected void onPreExecute() {
-            login_check_url ="http://mybarter.net16.net/json_data_item_user_select1.php" ;
-            super.onPreExecute();
-        }
-//http://mybarter.net16.net/json_data_item__select_to_OthersBid.php
-        @Override
-        protected String doInBackground(String... args) {
-            String  stringUserID;
-            stringUserID=args[0];
-
-
-            try {
-
-                URL url =new URL(login_check_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-
-                try {
-
-                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data_string = URLEncoder.encode("user_id", "UTF-8")+"="+URLEncoder.encode(stringUserID,"UTF-8");
-                    bufferedWriter.write(data_string);
-                    bufferedWriter.flush();
-                    bufferedWriter.close();
-                    outputStream.close();
-                    InputStream inputStream=httpURLConnection.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    while((JSON_STRING2 = bufferedReader.readLine())!= null)
-                    {
-                        stringBuilder.append(JSON_STRING2);
-                    }
-                    bufferedReader.close();
-                    inputStream.close();
-                    httpURLConnection.disconnect();
-                    return stringBuilder.toString().trim();
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            } catch (Exception e) {
-
-                e.printStackTrace();
-            }
-
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            json_string2=result;
-        }
-
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     public void checkOwn(View view)
     {
         startActivity(new Intent(this, CheckTrades.class));
-    }
+    }*/
 }

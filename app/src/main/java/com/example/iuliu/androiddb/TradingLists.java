@@ -33,10 +33,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface.OnClickListener;
 
 public class TradingLists extends AppCompatActivity  {
-    String json_string;
-   String json_string2;
-    String json_string3;
-    String JSON_STRING2;
+    String json_strin;
+    String json_string2;
+    String json_string1;
+    String JSON_STRING2,JSON_STRING1;
     JSONObject jsonObject2;
     JSONArray jsonArray2;
     AddsAdapter addsAdapter2;
@@ -46,10 +46,12 @@ public class TradingLists extends AppCompatActivity  {
     protected String value,stringURL, stringDisable;
     protected int intDelete;
     protected Adds myPosition;
+    private String json_url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trading_lists);
+        getJSONMyItem();
         getJSON();
         //json_string2=getIntent().getExtras().getString("json_data2");
         listView2=(ListView)findViewById(R.id.listView3);
@@ -120,12 +122,17 @@ public class TradingLists extends AppCompatActivity  {
         populate(json_string2);
     }
 
-    public void getJSON(){
+    public void getJSONMyItem(){
     int userId=9;
     String stringUserId=Integer.toString(userId);
     BackgroundTask2 backgroundTask2 =new BackgroundTask2();
     backgroundTask2.execute(stringUserId);
 }
+    public void getJSON(){
+
+        BackgroundTaskAllItems backgroundTask =new BackgroundTaskAllItems();
+        backgroundTask.execute();
+    }
 
 
         public void populate(String ss){
@@ -174,9 +181,9 @@ public class TradingLists extends AppCompatActivity  {
     }
     public void viewItems(View view)
     {
-        json_string=getIntent().getExtras().getString("json_data1");
+        //json_string=getIntent().getExtras().getString("json_data1");
         Intent intent=new Intent (this,DisplayList.class);
-        intent.putExtra("json_data",json_string);
+        intent.putExtra("json_data",json_string1);
         startActivity(intent);
     }
 
@@ -445,6 +452,65 @@ public class TradingLists extends AppCompatActivity  {
             json_string2=result;
         }
 
+    }
+    public String getJson_url() {
+        return json_url;
+    }
+
+    public void setJson_url(String json_url) {
+        this.json_url = json_url;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    class BackgroundTaskAllItems extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute()
+        {
+            setJson_url("http://mybarter.net16.net/json_data_new.php");
+        }
+
+        @Override
+        protected String doInBackground(String... params)
+        {
+            try
+            {
+                URL url = new URL(getJson_url());
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder stringBuilder = new StringBuilder();
+                while((JSON_STRING1 = bufferedReader.readLine())!= null)
+                {
+                    stringBuilder.append(JSON_STRING1);
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values)
+        {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            //   TextView textView = (TextView)findViewById(R.id.textView);
+            // textView.setText(result);
+            json_string1=result;
+            // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+        }
     }
 
 }

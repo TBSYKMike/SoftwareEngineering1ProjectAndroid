@@ -75,7 +75,6 @@ public class New_Transaction extends AppCompatActivity  {
                 JSONObject JO = jsonArray.getJSONObject(count);
                 item_id = JO.getString("item_id");
                 item_name = JO.getString("item_name");
-
                 item_picture_small = JO.getString("item_picture_small");
 
 
