@@ -93,7 +93,7 @@ public class CheckItem extends AppCompatActivity {
     }
     public void goBack(View view)
     {
-        startActivity(new Intent(this, GetJSON.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
     public void createOffer(View view){
         Random rand=new Random();
