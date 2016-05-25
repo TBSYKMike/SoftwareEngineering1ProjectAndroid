@@ -29,11 +29,11 @@ public class Singleton {
         this.myListonJSON = myListonJSON;
     }
 
-    public String getItem_id() {
+    public String getItemOwn_id() {
         return itemOwn_id;
     }
 
-    public void setItem_id(String item_id) {
+    public void setItemOwn_id(String item_id) {
         this.itemOwn_id = item_id;
     }
 

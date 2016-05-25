@@ -99,6 +99,10 @@ public class AddsAdapter extends ArrayAdapter {
         return row;
     }
 
+    public void remove(Adds object) {
+        addsArrayList.remove(object);
+        notifyDataSetChanged();
+    }
 
     static class UserHolder
     {

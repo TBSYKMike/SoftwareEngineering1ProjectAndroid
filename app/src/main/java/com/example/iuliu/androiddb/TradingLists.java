@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -42,7 +41,7 @@ public class TradingLists extends AppCompatActivity  {
     AddsAdapter addsAdapter2;
     ListView listView2;
     ArrayList<Adds> arrayUsers;
-    ImageButton disableButton;
+    ImageButton disableButton, viewMyItems;
     protected String value,stringURL, stringDisable;
     protected int intDelete;
     protected Adds myPosition;
@@ -57,6 +56,7 @@ public class TradingLists extends AppCompatActivity  {
         //json_string2=getIntent().getExtras().getString("json_data2");
         listView2=(ListView)findViewById(R.id.listView3);
         disableButton=(ImageButton)findViewById(R.id.btn_disable);
+        viewMyItems=(ImageButton)findViewById(R.id.btn_my_items);
         stringDisable =null;
         intDelete=-1;
         this.populate(json_string2);
@@ -70,7 +70,7 @@ public class TradingLists extends AppCompatActivity  {
                         Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_id(), Toast.LENGTH_LONG).show();
                         value=newsData.getItem_id();
 
-                        Singleton.getInstance().setItem_id(value);
+                        Singleton.getInstance().setItemOwn_id(value);
                         Intent intent=new Intent (getApplicationContext(),CheckTrades.class);
                            startActivity(intent);
                         return false;
@@ -85,27 +85,6 @@ public class TradingLists extends AppCompatActivity  {
                     myPosition=newsData;
                     stringDisable =newsData.getItem_id();
                     intDelete=position;
-                  //  Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_name() + "-deleted", Toast.LENGTH_LONG).show();
-                   // Log.v("long clicked", "pos: " + position);
-                 //   removeItemFromList(position);
-                    String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
-                    item_id=newsData.getItem_name();
-                    item_name=newsData.getItem_name();
-                    item_info=newsData.getItem_info();
-                    item_picture_small=newsData.getItem_picture_small();
-                    item_picture_large=newsData.getItem_picture_large();
-                    item_condition=newsData.getItem_condition();
-                    item_date=newsData.getItem_date();
-                    item_status=newsData.getItem_status();
-                    item_visit_count=newsData.getItem_visit_count();
-                    item_winner_userID=newsData.getItem_winner_userID();
-                    item_user_userID=newsData.getItem_user_userID();
-                    accountName=newsData.getUser_name();
-                    Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
-                    addsAdapter2.remove(user);
-                    addsAdapter2.notifyDataSetChanged();
-
-
                 }
             });
         }
@@ -137,9 +116,8 @@ public class TradingLists extends AppCompatActivity  {
 
 
         public void populate(String ss){
+
         arrayUsers=new ArrayList<Adds>();
-
-
         ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
         addsAdapter2 =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
         listView2.setAdapter(addsAdapter2);
@@ -168,6 +146,7 @@ public class TradingLists extends AppCompatActivity  {
                 addsAdapter2.add(user);
                 count++;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -182,7 +161,6 @@ public class TradingLists extends AppCompatActivity  {
     }
     public void viewItems(View view)
     {
-        //json_string=getIntent().getExtras().getString("json_data1");
         Intent intent=new Intent (this,DisplayList.class);
         intent.putExtra("json_data",json_string1);
         startActivity(intent);
@@ -206,8 +184,8 @@ public class TradingLists extends AppCompatActivity  {
 
 
     public void disableItem(View view){
-       /* if(intDelete ==-1){
-            Toast.makeText(TradingLists.this, "You must select by long click an item", Toast.LENGTH_LONG).show();
+        if(intDelete ==-1){
+            Toast.makeText(TradingLists.this, "You must select by click an item", Toast.LENGTH_LONG).show();
         }
         else
         {
@@ -220,11 +198,13 @@ public class TradingLists extends AppCompatActivity  {
             intDelete=-1;
 
 
-        }*/
-        populate(json_string2);
+        }
+
 
     }
-
+    public void viewMyItems(View view){
+        populate(json_string2);
+    }
     protected void removeItemFromList(int position) {
         final int deletePosition = position;
 
@@ -238,10 +218,8 @@ public class TradingLists extends AppCompatActivity  {
             public void onClick(DialogInterface dialog, int which) {
                 // TOD O Auto-generated method stub
 
-                // main code on after clicking yes
-                arrayUsers.remove(deletePosition);
-                addsAdapter2.notifyDataSetChanged();
-                addsAdapter2.notifyDataSetInvalidated();
+                //
+
 
             }
         });
@@ -509,11 +487,8 @@ public class TradingLists extends AppCompatActivity  {
         @Override
         protected void onPostExecute(String result)
         {
-            //   TextView textView = (TextView)findViewById(R.id.textView);
-            // textView.setText(result);
             json_string1=result;
 
-            // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
 

@@ -26,7 +26,6 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".AddInfo" />
-        <activity android:name=".GetJSON" />
         <activity android:name=".DisplayList" />
         <activity android:name=".Login" />
         <activity android:name=".CheckItem" />
