@@ -21,8 +21,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean LoggedIn = prefs.getBoolean("imLoggedIn", false);
         B1 = (Button)findViewById(R.id.b1);
         B2 = (Button)findViewById(R.id.b2);
         B3 = (Button)findViewById(R.id.b3);
@@ -36,14 +34,6 @@ public class MainActivity extends Activity {
         else
         {
 
-            if(LoggedIn == true) {
-
-                B1.setEnabled(false);
-                B2.setEnabled(false);
-                B3.setEnabled(false);
-            }else{
-               startActivity(new Intent(MainActivity.this, Login.class));
-            }
         }
 
     }
