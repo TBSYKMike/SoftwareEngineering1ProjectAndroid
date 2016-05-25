@@ -60,7 +60,7 @@ public class TradingLists extends AppCompatActivity  {
         stringDisable =null;
         intDelete=-1;
         myList=new ArrayList<String>();
-
+        viewMyItems.setEnabled(true);
         addsAdapterMyItems =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
      /*   getJSONMyItem();
         getJSON();
@@ -197,12 +197,14 @@ public class TradingLists extends AppCompatActivity  {
     public void addItems(View view)
     {
         startActivity(new Intent(this, AddNewAdvert.class));
+
     }
     public void viewItems(View view)
     {
         Intent intent=new Intent (this,DisplayList.class);
         intent.putExtra("json_data", json_stringAllItems);
         startActivity(intent);
+
     }
 
     public void disableAdd(String id)
@@ -260,6 +262,7 @@ public class TradingLists extends AppCompatActivity  {
                 addsAdapterMyItems.notifyDataSetChanged();
                 stringDisable =null;
                 intDelete=-1;
+                viewMyItems.setEnabled(false);
             }
         });
         alert.setNegativeButton("CANCEL", new OnClickListener() {
