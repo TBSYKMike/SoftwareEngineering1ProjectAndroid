@@ -28,7 +28,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,7 +120,7 @@ public class Login extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Singleton.getInstance().setItem_id(userID);
+                    Singleton.getInstance().setItemOwn_id(userID);
 
                     if (decryptedAccPass.matches(accPass)) {
                         Toast.makeText(Login.this, "Success!", Toast.LENGTH_LONG).show();
