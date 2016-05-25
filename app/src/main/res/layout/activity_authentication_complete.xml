@@ -10,4 +10,11 @@
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
         android:textSize="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Press To Continue"
+        android:id="@+id/buttonPressToContinue"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

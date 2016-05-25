@@ -43,7 +43,7 @@ public class AddNewAdvert extends AppCompatActivity {
 
     String imgLarge="";
     String imgSmall="";
-
+    String Owner_ID;
 
 
 
@@ -53,6 +53,8 @@ public class AddNewAdvert extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_advert);
+
+        Owner_ID = Singleton.getInstance().getItemOwn_id();
 
 
         btnTakePhoto = (Button) findViewById(R.id.buttonTakePhoto);
@@ -251,7 +253,7 @@ public class AddNewAdvert extends AppCompatActivity {
         String itemName = editTextItemName.getText().toString().trim();
         String itemInfo = editTextItemInfo.getText().toString().trim();
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
-        String UserID = "9";
+        String UserID = Owner_ID;
 
         if(imgLarge.isEmpty() || imgSmall.isEmpty()){
             createToast("Picture Missing!\nPlease take a picture!");

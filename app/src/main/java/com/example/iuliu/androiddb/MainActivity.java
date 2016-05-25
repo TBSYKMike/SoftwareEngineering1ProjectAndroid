@@ -52,6 +52,19 @@ public class MainActivity extends Activity {
     }
 
 
+    public final String SPARAD_DATA = Activity_Check_If_User_Is_Logged_In.SPARAD_DATA;
+    public void buttonPressLogout(View view){
+
+        SharedPreferences preferences = getSharedPreferences(SPARAD_DATA, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("LoggedIn", "false");
+        editor.putString("UserId", "0");
+        editor.commit();
+
+        startActivity(new Intent(MainActivity.this, Activity_Check_If_User_Is_Logged_In.class));
+    }
+
+
     @Override
     public void onBackPressed() {
         finish();

@@ -1,9 +1,13 @@
 package com.example.iuliu.androiddb;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -13,11 +17,23 @@ import java.util.HashMap;
  */
 public class Activity_SMS2AuthenticationComplete extends AppCompatActivity {
 
+
+    Button buttonPressToContinue;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication_complete);
 
+        buttonPressToContinue = (Button) findViewById(R.id.buttonPressToContinue);
+        buttonPressToContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Activity_SMS2AuthenticationComplete.this, MainActivity.class));
+            }
+        });
         registerUser();
 
     }
@@ -31,20 +47,14 @@ public class Activity_SMS2AuthenticationComplete extends AppCompatActivity {
     private static final String REGISTER_URL = "http://mybarter.net16.net/SMS_Authen.php";
 
     private void registerUser() {
-        //   String name = editTextName.getText().toString().trim().toLowerCase();
-        //   String username = editTextUsername.getText().toString().trim().toLowerCase();
-        //   String password = editTextPassword.getText().toString().trim().toLowerCase();
-        //   String email = editTextEmail.getText().toString().trim().toLowerCase();
+        saveLoadData();
 
+        String userId = userID;
+        String phoneNumber = userPhoneNumber;
 
+        register(userId, phoneNumber);
 
-        String userId = "9";
-        String phoneNumber = "070-12345677899";
-
-            register(userId, phoneNumber);
-
-createToast("ID = "+userId+" -- phoneNumber = "+phoneNumber);
-
+        createToast("ID = " + userId + " -- phoneNumber = " + phoneNumber);
 
     }
 
@@ -59,6 +69,7 @@ createToast("ID = "+userId+" -- phoneNumber = "+phoneNumber);
             protected void onPreExecute() {
                 super.onPreExecute();
                 loading = ProgressDialog.show(Activity_SMS2AuthenticationComplete.this, "Please Wait",null, true, true);
+
             }
 
             @Override
@@ -66,6 +77,8 @@ createToast("ID = "+userId+" -- phoneNumber = "+phoneNumber);
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+
+                //startActivity(new Intent(Activity_SMS2AuthenticationComplete.this, MainActivity.class));
             }
 
             @Override
@@ -100,6 +113,23 @@ createToast("ID = "+userId+" -- phoneNumber = "+phoneNumber);
 
 
 //-------------------------------------- PHP mySQL codes end---------------------------------------------------------------------------------------------
+
+
+    public final String SPARAD_DATA = Activity_Check_If_User_Is_Logged_In.SPARAD_DATA;
+
+    private String userID;
+    private String userPhoneNumber;
+
+    private void saveLoadData(){
+        userID = Singleton.getInstance().getItemOwn_id();
+        userPhoneNumber = Activity_SMS_TempValues.getInstance().getPhoneNumber();
+
+        SharedPreferences preferences = getSharedPreferences(SPARAD_DATA, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("LoggedIn", "true");
+        editor.putString("UserId", userID);
+        editor.commit();
+    }
 
 
 
