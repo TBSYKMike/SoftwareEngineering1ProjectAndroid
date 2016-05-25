@@ -41,6 +41,7 @@ public class Activity_Check_If_User_Is_Logged_In extends AppCompatActivity {
 
 
 
+
         if(sparadText1.contains("true")) {
             startActivity(new Intent(Activity_Check_If_User_Is_Logged_In.this, MainActivity.class));
         }else{
