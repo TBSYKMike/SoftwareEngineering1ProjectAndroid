@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -124,7 +125,7 @@ public class Login extends AppCompatActivity {
 
                     if (decryptedAccPass.matches(accPass)) {
                         Toast.makeText(Login.this, "Success!", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(Login.this, MainActivity.class));
+                        startActivity(new Intent(Login.this, Activity_SMS1AuthenticationCheck_Main.class));
                     } else {
                         Toast.makeText(Login.this, "User details does not match an existing account!", Toast.LENGTH_LONG).show();
                     }
@@ -183,4 +184,20 @@ public class Login extends AppCompatActivity {
     public void createAccButton(View view){
         startActivity(new Intent(Login.this, CreateAcc.class));
     }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        //android.os.Process.killProcess(android.os.Process.myPid());
+        Process.killProcess(Process.myPid());
+        super.onDestroy();
+
+    }
+
+
 }

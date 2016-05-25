@@ -34,15 +34,14 @@ public class Activity_Check_If_User_Is_Logged_In extends AppCompatActivity {
 
         super.onResume();
 
-//atEditText.setText("ewette");
         SharedPreferences preferences = getSharedPreferences(SPARAD_DATA, MODE_PRIVATE);
-        String sparadText1 = preferences.getString("Title", "true");
-        String sparadText2 = preferences.getString("Name", "no Name");
+        String sparadText1 = preferences.getString("LoggedIn", "false");
+        String sparadText2 = preferences.getString("UserId", "0");
+        Singleton.getInstance().setItemOwn_id(sparadText2);
 
 
 
-
-        if(sparadText1.contains("true")) {
+        if(sparadText1.contains("true")) { // if logged in
             startActivity(new Intent(Activity_Check_If_User_Is_Logged_In.this, MainActivity.class));
         }else{
             startActivity(new Intent(Activity_Check_If_User_Is_Logged_In.this, Login.class));
@@ -55,11 +54,7 @@ public class Activity_Check_If_User_Is_Logged_In extends AppCompatActivity {
         super.onPause();
 
 
-        SharedPreferences preferences = getSharedPreferences(SPARAD_DATA, MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("Title", "false");
-        editor.putString("Name", "true");
-        editor.commit();
+
 
 
     }
