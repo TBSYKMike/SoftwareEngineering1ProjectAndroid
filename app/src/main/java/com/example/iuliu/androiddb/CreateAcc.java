@@ -47,6 +47,9 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     String stringCityId;
     String create_acc_url = "http://mybarter.net16.net/create_account.php";
 
+    String accPass;
+    String encryptedAccPass;
+
     List<String> cities;
     ArrayAdapter<String> spinnerAdapter;
 
@@ -54,7 +57,6 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     EditText inputPassword;
     EditText inputConPassword;
     EditText inputEmail;
-   // EditText inputPhoneNr;
     Spinner spinner;
 
     @Override
@@ -65,7 +67,6 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         inputAccName = (EditText) findViewById(R.id.editTextAccName);
         inputPassword = (EditText) findViewById(R.id.editTextPass);
         inputConPassword = (EditText) findViewById(R.id.editTextConPass);
-        //inputPhoneNr = (EditText) findViewById(R.id.editTextPhoneNr);
         inputEmail = (EditText) findViewById(R.id.editTextEmail);
         spinner = (Spinner) findViewById(R.id.spinnerCity);
 
@@ -82,7 +83,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
-    public void createButton(View view) {
+    public void createButton(View view) throws Exception {
         Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
         Matcher ms = ps.matcher(inputAccName.getText().toString());
         boolean verifyName = ms.matches();
@@ -91,14 +92,17 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         conPassword = inputConPassword.getText().toString();
         email = inputEmail.getText().toString();
 
+        accPass = accName + " " + password;
+
         if(verifyName == true) {
 
         if(TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(email) || city == null) {
             Toast.makeText(CreateAcc.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
         }else{
             if(password.matches(conPassword)) {
+                encryptedAccPass = Kripto.encrypt(accPass);
                 BackgroundTask backgroundTask = new BackgroundTask();
-                backgroundTask.execute(accName,password, email, stringCityId);
+                backgroundTask.execute(accName, encryptedAccPass, email, stringCityId);
             }else{
                 showError();
             }
@@ -153,11 +157,12 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         @Override
         protected String doInBackground(String... params) {
             String accName = params[0];
-            String password = params[1];
+            String encryptedAccPass = params[1];
             String email = params[2];
             String city = params[3];
 
             try{
+
                 URL url = new URL(create_acc_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -167,7 +172,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
 
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String data = URLEncoder.encode("accName", "UTF-8") + "=" + URLEncoder.encode(accName,"UTF-8") + "&" +
-                        URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password,"UTF-8") + "&" +
+                        URLEncoder.encode("encryptedAccPass", "UTF-8") + "=" + URLEncoder.encode(encryptedAccPass,"UTF-8") + "&" +
                         URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email,"UTF-8") + "&" +
                         URLEncoder.encode("city", "UTF-8") + "=" + URLEncoder.encode(city, "UTF-8");
                 bufferedWriter.write(data);

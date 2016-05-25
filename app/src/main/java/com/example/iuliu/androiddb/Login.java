@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -24,20 +28,28 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class Login extends AppCompatActivity {
 
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-    SharedPreferences.Editor editor = prefs.edit();
     Boolean imLoggedIn = false;
-    String check;
-    String line;
+    String encryptedAccPass;
+    String decryptedAccPass;
     String accName;
     String password;
+    String accPass;
+    String userID;
     String login_check_url = "http://mybarter.net16.net/login_check.php";
+
+    int count;
+    String json;
+    JSONObject jsonObject;
+    JSONObject JO;
+    JSONArray jsonArray;
+    StringBuilder stringBuilder;
 
     EditText inputAccName;
     EditText inputPassword;
@@ -50,6 +62,13 @@ public class Login extends AppCompatActivity {
         inputAccName = (EditText) findViewById(R.id.editTextAcc);
         inputPassword = (EditText) findViewById(R.id.editTextPass);
 
+        try {
+            jsonObject = new JSONObject(json);
+            jsonArray = jsonObject.getJSONArray("server_response");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void loginButton(View view){
@@ -58,6 +77,7 @@ public class Login extends AppCompatActivity {
         boolean verifyName = ms.matches();
         accName = inputAccName.getText().toString();
         password = inputPassword.getText().toString();
+        accPass = accName + " " + password;
 
         if(verifyName == true) {
 
@@ -65,7 +85,7 @@ public class Login extends AppCompatActivity {
                 Toast.makeText(Login.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
             } else {
                 BackgroundTask backgroundTask = new BackgroundTask();
-                backgroundTask.execute(accName, password);
+                backgroundTask.execute(accName);
             }
         } else{
             Toast.makeText(Login.this, "Invalid username please only use letters when entering username", Toast.LENGTH_LONG).show();
@@ -83,10 +103,29 @@ public class Login extends AppCompatActivity {
             @Override
             protected void onPostExecute(String check){
                 super.onPostExecute(check);
+                count = 0;
 
-                if(check.contains("Success!")){
-                    editor.putBoolean("imLoggedIn",true);
-                    editor.commit();
+                while(count < jsonArray.length()){
+                    try {
+                        JO = jsonArray.getJSONObject(count);
+                        userID = JO.getString("userID");
+                        encryptedAccPass = JO.getString("encodedAccPass");
+                        Toast.makeText(Login.this, encryptedAccPass, Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                try {
+                    decryptedAccPass = Kripto.decrypt(encryptedAccPass);
+                    Toast.makeText(Login.this, decryptedAccPass, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Singleton.getInstance().setItem_id(userID);
+
+                if(decryptedAccPass.matches(accPass)){
                     Toast.makeText(Login.this, "Success!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(Login.this, MainActivity.class));
                 }else{
@@ -96,7 +135,6 @@ public class Login extends AppCompatActivity {
             @Override
             protected String doInBackground(String... params) {
                 String accName = params[0];
-                String password = params[1];
 
                 try{
                     URL url = new URL(login_check_url);
@@ -107,8 +145,7 @@ public class Login extends AppCompatActivity {
                     OutputStream outputStream = httpURLConnection.getOutputStream();
 
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String data = URLEncoder.encode("accName", "UTF-8") + "=" + URLEncoder.encode(accName,"UTF-8") + "&" + URLEncoder.encode("password","UTF-8")
-                            + "=" + URLEncoder.encode(password,"UTF-8");
+                    String data = URLEncoder.encode("accName", "UTF-8") + "=" + URLEncoder.encode(accName,"UTF-8");
                     bufferedWriter.write(data);
 
                     bufferedWriter.flush();
@@ -118,16 +155,14 @@ public class Login extends AppCompatActivity {
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
 
-                    check = "";
-                    line = "";
-
-                    while((line = bufferedReader.readLine())!= null) {
-                        check += line;
+                    while((json = bufferedReader.readLine())!= null)
+                    {
+                        stringBuilder.append(json);
                     }
                     bufferedReader.close();
                     inputStream.close();
                     httpURLConnection.disconnect();
-                    return check;
+                    return stringBuilder.toString().trim();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (ProtocolException e) {
