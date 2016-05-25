@@ -27,10 +27,10 @@ public class AddsAdapter extends ArrayAdapter {
         super(context, resource, addsArrayList);
         this.addsArrayList = addsArrayList;
     }
-
-
-
-
+    public void remove(int pos){
+       // super.remove(int pos);
+        list.remove(pos);
+    }
     public void add(Adds object)
     {
         super.add(object);
@@ -81,8 +81,8 @@ public class AddsAdapter extends ArrayAdapter {
             userHolder.txt_accountName.setText(adds.getUser_name());
 
 
-            DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(userHolder.img_view,userHolder.img_view.getWidth());
-            downloadTask.execute(adds.getItem_picture_small());
+          //  DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(userHolder.img_view,userHolder.img_view.getWidth());
+          //  downloadTask.execute(adds.getItem_picture_small());
 
 
          //   byte[] d=object.decodeImage(adds.getItem_picture_small());

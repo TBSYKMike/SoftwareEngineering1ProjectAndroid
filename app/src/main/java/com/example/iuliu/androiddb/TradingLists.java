@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface.OnClickListener;
@@ -38,18 +39,29 @@ public class TradingLists extends AppCompatActivity  {
     String JSON_STRINGmyItems, JSON_STRINGallItems;
     JSONObject jsonObjectMyItems;
     JSONArray jsonArrayMyItems;
+
     AddsAdapter addsAdapterMyItems;
     ListView listViewMyItems;
     ArrayList<Adds> arrayUsers;
+    ArrayList<String> myArray;
     ImageButton disableButton, viewMyItems;
     protected String value,stringURL, stringDisable;
     protected int intDelete;
     protected Adds myPosition;
     private String json_url;
+    List<String> myList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trading_lists);
+        listViewMyItems =(ListView)findViewById(R.id.listView3);
+        disableButton=(ImageButton)findViewById(R.id.btn_disable);
+        viewMyItems=(ImageButton)findViewById(R.id.btn_my_items);
+        stringDisable =null;
+        intDelete=-1;
+        myList=new ArrayList<String>();
+
+        addsAdapterMyItems =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
      /*   getJSONMyItem();
         getJSON();
 
@@ -95,14 +107,11 @@ public class TradingLists extends AppCompatActivity  {
         super.onResume();
         getJSONMyItem();
         getJSON();
-
+        myList=new ArrayList<>();
+        listViewMyItems.setAdapter(addsAdapterMyItems);
         //json_stringMyItems=getIntent().getExtras().getString("json_data2");
-        listViewMyItems =(ListView)findViewById(R.id.listView3);
-        disableButton=(ImageButton)findViewById(R.id.btn_disable);
-        viewMyItems=(ImageButton)findViewById(R.id.btn_my_items);
-        stringDisable =null;
-        intDelete=-1;
-        this.populate(json_stringMyItems);
+
+      //  this.populate(json_stringMyItems);
 
         listViewMyItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -220,13 +229,13 @@ public class TradingLists extends AppCompatActivity  {
         else
         {
            this.removeItemFromList(intDelete);
-            arrayUsers.remove(intDelete);
-            addsAdapterMyItems.notifyDataSetChanged();
+
         }
 
 
     }
     public void viewMyItems(View view){
+        System.out.println("Boule!!!!!!!!!!!!");
         populate(json_stringMyItems);
     }
     protected void removeItemFromList(int position) {
@@ -242,11 +251,13 @@ public class TradingLists extends AppCompatActivity  {
             public void onClick(DialogInterface dialog, int which) {
                 disableAdd(stringDisable);
                 disableAddActive(stringDisable);
-
-               // startActivity(new Intent(TradingLists.this,TradingLists.class));
+                arrayUsers.remove(deletePosition);
+                addsAdapterMyItems.notifyDataSetChanged();
+                //startActivity(new Intent(TradingLists.this,TradingLists.class));
+                //viewMyItems(addsAdapterMyItems.getView(deletePosition, null, null));
                // populate(json_stringMyItems);
-
-
+                addsAdapterMyItems.remove(intDelete);
+                addsAdapterMyItems.notifyDataSetChanged();
                 stringDisable =null;
                 intDelete=-1;
             }
