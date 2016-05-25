@@ -148,10 +148,10 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
             super.onPostExecute(check);
 
             if(check.contains("Success!")){
-                Toast.makeText(CreateAcc.this, check, Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateAcc.this, "Success!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(CreateAcc.this, Login.class));
             }else{
-                Toast.makeText(CreateAcc.this, check, Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateAcc.this, "Account name or email already exist!", Toast.LENGTH_LONG).show();
             }
         }
         @Override

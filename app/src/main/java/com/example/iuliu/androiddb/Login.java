@@ -35,7 +35,6 @@ import java.util.regex.Pattern;
 
 public class Login extends AppCompatActivity {
 
-    Boolean imLoggedIn = false;
     String encryptedAccPass;
     String decryptedAccPass;
     String accName;
@@ -62,24 +61,16 @@ public class Login extends AppCompatActivity {
         inputAccName = (EditText) findViewById(R.id.editTextAcc);
         inputPassword = (EditText) findViewById(R.id.editTextPass);
 
-        try {
-            jsonObject = new JSONObject(json);
-            jsonArray = jsonObject.getJSONArray("server_response");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void loginButton(View view){
         Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
         Matcher ms = ps.matcher(inputAccName.getText().toString());
-        boolean verifyName = ms.matches();
         accName = inputAccName.getText().toString();
         password = inputPassword.getText().toString();
         accPass = accName + " " + password;
 
-        if(verifyName == true) {
+
 
             if (TextUtils.isEmpty(accName) || TextUtils.isEmpty(password)) {
                 Toast.makeText(Login.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
@@ -87,10 +78,8 @@ public class Login extends AppCompatActivity {
                 BackgroundTask backgroundTask = new BackgroundTask();
                 backgroundTask.execute(accName);
             }
-        } else{
-            Toast.makeText(Login.this, "Invalid username please only use letters when entering username", Toast.LENGTH_LONG).show();
 
-        }
+
     }
 
         class BackgroundTask extends AsyncTask<String,Void,String>{
@@ -105,31 +94,41 @@ public class Login extends AppCompatActivity {
                 super.onPostExecute(check);
                 count = 0;
 
-                while(count < jsonArray.length()){
+                if(check.contains("User details don't match an existing account!")){
+                    Toast.makeText(Login.this, "User details don't match an existing account!", Toast.LENGTH_LONG).show();
+                }else {
                     try {
-                        JO = jsonArray.getJSONObject(count);
-                        userID = JO.getString("userID");
-                        encryptedAccPass = JO.getString("encodedAccPass");
-                        Toast.makeText(Login.this, encryptedAccPass, Toast.LENGTH_LONG).show();
+                        jsonObject = new JSONObject(check);
+                        jsonArray = jsonObject.getJSONArray("server_response");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
 
-                try {
-                    decryptedAccPass = Kripto.decrypt(encryptedAccPass);
-                    Toast.makeText(Login.this, decryptedAccPass, Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    while (count < jsonArray.length()) {
+                        try {
+                            JO = jsonArray.getJSONObject(count);
+                            userID = JO.getString("userID");
+                            encryptedAccPass = JO.getString("encodedAccPass");
+                            count++;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                Singleton.getInstance().setItem_id(userID);
+                    try {
+                        decryptedAccPass = Kripto.decrypt(encryptedAccPass);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                if(decryptedAccPass.matches(accPass)){
-                    Toast.makeText(Login.this, "Success!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(Login.this, MainActivity.class));
-                }else{
-                    Toast.makeText(Login.this, "User details does not match an existing account!", Toast.LENGTH_LONG).show();
+                    Singleton.getInstance().setItem_id(userID);
+
+                    if (decryptedAccPass.matches(accPass)) {
+                        Toast.makeText(Login.this, "Success!", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Login.this, MainActivity.class));
+                    } else {
+                        Toast.makeText(Login.this, "User details does not match an existing account!", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
             @Override
@@ -155,10 +154,15 @@ public class Login extends AppCompatActivity {
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
 
+                    json = "";
+                    stringBuilder = new StringBuilder();
+
                     while((json = bufferedReader.readLine())!= null)
                     {
                         stringBuilder.append(json);
                     }
+
+
                     bufferedReader.close();
                     inputStream.close();
                     httpURLConnection.disconnect();

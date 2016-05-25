@@ -56,7 +56,7 @@ public class Activity_Check_If_User_Is_Logged_In extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences(SPARAD_DATA, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("Title", "true");
+        editor.putString("Title", "false");
         editor.putString("Name", "true");
         editor.commit();
 
