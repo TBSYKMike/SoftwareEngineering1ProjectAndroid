@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -39,7 +40,7 @@ public class New_Transaction extends AppCompatActivity  {
     ListView listView;
     ArrayList<Adds> arrayUsers;
     private String stringJSON;
-    private String ownItemId;
+    private TextView viewName;
     String temp1,temp2;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -55,6 +56,9 @@ public class New_Transaction extends AppCompatActivity  {
         stringJSON = Singleton.getInstance().getMyListonJSON();
         arrayUsers = new ArrayList<Adds>();
         listView = (ListView) findViewById(R.id.listView5);
+        viewName=(TextView) findViewById(R.id.textView2);
+        viewName.setText(Singleton.getInstance().getNameItem());
+
         //  ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
         addsNewAdapter = new AddsAdapterOnlyPicture(this, R.layout.row_layout_small_picture, arrayUsers);
         listView.setAdapter(addsNewAdapter);
@@ -71,7 +75,6 @@ public class New_Transaction extends AppCompatActivity  {
                 JSONObject JO = jsonArray.getJSONObject(count);
                 item_id = JO.getString("item_id");
                 item_name = JO.getString("item_name");
-
                 item_picture_small = JO.getString("item_picture_small");
 
 

@@ -30,7 +30,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CheckOwnAdds extends AppCompatActivity {
+public class CheckTrades extends AppCompatActivity {
     private RadioGroup radioGroup1;
     private RadioButton radio1,radio2,radio;
     String JSON_STRING3,json_string3;
@@ -59,16 +59,9 @@ public class CheckOwnAdds extends AppCompatActivity {
 
     }
     public void onRadioButtonClicked(View v) {
-        //require to import the RadioButton class
-      //  RadioButton rb1 = (RadioButton) findViewById(R.id.radio1);
-     //   RadioButton rb2 = (RadioButton) findViewById(R.id.radio2);
 
-
-        //is the current radio button now checked?
         boolean checked = ((RadioButton) v).isChecked();
 
-        //now check which radio button is selected
-        //android switch statement
         switch (v.getId()) {
 
             case R.id.radio2:
@@ -98,7 +91,7 @@ public class CheckOwnAdds extends AppCompatActivity {
                     case R.id.radio1:
                         // do operations specific to this selection
                         string = "http://mybarter.net16.net/delete_accept_barter.php";
-                        Toast.makeText(CheckOwnAdds.this,
+                        Toast.makeText(CheckTrades.this,
                                 "1", Toast.LENGTH_SHORT).show();
                         String itemId = Singleton.getInstance().getItem_id();
                         // GetJSON object= new GetJSON();
@@ -111,7 +104,7 @@ public class CheckOwnAdds extends AppCompatActivity {
 
                     case R.id.radio2:
                         string = "http://mybarter.net16.net/delete_accept_barter.php";
-                        Toast.makeText(CheckOwnAdds.this,
+                        Toast.makeText(CheckTrades.this,
                                 "2", Toast.LENGTH_LONG).show();
                         // do operations specific to this selection
                         break;
@@ -149,16 +142,7 @@ public class CheckOwnAdds extends AppCompatActivity {
         BackgroundTask backgroundTask = new BackgroundTask();
         backgroundTask.execute(stringSupply, stringDemand);
     }
-    public void disableAdd(View view)
-    {
-        string="http://mybarter.net16.net/disable_add.php";
-        supply=1;
-        demand=0;
-        String stringSupply=Integer.toString(supply);
-        String stringDemand=Integer.toString(demand);
-        BackgroundTask backgroundTask = new BackgroundTask();
-        backgroundTask.execute(stringSupply, stringDemand);
-    }
+
     public void goBack(View view)
     {
         startActivity(new Intent(this, GetJSON.class));

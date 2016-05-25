@@ -81,6 +81,10 @@ public class AddsAdapter extends ArrayAdapter {
             userHolder.txt_accountName.setText(adds.getUser_name());
 
 
+            DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(userHolder.img_view,userHolder.img_view.getWidth());
+            downloadTask.execute(adds.getItem_picture_small());
+
+
          //   byte[] d=object.decodeImage(adds.getItem_picture_small());
 
           //  Bitmap bitmap=new BitmapFactory().decodeByteArray(d, 0, d.length);

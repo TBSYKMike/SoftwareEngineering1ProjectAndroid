@@ -56,6 +56,7 @@ public class AddsAdapterOnlyPicture extends ArrayAdapter {
             row = layoutInflater.inflate(R.layout.row_layout_small_picture, parent, false);
             userHolder= new UserHolder();
             userHolder.txt_item_name=(TextView)row.findViewById(R.id.txt_item_name);
+            userHolder.img_view=(ImageView)row.findViewById(R.id.picture_randomSmall);
 
             row.setTag(userHolder);
         }
@@ -65,6 +66,8 @@ public class AddsAdapterOnlyPicture extends ArrayAdapter {
         try {
             Adds adds =(Adds)this.getItem(position);
             userHolder.txt_item_name.setText(adds.getItem_name());
+            DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(userHolder.img_view,userHolder.img_view.getWidth());
+            downloadTask.execute(adds.getItem_picture_small());
           //  userHolder.
 
         } catch (Exception e) {
