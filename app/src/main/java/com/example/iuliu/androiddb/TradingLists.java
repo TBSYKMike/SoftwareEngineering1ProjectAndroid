@@ -32,14 +32,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface.OnClickListener;
 
 public class TradingLists extends AppCompatActivity  {
-    String json_strin;
-    String json_string2;
-    String json_string1;
-    String JSON_STRING2,JSON_STRING1;
-    JSONObject jsonObject2;
-    JSONArray jsonArray2;
-    AddsAdapter addsAdapter2;
-    ListView listView2;
+    Adds userToDelete;
+    String json_stringMyItems;
+    String json_stringAllItems;
+    String JSON_STRINGmyItems, JSON_STRINGallItems;
+    JSONObject jsonObjectMyItems;
+    JSONArray jsonArrayMyItems;
+    AddsAdapter addsAdapterMyItems;
+    ListView listViewMyItems;
     ArrayList<Adds> arrayUsers;
     ImageButton disableButton, viewMyItems;
     protected String value,stringURL, stringDisable;
@@ -50,63 +50,93 @@ public class TradingLists extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trading_lists);
-        getJSONMyItem();
+     /*   getJSONMyItem();
         getJSON();
 
-        //json_string2=getIntent().getExtras().getString("json_data2");
-        listView2=(ListView)findViewById(R.id.listView3);
+        //json_stringMyItems=getIntent().getExtras().getString("json_data2");
+        listViewMyItems =(ListView)findViewById(R.id.listView3);
         disableButton=(ImageButton)findViewById(R.id.btn_disable);
         viewMyItems=(ImageButton)findViewById(R.id.btn_my_items);
         stringDisable =null;
         intDelete=-1;
-        this.populate(json_string2);
+        this.populate(json_stringMyItems);
 
-                listView2.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+                listViewMyItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                    int pos, long id) {
+                                                   int pos, long id) {
 
-                        Adds newsData = (Adds) listView2.getItemAtPosition(pos);
+                        Adds newsData = (Adds) listViewMyItems.getItemAtPosition(pos);
                         Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_id(), Toast.LENGTH_LONG).show();
-                        value=newsData.getItem_id();
+                        value = newsData.getItem_id();
 
                         Singleton.getInstance().setItemOwn_id(value);
-                        Intent intent=new Intent (getApplicationContext(),CheckTrades.class);
-                           startActivity(intent);
+                        Intent intent = new Intent(getApplicationContext(), CheckTrades.class);
+                        startActivity(intent);
                         return false;
-                }
-            });
+                    }
+                });
 
-        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewMyItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                @Override
-                public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                    Adds newsData = (Adds) listView2.getItemAtPosition(position);
-                    myPosition=newsData;
-                    stringDisable =newsData.getItem_id();
-                    intDelete=position;
-                }
-            });
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Adds newsData = (Adds) listViewMyItems.getItemAtPosition(position);
+                myPosition = newsData;
+                stringDisable = newsData.getItem_id();
+                intDelete = position;
+            }
+        });*/
         }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        populate(json_string2);
+        getJSONMyItem();
+        getJSON();
+
+        //json_stringMyItems=getIntent().getExtras().getString("json_data2");
+        listViewMyItems =(ListView)findViewById(R.id.listView3);
+        disableButton=(ImageButton)findViewById(R.id.btn_disable);
+        viewMyItems=(ImageButton)findViewById(R.id.btn_my_items);
+        stringDisable =null;
+        intDelete=-1;
+        this.populate(json_stringMyItems);
+
+        listViewMyItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int pos, long id) {
+
+                Adds newsData = (Adds) listViewMyItems.getItemAtPosition(pos);
+                Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_id(), Toast.LENGTH_LONG).show();
+                value = newsData.getItem_id();
+
+                Singleton.getInstance().setItemOwn_id(value);
+                Intent intent = new Intent(getApplicationContext(), CheckTrades.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
+        listViewMyItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Adds newsData = (Adds) listViewMyItems.getItemAtPosition(position);
+                userToDelete=(Adds)listViewMyItems.getItemAtPosition(position);
+                myPosition = newsData;
+                stringDisable = newsData.getItem_id();
+                intDelete = position;
+            }
+        });
     }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-
-        populate(json_string2);
-    }
-
     public void getJSONMyItem(){
     int userId=9;
     String stringUserId=Integer.toString(userId);
-    BackgroundTask2 backgroundTask2 =new BackgroundTask2();
-    backgroundTask2.execute(stringUserId);
+    BackgroundTaskMyItems backgroundTaskMyItems =new BackgroundTaskMyItems();
+    backgroundTaskMyItems.execute(stringUserId);
 }
     public void getJSON(){
 
@@ -119,17 +149,17 @@ public class TradingLists extends AppCompatActivity  {
 
         arrayUsers=new ArrayList<Adds>();
         ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
-        addsAdapter2 =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
-        listView2.setAdapter(addsAdapter2);
+        addsAdapterMyItems =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
+        listViewMyItems.setAdapter(addsAdapterMyItems);
 
         try {
-            jsonObject2=new JSONObject(ss);
-            jsonArray2=jsonObject2.getJSONArray("server_response");
+            jsonObjectMyItems =new JSONObject(ss);
+            jsonArrayMyItems = jsonObjectMyItems.getJSONArray("server_response");
             int count=0;
             String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
-            while (count<jsonArray2.length())
+            while (count< jsonArrayMyItems.length())
             {
-                JSONObject JO2=jsonArray2.getJSONObject(count);
+                JSONObject JO2= jsonArrayMyItems.getJSONObject(count);
                 item_id=JO2.getString("item_id");
                 item_name=JO2.getString("item_name");
                 item_info=JO2.getString("item_info");
@@ -143,7 +173,7 @@ public class TradingLists extends AppCompatActivity  {
                 item_user_userID=JO2.getString("item_user_userID");
                 accountName=JO2.getString("userName");
                 Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
-                addsAdapter2.add(user);
+                addsAdapterMyItems.add(user);
                 count++;
             }
 
@@ -162,7 +192,7 @@ public class TradingLists extends AppCompatActivity  {
     public void viewItems(View view)
     {
         Intent intent=new Intent (this,DisplayList.class);
-        intent.putExtra("json_data",json_string1);
+        intent.putExtra("json_data", json_stringAllItems);
         startActivity(intent);
     }
 
@@ -189,21 +219,15 @@ public class TradingLists extends AppCompatActivity  {
         }
         else
         {
-            disableAdd(stringDisable);
-            disableAddActive(stringDisable);
-
            this.removeItemFromList(intDelete);
-            addsAdapter2.notifyDataSetChanged();
-            stringDisable =null;
-            intDelete=-1;
-
-
+            arrayUsers.remove(intDelete);
+            addsAdapterMyItems.notifyDataSetChanged();
         }
 
 
     }
     public void viewMyItems(View view){
-        populate(json_string2);
+        populate(json_stringMyItems);
     }
     protected void removeItemFromList(int position) {
         final int deletePosition = position;
@@ -216,11 +240,15 @@ public class TradingLists extends AppCompatActivity  {
         alert.setPositiveButton("YES", new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TOD O Auto-generated method stub
+                disableAdd(stringDisable);
+                disableAddActive(stringDisable);
 
-                //
+               // startActivity(new Intent(TradingLists.this,TradingLists.class));
+               // populate(json_stringMyItems);
 
 
+                stringDisable =null;
+                intDelete=-1;
             }
         });
         alert.setNegativeButton("CANCEL", new OnClickListener() {
@@ -362,7 +390,7 @@ public class TradingLists extends AppCompatActivity  {
         }
     }
 
-    class BackgroundTask2 extends AsyncTask<String,Void,String> {
+    class BackgroundTaskMyItems extends AsyncTask<String,Void,String> {
         String login_check_url;
 
         @Override
@@ -396,9 +424,9 @@ public class TradingLists extends AppCompatActivity  {
                     InputStream inputStream=httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     StringBuilder stringBuilder = new StringBuilder();
-                    while((JSON_STRING2 = bufferedReader.readLine())!= null)
+                    while((JSON_STRINGmyItems = bufferedReader.readLine())!= null)
                     {
-                        stringBuilder.append(JSON_STRING2);
+                        stringBuilder.append(JSON_STRINGmyItems);
                     }
                     bufferedReader.close();
                     inputStream.close();
@@ -429,8 +457,8 @@ public class TradingLists extends AppCompatActivity  {
 
         @Override
         protected void onPostExecute(String result) {
-            json_string2=result;
-            Singleton.getInstance().setMyListonJSON(json_string2);
+            json_stringMyItems =result;
+            Singleton.getInstance().setMyListonJSON(json_stringMyItems);
         }
 
     }
@@ -462,9 +490,9 @@ public class TradingLists extends AppCompatActivity  {
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder stringBuilder = new StringBuilder();
-                while((JSON_STRING1 = bufferedReader.readLine())!= null)
+                while((JSON_STRINGallItems = bufferedReader.readLine())!= null)
                 {
-                    stringBuilder.append(JSON_STRING1);
+                    stringBuilder.append(JSON_STRINGallItems);
                 }
                 bufferedReader.close();
                 inputStream.close();
@@ -487,7 +515,7 @@ public class TradingLists extends AppCompatActivity  {
         @Override
         protected void onPostExecute(String result)
         {
-            json_string1=result;
+            json_stringAllItems =result;
 
         }
     }
