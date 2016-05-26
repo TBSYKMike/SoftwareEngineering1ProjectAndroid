@@ -3,6 +3,7 @@ package com.example.iuliu.androiddb;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 /**
  * Created by Iuliu on 2016-05-09.
  */
 public class AddsAdapter extends ArrayAdapter {
+   ImageLoader imageLoader;
+
+
     List list =new ArrayList();
     String temp1="bbb";
     String temp;
@@ -30,6 +41,9 @@ public class AddsAdapter extends ArrayAdapter {
     public void remove(int pos){
        // super.remove(int pos);
         list.remove(pos);
+    }
+    public void reset(){
+        list.clear();
     }
     public void add(Adds object)
     {
@@ -47,7 +61,7 @@ public class AddsAdapter extends ArrayAdapter {
         return list.get(position);
     }
 
-
+    ImageView imageView;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row;
@@ -55,7 +69,6 @@ public class AddsAdapter extends ArrayAdapter {
         row = convertView;
 
         if(row == null){
-
             LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = layoutInflater.inflate(R.layout.row_layout, parent, false);
             userHolder= new UserHolder();
@@ -71,24 +84,21 @@ public class AddsAdapter extends ArrayAdapter {
         }
         try {
             Adds adds =(Adds)this.getItem(position);
-
-           // temp1= adds.getRandom();
-            // temp = Encrypt.decryptPassword(temp1);
-         //   temp=Kripto.decrypt(temp1);
             userHolder.txt_item_name.setText(adds.getItem_name());
             userHolder.txt_item_condition.setText(adds.getItem_condition());
             userHolder.txt_item_date.setText(adds.getItem_date());
             userHolder.txt_accountName.setText(adds.getUser_name());
 
+            String imgUrl = adds.getItem_picture_small();
 
-          //  DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(userHolder.img_view,userHolder.img_view.getWidth());
-          //  downloadTask.execute(adds.getItem_picture_small());
+            Glide.with(this.getContext()).load(imgUrl)
+                    .thumbnail(0.5f)
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(userHolder.img_view);
 
 
-         //   byte[] d=object.decodeImage(adds.getItem_picture_small());
 
-          //  Bitmap bitmap=new BitmapFactory().decodeByteArray(d, 0, d.length);
-           // userHolder.img_view.setImageBitmap(bitmap);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(temp1);
@@ -110,4 +120,6 @@ public class AddsAdapter extends ArrayAdapter {
                 txt_item_date, txt_item_status, txt_item_visit_count, txt_item_winner_userID, txt_item_user_userID,txt_accountName;
         ImageView img_view;
     }
+
+
 }
