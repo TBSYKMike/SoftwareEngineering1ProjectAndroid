@@ -167,7 +167,7 @@ public class CheckMyTrades extends AppCompatActivity {
         Intent intent=null,chooser=null;
         intent=new Intent(Intent.ACTION_SEND);
         intent.setData(Uri.parse("mailto:"));
-        String[]to ={"myAddress@yahoo.com","winnerAddress@gmail.com.com"};
+        String[]to ={"iuliunicolaebarcan@gmail.com","iuliunicolaebarcan@gmail.com"};
         intent.putExtra(Intent.EXTRA_EMAIL,to);
         intent.putExtra(Intent.EXTRA_SUBJECT, "Hello");
         intent.putExtra(Intent.EXTRA_TEXT,"Dear Mr.");

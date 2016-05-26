@@ -12,17 +12,18 @@ import java.io.InputStream;
  * Created by Mike on 2016-05-23.
  */
 public class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
-    ImageView bmImage;
+   Bitmap bmImage;
     int imgWidth;
-    public DownloadImageWithURLTask(ImageView bmImage, int imgWidth) {
-        this.bmImage = bmImage;
+    public DownloadImageWithURLTask( int imgWidth) {
+       // this.bmImage = bmImage;
         this.imgWidth = imgWidth;
-
-
 
     }
 
     protected Bitmap doInBackground(String... urls) {
+
+
+
         String pathToFile = urls[0];
         Bitmap bitmap = null;
 
@@ -32,12 +33,15 @@ public class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
         try {
             InputStream in = new java.net.URL(pathToFile).openStream();
             bitmap = BitmapFactory.decodeStream(in);
+           // in.close();
             int scale;
+            if(imgWidth>0) {
+                scale = imgWidth / bitmap.getWidth();
 
-            scale = imgWidth / bitmap.getWidth();
+                bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * scale, bitmap.getHeight() * scale, true);
 
-            bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * scale, bitmap.getHeight() * scale, true);
-
+           }
+              in.close();
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
@@ -46,6 +50,9 @@ public class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
     }
     protected void onPostExecute(Bitmap result) {
 
-        bmImage.setImageBitmap(result);
+        bmImage=result;
+    }
+    public Bitmap getImg(){
+        return bmImage;
     }
 }

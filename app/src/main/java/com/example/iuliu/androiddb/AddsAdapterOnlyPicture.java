@@ -66,7 +66,7 @@ public class AddsAdapterOnlyPicture extends ArrayAdapter {
         try {
             Adds adds =(Adds)this.getItem(position);
             userHolder.txt_item_name.setText(adds.getItem_name());
-            DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(userHolder.img_view,userHolder.img_view.getWidth());
+            DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(userHolder.img_view.getWidth());
             downloadTask.execute(adds.getItem_picture_small());
           //  userHolder.
 
