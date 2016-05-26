@@ -31,9 +31,7 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Jocke on 2016-05-12.
- */
+
 public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String check;
