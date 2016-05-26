@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import org.apache.commons.codec.binary.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +43,7 @@ public class AddNewAdvert extends AppCompatActivity {
 
     String imgLarge="";
     String imgSmall="";
-
+    String Owner_ID;
 
 
 
@@ -52,6 +53,8 @@ public class AddNewAdvert extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_advert);
+
+        Owner_ID = Singleton.getInstance().getItemOwn_id();
 
 
         btnTakePhoto = (Button) findViewById(R.id.buttonTakePhoto);
@@ -181,10 +184,13 @@ public class AddNewAdvert extends AppCompatActivity {
 
         editTextItemName.setText(Integer.toString(encodeImage(bitmap).getBytes().length));
 
-        imgLarge = encodeImage(bitmap);
+     //   imgLarge = encodeImage(bitmap);
+        imgLarge = getStringImage(bitmap);
+
         bitmap = bitmap.createScaledBitmap(bitmap,100,100,false);
         editTextItemName.setText(editTextItemName.getText().toString()+" "+Integer.toString(encodeImage(bitmap).getBytes().length));
-        imgSmall = encodeImage(bitmap);
+      //  imgSmall = encodeImage(bitmap);
+        imgSmall = getStringImage(bitmap);
     }
 
     // saving image to phone storage
@@ -206,6 +212,10 @@ public class AddNewAdvert extends AppCompatActivity {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
+
+
+
 
 //-------------------------------------- Camera codes end---------------------------------------------------------------------------------------------
 
@@ -243,7 +253,7 @@ public class AddNewAdvert extends AppCompatActivity {
         String itemName = editTextItemName.getText().toString().trim();
         String itemInfo = editTextItemInfo.getText().toString().trim();
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
-        String UserID = "9";
+        String UserID = Owner_ID;
 
         if(imgLarge.isEmpty() || imgSmall.isEmpty()){
             createToast("Picture Missing!\nPlease take a picture!");
@@ -276,6 +286,8 @@ public class AddNewAdvert extends AppCompatActivity {
                 super.onPostExecute(s);
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+
+                System.out.println("\n\n-------------------------------------------------------------------------"+s+"\n\n");
             }
 
             @Override
@@ -365,6 +377,15 @@ public String encodeImage(Bitmap image) {
     String stringToStore= new String(base64.encode(data));
     return stringToStore ;
 }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = android.util.Base64.encodeToString(imageBytes, android.util.Base64.DEFAULT);
+        return encodedImage;
+    }
+
 
 //-------------------------------------- Encode Image codes End---------------------------------------------------------------------------------------------
 

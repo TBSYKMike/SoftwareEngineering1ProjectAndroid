@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/red_bg_header"
         android:gravity="center"
-        android:text="Barter app- your items"
+        android:text="Your items"
 
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white" />
@@ -23,15 +23,16 @@
         android:id="@+id/btn_add_employee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
         android:onClick="addItems"
 
         android:background="@android:color/transparent"
         android:contentDescription="@null"
-        android:src="@android:drawable/ic_menu_add" />
+        android:src="@android:drawable/ic_menu_add"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="22dp"
+        android:layout_alignTop="@+id/btn_list_pdf"
+        android:layout_toEndOf="@+id/btn_list_pdf" />
     <ImageButton
         android:id="@+id/btn_list_pdf"
         android:layout_width="wrap_content"
@@ -41,13 +42,40 @@
         android:layout_margin="8dp"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
+
         android:src="@android:drawable/ic_menu_mapmode"
         android:onClick="viewItems"
         />
+    <ImageButton
+        android:id="@+id/btn_my_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:src="@android:drawable/ic_menu_agenda"
+        android:onClick="viewMyItems"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignTop="@+id/btn_add_employee"
+        android:layout_alignEnd="@+id/txt_header"
+        android:layout_marginEnd="15dp" />
+    <ImageButton
+        android:id="@+id/btn_disable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:src="@android:drawable/ic_delete"
+        android:onClick="disableItem"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignTop="@+id/btn_my_items"
+        android:layout_toStartOf="@+id/btn_my_items" />
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="250dp"
         android:id="@+id/listView3"
+        android:longClickable="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txt_header"
         android:layout_alignParentBottom="true" />

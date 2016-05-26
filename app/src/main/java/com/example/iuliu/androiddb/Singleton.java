@@ -1,22 +1,29 @@
 package com.example.iuliu.androiddb;
 
+import android.content.SharedPreferences;
+
 /**
  * Created by Iuliu on 2016-05-20.
  */
 public class Singleton {
+
     private static Singleton mInstance = null;
 
     private String myListonJSON;
     private String itemOwn_id;
    // private String mySecondListJSON;
     private String itemId;
+    private String nameItem;
     public Singleton(){
     }
     public static Singleton getInstance(){
         if(mInstance == null)
         {
             mInstance = new Singleton();
+
         }
+
+
         return mInstance;
     }
 
@@ -28,11 +35,11 @@ public class Singleton {
         this.myListonJSON = myListonJSON;
     }
 
-    public String getItem_id() {
+    public String getItemOwn_id() {
         return itemOwn_id;
     }
 
-    public void setItem_id(String item_id) {
+    public void setItemOwn_id(String item_id) {
         this.itemOwn_id = item_id;
     }
 
@@ -44,11 +51,15 @@ public class Singleton {
         this.itemId = itemId;
     }
 
-    //  public String getMySecondListJSON() {
-   //     return mySecondListJSON;
-   // }
+    public String getNameItem() {
+        return nameItem;
+    }
 
-   // public void setMySecondListJSON(String mySecondListJSON) {
-   //     this.mySecondListJSON = mySecondListJSON;
-  //  }
+    public void setNameItem(String nameItem) {
+        this.nameItem = nameItem;
+    }
+
+
+
 }
+

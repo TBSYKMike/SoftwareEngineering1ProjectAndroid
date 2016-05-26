@@ -68,6 +68,7 @@ public class DisplayList extends AppCompatActivity {
                     Adds newsData = (Adds) listView.getItemAtPosition(position);
                     Toast.makeText(DisplayList.this, "Selected :" + " " + newsData.getItem_name(), Toast.LENGTH_LONG).show();
                     Singleton.getInstance().setItemId(newsData.getItem_id());
+                    Singleton.getInstance().setNameItem(newsData.getItem_name());
                     Intent intent=new Intent (getApplicationContext(),New_Transaction.class);
 
                     startActivity(intent);

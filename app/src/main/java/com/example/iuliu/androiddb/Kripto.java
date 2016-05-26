@@ -11,10 +11,11 @@ import javax.crypto.spec.SecretKeySpec;
  * Created by Iuliu on 2016-05-10.
  */
 public class Kripto {
-    static String IV = "AAAAAAAAAAAAAAAA";
-    static String plaintext = "hhh"; /*Note null padding*/
+    static MySecretKey msk=new MySecretKey();
+     static String IV = msk.getNumber1();
+     String plaintext = "hhh"; /*Note null padding*/
 
-    static String encryptionKey = "0123456789abcdef";
+     static String encryptionKey = msk.getNumber2();
 
     public static String encrypt(String plainText) throws Exception
     {

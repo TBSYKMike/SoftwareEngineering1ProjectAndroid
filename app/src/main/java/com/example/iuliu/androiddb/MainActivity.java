@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -20,8 +21,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean LoggedIn = prefs.getBoolean("imLoggedIn", false);
         B1 = (Button)findViewById(R.id.b1);
         B2 = (Button)findViewById(R.id.b2);
         B3 = (Button)findViewById(R.id.b3);
@@ -35,14 +34,6 @@ public class MainActivity extends Activity {
         else
         {
 
-            if(LoggedIn == true) {
-
-                B1.setEnabled(false);
-                B2.setEnabled(false);
-                B3.setEnabled(false);
-            }else{
-               startActivity(new Intent(MainActivity.this, Login.class));
-            }
         }
 
     }
@@ -53,10 +44,39 @@ public class MainActivity extends Activity {
     }
     public void viewItems(View view)
     {
-        startActivity(new Intent(this, GetJSON.class));
+        startActivity(new Intent(this, TradingLists.class));
     }
 
     public void testLogin(View view){
         startActivity(new Intent(MainActivity.this, Login.class));
     }
+
+
+    public final String SPARAD_DATA = Activity_Check_If_User_Is_Logged_In.SPARAD_DATA;
+    public void buttonPressLogout(View view){
+
+        SharedPreferences preferences = getSharedPreferences(SPARAD_DATA, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("LoggedIn", "false");
+        editor.putString("UserId", "0");
+        editor.commit();
+
+       // startActivity(new Intent(MainActivity.this, Activity_Check_If_User_Is_Logged_In.class));
+        startActivity(new Intent(MainActivity.this, TradingLists.class));
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        //android.os.Process.killProcess(android.os.Process.myPid());
+        Process.killProcess(Process.myPid());
+        super.onDestroy();
+
+    }
+
 }
