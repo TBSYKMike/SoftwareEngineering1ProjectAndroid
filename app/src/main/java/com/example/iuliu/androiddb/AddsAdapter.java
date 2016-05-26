@@ -31,6 +31,9 @@ public class AddsAdapter extends ArrayAdapter {
        // super.remove(int pos);
         list.remove(pos);
     }
+    public void reset(){
+        list.clear();
+    }
     public void add(Adds object)
     {
         super.add(object);

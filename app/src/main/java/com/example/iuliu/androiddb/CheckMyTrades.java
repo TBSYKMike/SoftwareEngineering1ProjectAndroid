@@ -148,9 +148,12 @@ public class CheckMyTrades extends AppCompatActivity {
         doAcceptBarted(stringIndex, stringOwnIndex);
         doInactiveItems(stringIndex,stringOwnIndex);
         Toast.makeText(CheckMyTrades.this, "You got a new barter" + stringIndex, Toast.LENGTH_LONG).show();
-        //Intent intent = new Intent(this, MainActivity.class);
-       // startActivity(intent);
+
         this.sendEmail();
+        addsAdapter.reset();
+        super.onResume();
+       // Intent intent = new Intent(this, MainActivity.class);
+       // startActivity(intent);
     }
 
 
