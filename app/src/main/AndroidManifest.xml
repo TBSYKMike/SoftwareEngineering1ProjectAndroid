@@ -11,6 +11,15 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.NETWORK"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    >
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,7 +42,7 @@
         <activity android:name=".DisplayList" />
         <activity android:name=".Login" />
         <activity android:name=".CheckItem" />
-        <activity android:name=".CheckTrades" />
+        <activity android:name=".CheckMyTrades" />
         <activity android:name=".CreateAcc" />
         <activity android:name=".TradingLists" />
         <activity android:name=".AddNewAdvert" />

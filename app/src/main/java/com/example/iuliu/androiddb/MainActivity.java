@@ -61,7 +61,8 @@ public class MainActivity extends Activity {
         editor.putString("UserId", "0");
         editor.commit();
 
-        startActivity(new Intent(MainActivity.this, Activity_Check_If_User_Is_Logged_In.class));
+       // startActivity(new Intent(MainActivity.this, Activity_Check_If_User_Is_Logged_In.class));
+        startActivity(new Intent(MainActivity.this, TradingLists.class));
     }
 
 

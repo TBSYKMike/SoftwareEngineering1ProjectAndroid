@@ -83,7 +83,7 @@ public class TradingLists extends AppCompatActivity  {
                         value = newsData.getItem_id();
 
                         Singleton.getInstance().setItemOwn_id(value);
-                        Intent intent = new Intent(getApplicationContext(), CheckTrades.class);
+                        Intent intent = new Intent(getApplicationContext(), CheckMyTrades.class);
                         startActivity(intent);
                         return false;
                     }
@@ -123,7 +123,7 @@ public class TradingLists extends AppCompatActivity  {
                 value = newsData.getItem_id();
 
                 Singleton.getInstance().setItemOwn_id(value);
-                Intent intent = new Intent(getApplicationContext(), CheckTrades.class);
+                Intent intent = new Intent(getApplicationContext(), CheckMyTrades.class);
                 startActivity(intent);
                 return false;
             }
@@ -138,6 +138,7 @@ public class TradingLists extends AppCompatActivity  {
                 myPosition = newsData;
                 stringDisable = newsData.getItem_id();
                 intDelete = position;
+                onResume();
             }
         });
     }
@@ -154,8 +155,7 @@ public class TradingLists extends AppCompatActivity  {
     }
 
 
-        public void populate(String ss){
-
+        public void populate(String ss){super.onResume();
         arrayUsers=new ArrayList<Adds>();
         ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
         addsAdapterMyItems =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
@@ -237,7 +237,7 @@ public class TradingLists extends AppCompatActivity  {
 
     }
     public void viewMyItems(View view){
-        System.out.println("Boule!!!!!!!!!!!!");
+
         populate(json_stringMyItems);
     }
     protected void removeItemFromList(int position) {
@@ -255,14 +255,11 @@ public class TradingLists extends AppCompatActivity  {
                 disableAddActive(stringDisable);
                 arrayUsers.remove(deletePosition);
                 addsAdapterMyItems.notifyDataSetChanged();
-                //startActivity(new Intent(TradingLists.this,TradingLists.class));
-                //viewMyItems(addsAdapterMyItems.getView(deletePosition, null, null));
-               // populate(json_stringMyItems);
                 addsAdapterMyItems.remove(intDelete);
                 addsAdapterMyItems.notifyDataSetChanged();
                 stringDisable =null;
                 intDelete=-1;
-                viewMyItems.setEnabled(false);
+               viewMyItems.setEnabled(false);
             }
         });
         alert.setNegativeButton("CANCEL", new OnClickListener() {

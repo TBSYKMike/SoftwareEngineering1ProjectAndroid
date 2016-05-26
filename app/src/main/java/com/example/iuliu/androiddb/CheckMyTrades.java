@@ -1,6 +1,7 @@
 package com.example.iuliu.androiddb;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -28,7 +28,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class CheckTrades extends AppCompatActivity {
+public class CheckMyTrades extends AppCompatActivity {
 
     protected String JSON_STRING3, json_string3;
     protected String JSON_STRING4, json_string4;
@@ -38,7 +38,7 @@ public class CheckTrades extends AppCompatActivity {
     private Button acceptButton;
     private Button declineButton;
     ArrayList<Adds> arrayUsers;
-
+    private int indexToDelete;
     AddsAdapter addsAdapter;
     ListView listView;
     String  json_string2;
@@ -56,6 +56,7 @@ public class CheckTrades extends AppCompatActivity {
         declineButton =(Button)findViewById(R.id.buttonDeclineOffer);
         declineButton.setEnabled(false);
         stringOwnIndex = Singleton.getInstance().getItemOwn_id();
+        indexToDelete=-1;
 
         getJSON3();
         getJSON4();
@@ -64,13 +65,19 @@ public class CheckTrades extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Adds newsData = (Adds) listView.getItemAtPosition(position);
+                indexToDelete=position;
                 stringIndex = newsData.getItem_id();
 
             }
         });
 
     }
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        getJSON3();
+        getJSON4();
+    }
     public void getJSON3() {
         BackgroundTask3 backgroundTask = new BackgroundTask3();
         backgroundTask.execute(stringOwnIndex);
@@ -91,14 +98,14 @@ public class CheckTrades extends AppCompatActivity {
 
             case R.id.radio2:
                 if (checked)
-
-                    this.populate(json_string3);
+                onResume();
+                this.populate(json_string3);
                 acceptButton.setEnabled(false);
                 declineButton.setEnabled(false);
                 break;
             case R.id.radio1:
                 if (checked)
-
+                    onResume();
                     this.populate(json_string4);
                 acceptButton.setEnabled(true);
                 declineButton.setEnabled(true);
@@ -117,30 +124,56 @@ public class CheckTrades extends AppCompatActivity {
 
 
     }
+    public void doInactiveItems(String stringSupply,String stringDemand) {
+
+
+
+        BackgroundTaskInactiveItems backgroundTaskAccept = new BackgroundTaskInactiveItems();
+        backgroundTaskAccept.execute(stringSupply, stringDemand);
+
+
+    }
     public void doDeclineBarted(String stringSupply, String stringDemand) {
 
         stringURL = "http://mybarter.net16.net/decline_barter.php";
 
         BackgroundTaskAcceptOrDecline backgroundTaskAccept = new BackgroundTaskAcceptOrDecline();
         backgroundTaskAccept.execute(stringSupply, stringDemand);
+        addsAdapter.remove(indexToDelete);
+        addsAdapter.notifyDataSetChanged();
 
     }
 
     public void acceptOffer(View view) {
         doAcceptBarted(stringIndex, stringOwnIndex);
-        Toast.makeText(CheckTrades.this, "You got a new barter" + stringIndex, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        doInactiveItems(stringIndex,stringOwnIndex);
+        Toast.makeText(CheckMyTrades.this, "You got a new barter" + stringIndex, Toast.LENGTH_LONG).show();
+        //Intent intent = new Intent(this, MainActivity.class);
+       // startActivity(intent);
+        this.sendEmail();
     }
 
 
         public void declineOffer(View view)
         {
 
-           doDeclineBarted(stringIndex,stringOwnIndex);
-            Toast.makeText(CheckTrades.this, "You decline this offert" + stringIndex+""+stringOwnIndex, Toast.LENGTH_LONG).show();
+            doDeclineBarted(stringIndex, stringOwnIndex);
+            Toast.makeText(CheckMyTrades.this, "You decline this offert" + stringIndex+""+stringOwnIndex, Toast.LENGTH_LONG).show();
         }
+    private void sendEmail(){
+        Intent intent=null,chooser=null;
+        intent=new Intent(Intent.ACTION_SEND);
+        intent.setData(Uri.parse("mailto:"));
+        String[]to ={"iuliunicolaebarcan@gmail.com","iuliunicolaebarcan@gmail.com"};
+        intent.putExtra(Intent.EXTRA_EMAIL,to);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Hello");
+        intent.putExtra(Intent.EXTRA_TEXT,"Dear Mr.");
+        intent.setType("message/rfc822");
+        chooser=Intent.createChooser(intent,"Email");
+        startActivity(chooser);
 
+
+    }
     public void populate(String ss) {
 
         arrayUsers = new ArrayList<Adds>();
@@ -385,5 +418,68 @@ public class CheckTrades extends AppCompatActivity {
         }
 
 
+    }
+    class BackgroundTaskInactiveItems extends AsyncTask<String,Void,String> {
+        String login_check_url;
+
+        @Override
+        protected void onPreExecute() {
+            login_check_url = "http://mybarter.net16.net/inactive_adds_accept.php";
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            String  stringDemand1,stringSupply1;
+            stringSupply1=args[0];
+            stringDemand1=args[1];
+
+
+            try {
+
+                URL url =new URL(login_check_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                try {
+
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    String data_string = URLEncoder.encode("suply", "UTF-8") + "=" + URLEncoder.encode(stringSupply1, "UTF-8") + "&" +
+                            URLEncoder.encode("demand", "UTF-8") + "=" + URLEncoder.encode(stringDemand1, "UTF-8");
+                    bufferedWriter.write(data_string);
+
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
+                    InputStream inputStream=httpURLConnection.getInputStream();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+                    return "Data delete";
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+        }
     }
 }

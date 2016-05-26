@@ -41,11 +41,14 @@ public class Activity_Check_If_User_Is_Logged_In extends AppCompatActivity {
 
 
 
-        if(sparadText1.contains("true")) { // if logged in
+       /* if(sparadText1.contains("true")) { // if logged in
             startActivity(new Intent(Activity_Check_If_User_Is_Logged_In.this, MainActivity.class));
         }else{
             startActivity(new Intent(Activity_Check_If_User_Is_Logged_In.this, Login.class));
-        }
+
+        }*/
+
+        startActivity(new Intent(Activity_Check_If_User_Is_Logged_In.this, MainActivity.class));
     }
 
 

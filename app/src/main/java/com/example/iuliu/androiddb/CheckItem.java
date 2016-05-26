@@ -32,6 +32,8 @@ public class CheckItem extends AppCompatActivity {
     AddsAdapter addsAdapter;
     ListView listView;
     ArrayList<Adds> arrayUsers;
+
+
     private String stringJSON;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class CheckItem extends AppCompatActivity {
         stringJSON=Singleton.getInstance().getMyListonJSON();
         arrayUsers=new ArrayList<Adds>();
         listView=(ListView)findViewById(R.id.listView2);
+
       //  ImageView pictureView=(ImageView)findViewById(R.id.picture_random);
         addsAdapter =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
         listView.setAdapter(addsAdapter);
