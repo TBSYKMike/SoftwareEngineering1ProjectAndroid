@@ -22,7 +22,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         B1 = (Button)findViewById(R.id.b1);
         B2 = (Button)findViewById(R.id.b2);
-        B3 = (Button)findViewById(R.id.b3);
         textView = (TextView)findViewById(R.id.textView);
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo =connectivityManager.getActiveNetworkInfo();
@@ -45,15 +44,6 @@ public class MainActivity extends Activity {
     {
         startActivity(new Intent(this, TradingLists.class));
     }
-
-    public void testLogin(View view){
-        startActivity(new Intent(MainActivity.this, Login.class));
-    }
-
-    public void testComment(View view){
-        startActivity(new Intent(MainActivity.this, commentsSection.class));
-    }
-
 
     public final String SPARAD_DATA = Activity_Check_If_User_Is_Logged_In.SPARAD_DATA;
     public void buttonPressLogout(View view){
