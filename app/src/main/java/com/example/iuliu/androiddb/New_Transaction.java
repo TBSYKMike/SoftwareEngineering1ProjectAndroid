@@ -176,4 +176,15 @@ public class New_Transaction extends AppCompatActivity  {
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
+
+    public void showComments(View view)
+    {
+
+        startActivity(new Intent(this, commentsSection.class));
+    }
+    public void showReport(View view)
+    {
+        startActivity(new Intent(this, reportUserSection.class));
+    }
+
 }
