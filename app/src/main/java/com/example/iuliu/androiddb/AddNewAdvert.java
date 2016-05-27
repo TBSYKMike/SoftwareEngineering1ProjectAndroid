@@ -51,11 +51,20 @@ public class AddNewAdvert extends AppCompatActivity {
 
     private  boolean checkAndRequestPermissions() {
 
-        int permissionSendMessage = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);;
+        int permissionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        int permissionWriteExternalStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionReadExternalStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
 
         List<String> listPermissionsNeeded = new ArrayList<>();
-        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+        if (permissionCamera != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (permissionWriteExternalStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionReadExternalStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         }
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),1);
@@ -130,20 +139,24 @@ public class AddNewAdvert extends AppCompatActivity {
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
+        System.out.println("Inne i dispatch efter intent ACTION IMAGE CAPUTRE");
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
+            System.out.println("If resolve");
             try {
                 photoFile = createImageFile();
+                System.out.println("Try för createImageFile");
             } catch (IOException ex) {
                 // Error occurred while creating the File
-
+                System.out.println("Error creating file");
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                System.out.println("om photo inte är null");
             }
         }
     }
