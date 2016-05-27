@@ -1,9 +1,12 @@
 package com.example.iuliu.androiddb;
 
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -13,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Activity_SMS1AuthenticationCheck_Main extends AppCompatActivity {
@@ -28,6 +33,37 @@ public class Activity_SMS1AuthenticationCheck_Main extends AppCompatActivity {
     private TextView validateNumberOK;
     private TextView validateRandomNumberOK;
     private TextView checkSMSOn;
+
+
+
+
+
+    private  boolean checkAndRequestPermissions() {
+
+        int permissionSendMessage = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
+        int permissionReciveMessage = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS);
+        int permissionReadMessage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
+        }
+        if (permissionReciveMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.RECEIVE_SMS);
+        }
+        if (permissionReadMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_SMS);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),1);
+            return false;
+        }
+        return true;
+    }
+
+
+
+
 
 
 
@@ -57,10 +93,15 @@ public class Activity_SMS1AuthenticationCheck_Main extends AppCompatActivity {
 
                 if (etMobilnummer.getText().toString().contains("qwerty")){
                     startActivity(new Intent(Activity_SMS1AuthenticationCheck_Main.this, Activity_SMS2AuthenticationComplete.class));
+                    finish();
                 }
                 else if (etMobilnummer.getText().length()>=10){
                     //startActivity(new Intent(Activity_SMS1AuthenticationCheck_Main.this, Activity_SMS2AuthenticationComplete.class));
-                    sendSMSMessage();
+
+                    if(checkAndRequestPermissions()) {
+                        // carry on the normal flow, as the case of  permissions  granted.
+                        sendSMSMessage();
+                    }
                     //Intent intent = new Intent(Activity_SMS1AuthenticationCheck_Main.this, Activity_SMS2AuthenticationComplete.class);
                     //startActivity(intent);
 

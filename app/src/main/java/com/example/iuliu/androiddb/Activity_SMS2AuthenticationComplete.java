@@ -50,7 +50,14 @@ public class Activity_SMS2AuthenticationComplete extends AppCompatActivity {
         saveLoadData();
 
         String userId = userID;
-        String phoneNumber = userPhoneNumber;
+        String phoneNumber  = null;
+        try {
+            phoneNumber = Kripto.encrypt(userPhoneNumber);
+        } catch (Exception e) {
+            e.printStackTrace();
+            phoneNumber = userPhoneNumber;
+        }
+
 
         register(userId, phoneNumber);
 
@@ -78,7 +85,9 @@ public class Activity_SMS2AuthenticationComplete extends AppCompatActivity {
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
 
-                //startActivity(new Intent(Activity_SMS2AuthenticationComplete.this, MainActivity.class));
+                startActivity(new Intent(Activity_SMS2AuthenticationComplete.this, MainActivity.class));
+finish();
+                createToast("You Are Now Logged In");
             }
 
             @Override

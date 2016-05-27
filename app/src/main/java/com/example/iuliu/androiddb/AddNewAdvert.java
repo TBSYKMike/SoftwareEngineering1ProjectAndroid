@@ -1,14 +1,19 @@
 package com.example.iuliu.androiddb;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,20 +24,19 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-//import org.apache.commons.codec.binary.Base64;
-
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+
+//import org.apache.commons.codec.binary.Base64;
 
 /**
  * Created by Mike on 2016-05-19.
@@ -45,6 +49,20 @@ public class AddNewAdvert extends AppCompatActivity {
     String imgSmall="";
     String Owner_ID;
 
+    private  boolean checkAndRequestPermissions() {
+
+        int permissionSendMessage = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);;
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),1);
+            return false;
+        }
+        return true;
+    }
 
 
 
@@ -100,7 +118,10 @@ public class AddNewAdvert extends AppCompatActivity {
     class btnTakePhotoClicker implements Button.OnClickListener{
         @Override
         public void onClick(View v){
-            dispatchTakePictureIntent();
+            if(checkAndRequestPermissions()) {
+                // carry on the normal flow, as the case of  permissions  granted.
+                dispatchTakePictureIntent();
+            }
         }
     }
 
@@ -177,7 +198,12 @@ public class AddNewAdvert extends AppCompatActivity {
                     bitmap.getWidth()
             );
         }
-        bitmap = bitmap.createScaledBitmap(bitmap,400,400,false);
+        bitmap = bitmap.createScaledBitmap(bitmap,1000,1000,false);
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        bitmap = Bitmap.createBitmap(bitmap , 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
 
         mImageView.setImageBitmap(bitmap);
         createToast( Integer.toString(encodeImage(bitmap).getBytes().length) );

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class resportUserSection extends AppCompatActivity {
+public class reportUserSection extends AppCompatActivity {
 
     JSONObject jsonObject;
     JSONArray jsonArray;
@@ -32,7 +32,7 @@ public class resportUserSection extends AppCompatActivity {
 
     private EditText comment;
     private static final String REGISTER_URL = "http://mybarter.net16.net/comment.php";
-    private static final String REGISTER_URL_POST ="http://mybarter.net16.net/commentPoster.php";
+    private static final String REGISTER_URL_POST ="http://mybarter.net16.net/reportPoster.php";
     private static final String json_string = "response";
     private static Context contextClass;
     private static int layout;
@@ -57,7 +57,7 @@ public class resportUserSection extends AppCompatActivity {
         Comments = new ArrayList<String>();
         userComments = (ListView) findViewById(R.id.comments);
 
-        contextClass = resportUserSection.this;
+        contextClass = reportUserSection.this;
         layout = R.layout.comment_layout;
 
     }
@@ -65,7 +65,7 @@ public class resportUserSection extends AppCompatActivity {
 
         comment = (EditText) findViewById(R.id.editTextResportMessage);
         connectionPostComment(comment.getText().toString(), ItemId, Singleton.getInstance().getItemOwn_id());
-
+finish();
 
     }
 
@@ -79,7 +79,7 @@ public class resportUserSection extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(resportUserSection.this, "Please Wait",null, true, true);
+                loading = ProgressDialog.show(reportUserSection.this, "Please Wait",null, true, true);
 
             }
 

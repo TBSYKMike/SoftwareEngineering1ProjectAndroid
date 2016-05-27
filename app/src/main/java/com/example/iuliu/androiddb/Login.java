@@ -1,5 +1,6 @@
 package com.example.iuliu.androiddb;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -83,15 +84,18 @@ public class Login extends AppCompatActivity {
     }
 
         class BackgroundTask extends AsyncTask<String,Void,String>{
+            ProgressDialog loading;
 
             @Override
             protected void onPreExecute(){
                 super.onPreExecute();
+                loading = ProgressDialog.show(Login.this, "Please Wait",null, true, true);
             }
 
             @Override
             protected void onPostExecute(String check){
                 super.onPostExecute(check);
+                loading.dismiss();
                 count = 0;
 
                 if(check.contains("User details don't match an existing account!")){

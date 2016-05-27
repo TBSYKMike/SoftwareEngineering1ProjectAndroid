@@ -171,13 +171,5 @@ public class CheckItem extends AppCompatActivity {
     }
 
 
-    public void showComments(View view)
-    {
 
-        startActivity(new Intent(this, commentsSection.class));
-    }
-    public void showReport(View view)
-    {
-        startActivity(new Intent(this, commentsSection.class));
-    }
 }
