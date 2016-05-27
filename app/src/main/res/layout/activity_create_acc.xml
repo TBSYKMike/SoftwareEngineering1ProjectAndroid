@@ -38,7 +38,7 @@
         android:textSize="35dp"
         android:hint="Password"
         android:layout_below="@+id/editTextAccName"
-        android:layout_alignEnd="@+id/buttonCreate" />
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -72,9 +72,10 @@
         android:id="@+id/buttonCreate"
         android:layout_weight="0.02"
         android:onClick="createButton"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="45dp"
         android:layout_alignTop="@+id/buttonCancel"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -83,9 +84,10 @@
         android:id="@+id/buttonCancel"
         android:layout_weight="0.02"
         android:layout_gravity="right"
+        android:onClick="cancelButton"
+        android:layout_marginLeft="15dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:onClick="cancelButton" />
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="fill_parent"
@@ -123,7 +125,8 @@
         android:id="@+id/buttonReadTerms"
         android:layout_marginLeft="10dp"
         android:layout_below="@+id/checkBoxTermsOfUse"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="readTermsButton" />
 
 
 </RelativeLayout>

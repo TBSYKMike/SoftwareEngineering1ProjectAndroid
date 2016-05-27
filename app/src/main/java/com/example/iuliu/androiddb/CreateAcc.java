@@ -217,4 +217,8 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     public void cancelButton(View view){
         startActivity(new Intent(CreateAcc.this, Login.class));
     }
+
+    public void readTermsButton(View view){
+        startActivity(new Intent(CreateAcc.this, TermsOfService.class));
+    }
 }
