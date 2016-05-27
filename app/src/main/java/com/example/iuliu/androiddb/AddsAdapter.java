@@ -89,9 +89,10 @@ public class AddsAdapter extends ArrayAdapter {
             userHolder.txt_item_date.setText(adds.getItem_date());
             userHolder.txt_accountName.setText(adds.getUser_name());
 
-            String imgUrl = adds.getItem_picture_small();
+            String imgLittleUrl = adds.getItem_picture_small();
 
-            Glide.with(this.getContext()).load(imgUrl)
+            Singleton.getInstance().setStringLittlePictureUrl(imgLittleUrl);
+            Glide.with(this.getContext()).load(imgLittleUrl)
                     .thumbnail(0.5f)
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

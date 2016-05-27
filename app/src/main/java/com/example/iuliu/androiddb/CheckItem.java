@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CheckItem extends AppCompatActivity {
-   // GetJSON viewItems=new GetJSON();
+
     JSONObject jsonObject;
     JSONArray jsonArray;
     AddsAdapter addsAdapter;

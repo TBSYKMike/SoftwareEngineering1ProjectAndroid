@@ -62,43 +62,6 @@ public class TradingLists extends AppCompatActivity  {
         myList=new ArrayList<String>();
         viewMyItems.setEnabled(true);
         addsAdapterMyItems =new AddsAdapter(this,R.layout.row_layout,arrayUsers);
-     /*   getJSONMyItem();
-        getJSON();
-
-        //json_stringMyItems=getIntent().getExtras().getString("json_data2");
-        listViewMyItems =(ListView)findViewById(R.id.listView3);
-        disableButton=(ImageButton)findViewById(R.id.btn_disable);
-        viewMyItems=(ImageButton)findViewById(R.id.btn_my_items);
-        stringDisable =null;
-        intDelete=-1;
-        this.populate(json_stringMyItems);
-
-                listViewMyItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                                   int pos, long id) {
-
-                        Adds newsData = (Adds) listViewMyItems.getItemAtPosition(pos);
-                        Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_id(), Toast.LENGTH_LONG).show();
-                        value = newsData.getItem_id();
-
-                        Singleton.getInstance().setItemOwn_id(value);
-                        Intent intent = new Intent(getApplicationContext(), CheckMyTrades.class);
-                        startActivity(intent);
-                        return false;
-                    }
-                });
-
-        listViewMyItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Adds newsData = (Adds) listViewMyItems.getItemAtPosition(position);
-                myPosition = newsData;
-                stringDisable = newsData.getItem_id();
-                intDelete = position;
-            }
-        });*/
         }
 
 
@@ -109,9 +72,6 @@ public class TradingLists extends AppCompatActivity  {
         getJSON();
         myList=new ArrayList<>();
         listViewMyItems.setAdapter(addsAdapterMyItems);
-        //json_stringMyItems=getIntent().getExtras().getString("json_data2");
-
-      //  this.populate(json_stringMyItems);
 
         listViewMyItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
