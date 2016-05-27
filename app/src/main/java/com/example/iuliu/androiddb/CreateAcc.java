@@ -8,9 +8,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -56,6 +56,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     EditText inputConPassword;
     EditText inputEmail;
     Spinner spinner;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -67,6 +68,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         inputConPassword = (EditText) findViewById(R.id.editTextConPass);
         inputEmail = (EditText) findViewById(R.id.editTextEmail);
         spinner = (Spinner) findViewById(R.id.spinnerCity);
+        checkBox = (CheckBox) findViewById(R.id.checkBoxTermsOfUse);
 
         spinner.setOnItemSelectedListener(this);
 
@@ -82,7 +84,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     public void createButton(View view) throws Exception {
-        Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
+        Pattern ps = Pattern.compile("^[a-zA-Z0-9 ]+$");
         Matcher ms = ps.matcher(inputAccName.getText().toString());
         boolean verifyName = ms.matches();
         accName = inputAccName.getText().toString();
@@ -97,17 +99,20 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
         if(TextUtils.isEmpty(accName) || TextUtils.isEmpty(password) || TextUtils.isEmpty(conPassword) || TextUtils.isEmpty(email) || city == null) {
             Toast.makeText(CreateAcc.this, "Please fill in all fields!", Toast.LENGTH_LONG).show();
         }else{
-            if(password.matches(conPassword)) {
-                encryptedAccPass = Kripto.encrypt(accPass);
-                BackgroundTask backgroundTask = new BackgroundTask();
-                backgroundTask.execute(accName, encryptedAccPass, email, stringCityId);
+            if(checkBox.isChecked()) {
+                if (password.matches(conPassword)) {
+                    encryptedAccPass = Kripto.encrypt(accPass);
+                    BackgroundTask backgroundTask = new BackgroundTask();
+                    backgroundTask.execute(accName, encryptedAccPass, email, stringCityId);
+                } else {
+                    showError();
+                }
             }else{
-                showError();
+                Toast.makeText(CreateAcc.this, "Please check the Terms of Use!", Toast.LENGTH_LONG).show();
             }
-
             }
-        } else{
-            Toast.makeText(CreateAcc.this, "You can only make a username with alphabetic letters", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(CreateAcc.this, "Accountname can only contain alphabetic letters and numbers!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -211,5 +216,9 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
 
     public void cancelButton(View view){
         startActivity(new Intent(CreateAcc.this, Login.class));
+    }
+
+    public void readTermsButton(View view){
+        startActivity(new Intent(CreateAcc.this, TermsOfService.class));
     }
 }

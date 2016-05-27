@@ -46,6 +46,7 @@
         <activity android:name=".CreateAcc" />
         <activity android:name=".TradingLists" />
         <activity android:name=".AddNewAdvert" />
+        <activity android:name=".TermsOfService" />
         <activity android:name=".New_Transaction"></activity>
         <activity android:name=".commentsSection" />
         <activity android:name=".reportUserSection" />
