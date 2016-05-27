@@ -38,9 +38,9 @@
         android:layout_height="wrap_content"
         android:text="Offer"
         android:id="@+id/button2"
-        android:layout_alignTop="@+id/buttonCreateNewAdvert"
-        android:layout_centerHorizontal="true"
-        android:onClick="createOffer"/>
+        android:onClick="createOffer"
+        android:layout_below="@+id/imageView"
+        android:layout_toEndOf="@+id/buttonCreateNewAdvert" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -48,4 +48,13 @@
         android:id="@+id/listView2"
         android:layout_below="@+id/buttonCreateNewAdvert"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comments"
+        android:id="@+id/buttonComments"
+        android:onClick="showComments"
+        android:layout_below="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
 </RelativeLayout>
