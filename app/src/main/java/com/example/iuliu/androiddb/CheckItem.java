@@ -53,7 +53,7 @@ public class CheckItem extends AppCompatActivity {
             jsonObject=new JSONObject(stringJSON);
             jsonArray=jsonObject.getJSONArray("server_response");
             int count=0;
-            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
+            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName,email;
             while (count<jsonArray.length())
             {
                 JSONObject JO=jsonArray.getJSONObject(count);
@@ -69,7 +69,8 @@ public class CheckItem extends AppCompatActivity {
                 item_winner_userID=JO.getString("item_winner_userID");
                 item_user_userID=JO.getString("item_user_userID");
                 accountName=JO.getString("userName");
-                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
+                email=JO.getString("email");
+                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName,email);
                 addsAdapter.add(user);
                 count++;
             }

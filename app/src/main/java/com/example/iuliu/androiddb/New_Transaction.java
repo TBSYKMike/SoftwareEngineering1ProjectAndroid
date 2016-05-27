@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -38,6 +40,7 @@ public class New_Transaction extends AppCompatActivity  {
     private TextView viewName;
     private String temp1,temp2;
     private String imgBigUrl;
+
     ImageView pictureView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +52,8 @@ public class New_Transaction extends AppCompatActivity  {
         listView = (ListView) findViewById(R.id.listView5);
         viewName=(TextView) findViewById(R.id.textView2);
         viewName.setText(Singleton.getInstance().getNameItem());
-   //     imgBigUrl=Singleton.getInstance().getStringBigPictureUrl();
-   //     pictureView=(ImageView)findViewById(R.id.imageViewBigPicture);
+        imgBigUrl=Singleton.getInstance().getStringBigPictureUrl();
+        pictureView=(ImageView)findViewById(R.id.imageViewBigPicture);
         addsNewAdapter = new AddsAdapterOnlyPicture(this, R.layout.row_layout_small_picture, arrayUsers);
         listView.setAdapter(addsNewAdapter);
 
@@ -79,6 +82,7 @@ public class New_Transaction extends AppCompatActivity  {
                         Adds newsData = (Adds) listView.getItemAtPosition(pos);
                         temp1=Singleton.getInstance().getItemId();
                         temp2=newsData.getItem_id();
+
                                // object.createOffer(temp1,temp2);
                                createOffer(temp2, temp1);
                                Toast.makeText(New_Transaction.this, "A new barter was created :" + " " + temp2+""+temp1, Toast.LENGTH_LONG).show();
@@ -89,7 +93,7 @@ public class New_Transaction extends AppCompatActivity  {
                     }
                 });
             }
-    //        Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
+           Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
         } catch (Exception e) {
             e.printStackTrace();
         }

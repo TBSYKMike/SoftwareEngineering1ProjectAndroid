@@ -15,6 +15,8 @@ public class Singleton {
     private String stringBigPictureUrl;
     private String itemId;
     private String nameItem;
+    private String myEmail;
+    private String secondEmail;
     public Singleton(){
     }
     public static Singleton getInstance(){
@@ -75,6 +77,22 @@ public class Singleton {
 
     public void setStringBigPictureUrl(String stringBigPictureUrl) {
         this.stringBigPictureUrl = stringBigPictureUrl;
+    }
+
+    public String getMyEmail() {
+        return myEmail;
+    }
+
+    public void setMyEmail(String myEmail) {
+        this.myEmail = myEmail;
+    }
+
+    public String getSecondEmail() {
+        return secondEmail;
+    }
+
+    public void seSecondEmail(String secondEmail) {
+        this.secondEmail = secondEmail;
     }
 }
 

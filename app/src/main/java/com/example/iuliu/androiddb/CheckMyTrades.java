@@ -41,9 +41,13 @@ public class CheckMyTrades extends AppCompatActivity {
     private int indexToDelete;
     AddsAdapter addsAdapter;
     ListView listView;
-    String  json_string2;
+    String  json_string;
     JSONObject jsonObject;
     JSONArray jsonArray;
+    private String myEmail;
+    private String secondEmail;
+    private String userContact, urlItem,itemName;
+    private String test="TEST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,9 @@ public class CheckMyTrades extends AppCompatActivity {
         acceptButton.setEnabled(false);
         declineButton =(Button)findViewById(R.id.buttonDeclineOffer);
         declineButton.setEnabled(false);
-        stringOwnIndex = Singleton.getInstance().getItemOwn_id();
+        stringOwnIndex = Singleton.getInstance().getItemId();
         indexToDelete=-1;
+        stringIndex=test;
 
         getJSON3();
         getJSON4();
@@ -65,8 +70,12 @@ public class CheckMyTrades extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Adds newsData = (Adds) listView.getItemAtPosition(position);
-                indexToDelete=position;
+                indexToDelete = position;
+                secondEmail = newsData.getEmail();
                 stringIndex = newsData.getItem_id();
+                urlItem=newsData.getItem_picture_large();
+                itemName=newsData.getItem_name();
+                userContact=newsData.getUser_name();
 
             }
         });
@@ -145,32 +154,45 @@ public class CheckMyTrades extends AppCompatActivity {
     }
 
     public void acceptOffer(View view) {
-        doAcceptBarted(stringIndex, stringOwnIndex);
-        doInactiveItems(stringIndex,stringOwnIndex);
-        Toast.makeText(CheckMyTrades.this, "You got a new barter" + stringIndex, Toast.LENGTH_LONG).show();
+        if (stringIndex.equals(test)){
+            Toast.makeText(CheckMyTrades.this, "You must select one item", Toast.LENGTH_LONG).show();
+        }
+        else {
+          //  doAcceptBarted(stringIndex, stringOwnIndex);
+          //  doInactiveItems(stringIndex, stringOwnIndex);
+            Toast.makeText(CheckMyTrades.this, "You got a new barter" + stringIndex, Toast.LENGTH_LONG).show();
+            myEmail = Singleton.getInstance().getMyEmail();
 
-        this.sendEmail();
-        addsAdapter.reset();
-        super.onResume();
-       // Intent intent = new Intent(this, MainActivity.class);
-       // startActivity(intent);
+            this.sendEmail();
+         //   addsAdapter.reset();
+            stringIndex=test;
+            super.onResume();
+
+            // Intent intent = new Intent(this, MainActivity.class);
+            // startActivity(intent);
+        }
     }
 
 
         public void declineOffer(View view)
         {
-
-            doDeclineBarted(stringIndex, stringOwnIndex);
-            Toast.makeText(CheckMyTrades.this, "You decline this offert" + stringIndex+""+stringOwnIndex, Toast.LENGTH_LONG).show();
+if(stringIndex.equals(test)){
+    Toast.makeText(CheckMyTrades.this, "You must select first one item" , Toast.LENGTH_LONG).show();
+}
+            else {
+    doDeclineBarted(stringIndex, stringOwnIndex);
+    Toast.makeText(CheckMyTrades.this, "You decline this offert" + stringIndex + "" + stringOwnIndex, Toast.LENGTH_LONG).show();
+    stringIndex=test;
+}
         }
     private void sendEmail(){
         Intent intent=null,chooser=null;
         intent=new Intent(Intent.ACTION_SEND);
         intent.setData(Uri.parse("mailto:"));
-        String[]to ={"iuliunicolaebarcan@gmail.com","iuliunicolaebarcan@gmail.com"};
+        String[]to ={myEmail,secondEmail};
         intent.putExtra(Intent.EXTRA_EMAIL,to);
         intent.putExtra(Intent.EXTRA_SUBJECT, "Hello");
-        intent.putExtra(Intent.EXTRA_TEXT,"Dear Mr.");
+        intent.putExtra(Intent.EXTRA_TEXT,"Dear  "+userContact+"  you got   "+itemName+"  url  "+urlItem);
         intent.setType("message/rfc822");
         chooser=Intent.createChooser(intent,"Email");
         startActivity(chooser);
@@ -186,13 +208,13 @@ public class CheckMyTrades extends AppCompatActivity {
 
 
         listView.setAdapter(addsAdapter);
-        json_string2 = ss;
+      //  json_string2 = ss;
         try {
 
-            jsonObject = new JSONObject(json_string2);
+            jsonObject = new JSONObject(ss);
             jsonArray = jsonObject.getJSONArray("server_response");
             int count = 0;
-            String item_id, item_name, item_info, item_picture_small, item_picture_large, item_condition, item_date, item_status, item_visit_count, item_winner_userID, item_user_userID, accountName;
+            String item_id, item_name, item_info, item_picture_small, item_picture_large, item_condition, item_date, item_status, item_visit_count, item_winner_userID, item_user_userID, accountName,email;
             while (count < jsonArray.length()) {
                 JSONObject JO = jsonArray.getJSONObject(count);
                 item_id = JO.getString("item_id");
@@ -207,7 +229,8 @@ public class CheckMyTrades extends AppCompatActivity {
                 item_winner_userID = JO.getString("item_winner_userID");
                 item_user_userID = JO.getString("item_user_userID");
                 accountName = JO.getString("userName");
-                Adds user = new Adds(item_id, item_name, item_info, item_picture_small, item_picture_large, item_condition, item_date, item_status, item_visit_count, item_winner_userID, item_user_userID, accountName);
+                email=JO.getString("email");
+                Adds user = new Adds(item_id, item_name, item_info, item_picture_small, item_picture_large, item_condition, item_date, item_status, item_visit_count, item_winner_userID, item_user_userID, accountName,email);
                 addsAdapter.add(user);
                 count++;
             }
@@ -226,7 +249,7 @@ public class CheckMyTrades extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            login_check_url = "http://mybarter.net16.net/json_data_item__select_to_OthersBid.php";
+            login_check_url = "http://mybarter.net16.net/json_data_selection.php";
             super.onPreExecute();
         }
 
