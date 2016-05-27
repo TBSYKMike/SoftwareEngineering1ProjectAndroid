@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Process;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,6 +48,10 @@ public class MainActivity extends Activity {
 
     public void testLogin(View view){
         startActivity(new Intent(MainActivity.this, Login.class));
+    }
+
+    public void testComment(View view){
+        startActivity(new Intent(MainActivity.this, commentsSection.class));
     }
 
 

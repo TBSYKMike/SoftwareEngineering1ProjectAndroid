@@ -1,29 +1,17 @@
 package com.example.iuliu.androiddb;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.ImageViewTarget;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,7 +26,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class New_Transaction extends AppCompatActivity  {
     Button createOffer;
@@ -62,8 +49,8 @@ public class New_Transaction extends AppCompatActivity  {
         listView = (ListView) findViewById(R.id.listView5);
         viewName=(TextView) findViewById(R.id.textView2);
         viewName.setText(Singleton.getInstance().getNameItem());
-        imgBigUrl=Singleton.getInstance().getStringBigPictureUrl();
-        pictureView=(ImageView)findViewById(R.id.imageViewBigPicture);
+   //     imgBigUrl=Singleton.getInstance().getStringBigPictureUrl();
+   //     pictureView=(ImageView)findViewById(R.id.imageViewBigPicture);
         addsNewAdapter = new AddsAdapterOnlyPicture(this, R.layout.row_layout_small_picture, arrayUsers);
         listView.setAdapter(addsNewAdapter);
 
@@ -102,7 +89,7 @@ public class New_Transaction extends AppCompatActivity  {
                     }
                 });
             }
-            Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
+    //        Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
         } catch (Exception e) {
             e.printStackTrace();
         }

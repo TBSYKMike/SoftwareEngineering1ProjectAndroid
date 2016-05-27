@@ -139,6 +139,9 @@ public class commentsSection extends AppCompatActivity {
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
 
+
+                connectionReadComments("52");
+
             }
 
             @Override
