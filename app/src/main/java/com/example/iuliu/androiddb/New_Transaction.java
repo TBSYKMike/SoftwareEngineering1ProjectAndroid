@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -49,8 +51,8 @@ public class New_Transaction extends AppCompatActivity  {
         listView = (ListView) findViewById(R.id.listView5);
         viewName=(TextView) findViewById(R.id.textView2);
         viewName.setText(Singleton.getInstance().getNameItem());
-   //     imgBigUrl=Singleton.getInstance().getStringBigPictureUrl();
-   //     pictureView=(ImageView)findViewById(R.id.imageViewBigPicture);
+        imgBigUrl=Singleton.getInstance().getStringBigPictureUrl();
+        pictureView=(ImageView)findViewById(R.id.imageViewBigPicture);
         addsNewAdapter = new AddsAdapterOnlyPicture(this, R.layout.row_layout_small_picture, arrayUsers);
         listView.setAdapter(addsNewAdapter);
 
@@ -89,7 +91,7 @@ public class New_Transaction extends AppCompatActivity  {
                     }
                 });
             }
-    //        Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
+            Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,6 +187,18 @@ public class New_Transaction extends AppCompatActivity  {
     public void showReport(View view)
     {
         startActivity(new Intent(this, reportUserSection.class));
+    }
+
+
+
+    public void showLargePic(View view)
+    {
+        System.out.println(imgBigUrl);
+        Intent i = new Intent(this, ShowLargePicture.class);
+        i.putExtra("largepic", imgBigUrl);
+        startActivity(i);
+
+
     }
 
 }

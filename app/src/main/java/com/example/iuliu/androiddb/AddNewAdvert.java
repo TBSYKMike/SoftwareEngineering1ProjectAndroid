@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,20 +20,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-//import org.apache.commons.codec.binary.Base64;
-
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+//import org.apache.commons.codec.binary.Base64;
 
 /**
  * Created by Mike on 2016-05-19.
@@ -177,7 +176,12 @@ public class AddNewAdvert extends AppCompatActivity {
                     bitmap.getWidth()
             );
         }
-        bitmap = bitmap.createScaledBitmap(bitmap,400,400,false);
+        bitmap = bitmap.createScaledBitmap(bitmap,1000,1000,false);
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        bitmap = Bitmap.createBitmap(bitmap , 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
 
         mImageView.setImageBitmap(bitmap);
         createToast( Integer.toString(encodeImage(bitmap).getBytes().length) );

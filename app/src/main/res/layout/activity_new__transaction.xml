@@ -76,7 +76,8 @@
         android:tag="Big picture"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/button6"
-        android:layout_alignTop="@+id/listView5" />
+        android:layout_alignTop="@+id/listView5"
+        android:onClick="showLargePic" />
 
     <ListView
         android:layout_width="fill_parent"
