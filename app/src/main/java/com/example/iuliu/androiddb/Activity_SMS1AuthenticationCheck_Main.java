@@ -57,6 +57,7 @@ public class Activity_SMS1AuthenticationCheck_Main extends AppCompatActivity {
 
                 if (etMobilnummer.getText().toString().contains("qwerty")){
                     startActivity(new Intent(Activity_SMS1AuthenticationCheck_Main.this, Activity_SMS2AuthenticationComplete.class));
+                    finish();
                 }
                 else if (etMobilnummer.getText().length()>=10){
                     //startActivity(new Intent(Activity_SMS1AuthenticationCheck_Main.this, Activity_SMS2AuthenticationComplete.class));

@@ -3,7 +3,6 @@ package com.example.iuliu.androiddb;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -50,8 +49,7 @@ public class commentsSection extends AppCompatActivity {
         Comments = new ArrayList<>();
         date = new ArrayList<>();
 
-        SharedPreferences preferences = getSharedPreferences(SPARAD_DATA, MODE_PRIVATE);
-        ItemId = preferences.getString("itemId", "52");
+        ItemId = Singleton.getInstance().getItemId();
 
 
         connectionReadComments(ItemId);
@@ -95,6 +93,10 @@ public class commentsSection extends AppCompatActivity {
                     jsonObject = new JSONObject(s);
                     jsonArray = jsonObject.getJSONArray(json_string);
 
+                   Poster = new ArrayList<>();
+                   Comments = new ArrayList<>();
+                   date = new ArrayList<>();
+
                     for(int i = 0; i< jsonArray.length(); i++){
                         Poster.add(jsonArray.getJSONObject(i).getString("accountName"));
                         Comments.add(jsonArray.getJSONObject(i).getString("message_text"));
@@ -103,7 +105,7 @@ public class commentsSection extends AppCompatActivity {
                     }
 
                     commentAdapter adapter = new commentAdapter(contextClass,R.layout.comment_layout, Comments, Poster, date);
-
+                    userComments.setAdapter(null);
                     userComments.setAdapter(adapter);
 
                 }catch(JSONException ex){
