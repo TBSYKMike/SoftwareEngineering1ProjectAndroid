@@ -43,7 +43,7 @@ public class New_Transaction extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new__transaction);
-        createOffer=(Button)findViewById(R.id.button7);
+       // createOffer=(Button)findViewById(R.id.button7);
         stringJSON = Singleton.getInstance().getMyListonJSON();
         arrayUsers = new ArrayList<Adds>();
         listView = (ListView) findViewById(R.id.listView5);
@@ -96,7 +96,7 @@ public class New_Transaction extends AppCompatActivity  {
 
 
     }
-    
+
     public void goBack(View view) {
         startActivity(new Intent(this, MainActivity.class));
     }

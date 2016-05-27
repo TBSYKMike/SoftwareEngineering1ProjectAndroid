@@ -11,7 +11,8 @@ public class Singleton {
 
     private String myListonJSON;
     private String itemOwn_id;
-   // private String mySecondListJSON;
+    private String stringLittlePictureUrl;
+    private String stringBigPictureUrl;
     private String itemId;
     private String nameItem;
     public Singleton(){
@@ -60,6 +61,20 @@ public class Singleton {
     }
 
 
+    public String getStringLittlePictureUrl() {
+        return stringLittlePictureUrl;
+    }
 
+    public void setStringLittlePictureUrl(String stringLittlePictureUrl) {
+        this.stringLittlePictureUrl = stringLittlePictureUrl;
+    }
+
+    public String getStringBigPictureUrl() {
+        return stringBigPictureUrl;
+    }
+
+    public void setStringBigPictureUrl(String stringBigPictureUrl) {
+        this.stringBigPictureUrl = stringBigPictureUrl;
+    }
 }
 

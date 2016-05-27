@@ -69,6 +69,7 @@ public class DisplayList extends AppCompatActivity {
                     Toast.makeText(DisplayList.this, "Selected :" + " " + newsData.getItem_name(), Toast.LENGTH_LONG).show();
                     Singleton.getInstance().setItemId(newsData.getItem_id());
                     Singleton.getInstance().setNameItem(newsData.getItem_name());
+                    Singleton.getInstance().setStringBigPictureUrl(newsData.getItem_picture_large());
                     Intent intent=new Intent (getApplicationContext(),New_Transaction.class);
 
                     startActivity(intent);

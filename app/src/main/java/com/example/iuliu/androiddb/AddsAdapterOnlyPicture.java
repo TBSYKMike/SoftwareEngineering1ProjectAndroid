@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,9 +69,13 @@ public class AddsAdapterOnlyPicture extends ArrayAdapter {
         try {
             Adds adds =(Adds)this.getItem(position);
             userHolder.txt_item_name.setText(adds.getItem_name());
-            DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(userHolder.img_view.getWidth());
-            downloadTask.execute(adds.getItem_picture_small());
-          //  userHolder.
+            String imgUrl=adds.getItem_picture_small();
+            Glide.with(this.getContext()).load(imgUrl)
+                    .thumbnail(0.5f)
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(userHolder.img_view);
+
 
         } catch (Exception e) {
             e.printStackTrace();
