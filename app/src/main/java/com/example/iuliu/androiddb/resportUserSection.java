@@ -14,14 +14,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class commentsSection extends AppCompatActivity {
+public class resportUserSection extends AppCompatActivity {
 
     JSONObject jsonObject;
     JSONArray jsonArray;
@@ -45,7 +44,7 @@ public class commentsSection extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.comment);
+        setContentView(R.layout.reportuser);
         Poster = new ArrayList<>();
         Comments = new ArrayList<>();
         date = new ArrayList<>();
@@ -54,79 +53,23 @@ public class commentsSection extends AppCompatActivity {
         ItemId = preferences.getString("itemId", "52");
 
 
-        connectionReadComments(ItemId);
 
         Comments = new ArrayList<String>();
         userComments = (ListView) findViewById(R.id.comments);
 
-        contextClass = commentsSection.this;
+        contextClass = resportUserSection.this;
         layout = R.layout.comment_layout;
 
     }
-    public void addComment(View view) {
+    public void addReport(View view) {
 
-        comment = (EditText) findViewById(R.id.commentBox);
+        comment = (EditText) findViewById(R.id.editTextResportMessage);
         connectionPostComment(comment.getText().toString(), ItemId, Singleton.getInstance().getItemOwn_id());
 
 
     }
 
 
-
-    private void connectionReadComments(String itemId) {
-        class RegisterUser extends AsyncTask<String, Void, String> {
-            ProgressDialog loading;
-            Activity_SMS2_DBConnectionClass ruc = new Activity_SMS2_DBConnectionClass();
-
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(commentsSection.this, "Please Wait",null, true, true);
-
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
-               try{
-                    jsonObject = new JSONObject(s);
-                    jsonArray = jsonObject.getJSONArray(json_string);
-
-                    for(int i = 0; i< jsonArray.length(); i++){
-                        Poster.add(jsonArray.getJSONObject(i).getString("accountName"));
-                        Comments.add(jsonArray.getJSONObject(i).getString("message_text"));
-                        date.add(jsonArray.getJSONObject(i).getString("message_datetime"));
-
-                    }
-
-                    commentAdapter adapter = new commentAdapter(contextClass,R.layout.comment_layout, Comments, Poster, date);
-
-                    userComments.setAdapter(adapter);
-
-                }catch(JSONException ex){
-
-
-                }
-            }
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                HashMap<String, String> data = new HashMap<String,String>();
-                data.put("itemId",params[0]);
-
-                String result = ruc.sendPostRequest(REGISTER_URL,data);
-
-                return  result;
-            }
-        }
-
-        RegisterUser ru = new RegisterUser();
-        ru.execute(itemId);
-    }
     private void connectionPostComment(String comments, String itemId, String posterId) {
         class RegisterUser extends AsyncTask<String, Void, String> {
             ProgressDialog loading;
@@ -136,7 +79,7 @@ public class commentsSection extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(commentsSection.this, "Please Wait",null, true, true);
+                loading = ProgressDialog.show(resportUserSection.this, "Please Wait",null, true, true);
 
             }
 
@@ -146,8 +89,6 @@ public class commentsSection extends AppCompatActivity {
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
 
-
-                connectionReadComments(ItemId);
 
             }
 

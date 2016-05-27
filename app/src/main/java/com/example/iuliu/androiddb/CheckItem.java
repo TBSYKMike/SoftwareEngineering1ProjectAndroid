@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -168,5 +167,16 @@ public class CheckItem extends AppCompatActivity {
         protected void onPostExecute(String result) {
         Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
     }
+    }
+
+
+    public void showComments(View view)
+    {
+
+        startActivity(new Intent(this, commentsSection.class));
+    }
+    public void showReport(View view)
+    {
+        startActivity(new Intent(this, commentsSection.class));
     }
 }
