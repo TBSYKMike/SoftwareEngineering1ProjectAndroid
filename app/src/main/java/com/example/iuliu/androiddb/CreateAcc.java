@@ -1,5 +1,6 @@
 package com.example.iuliu.androiddb;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -83,6 +84,11 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     public void createButton(View view) throws Exception {
         Pattern ps = Pattern.compile("^[a-zA-Z0-9 ]+$");
         Matcher ms = ps.matcher(inputAccName.getText().toString());
@@ -140,19 +146,23 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     class BackgroundTask extends AsyncTask<String,Void,String> {
+        ProgressDialog loading;
 
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
+            loading = ProgressDialog.show(CreateAcc.this, "Please Wait",null, true, true);
         }
 
         @Override
         protected void onPostExecute(String check){
             super.onPostExecute(check);
+            loading.dismiss();
 
             if(check.contains("Success!")){
                 Toast.makeText(CreateAcc.this, "Success!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(CreateAcc.this, Login.class));
+                finish();
             }else{
                 Toast.makeText(CreateAcc.this, "Account name or email already exist!", Toast.LENGTH_LONG).show();
             }
@@ -216,6 +226,7 @@ public class CreateAcc extends AppCompatActivity implements AdapterView.OnItemSe
 
     public void cancelButton(View view){
         startActivity(new Intent(CreateAcc.this, Login.class));
+        finish();
     }
 
     public void readTermsButton(View view){
