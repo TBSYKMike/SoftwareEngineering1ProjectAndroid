@@ -40,6 +40,7 @@ public class New_Transaction extends AppCompatActivity  {
     private TextView viewName;
     private String temp1,temp2;
     private String imgBigUrl;
+
     ImageView pictureView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class New_Transaction extends AppCompatActivity  {
                         Adds newsData = (Adds) listView.getItemAtPosition(pos);
                         temp1=Singleton.getInstance().getItemId();
                         temp2=newsData.getItem_id();
+
                                // object.createOffer(temp1,temp2);
                                createOffer(temp2, temp1);
                                Toast.makeText(New_Transaction.this, "A new barter was created :" + " " + temp2+""+temp1, Toast.LENGTH_LONG).show();
@@ -91,7 +93,7 @@ public class New_Transaction extends AppCompatActivity  {
                     }
                 });
             }
-            Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
+           Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,27 +180,4 @@ public class New_Transaction extends AppCompatActivity  {
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
-
-    public void showComments(View view)
-    {
-
-        startActivity(new Intent(this, commentsSection.class));
-    }
-    public void showReport(View view)
-    {
-        startActivity(new Intent(this, reportUserSection.class));
-    }
-
-
-
-    public void showLargePic(View view)
-    {
-        System.out.println(imgBigUrl);
-        Intent i = new Intent(this, ShowLargePicture.class);
-        i.putExtra("largepic", imgBigUrl);
-        startActivity(i);
-
-
-    }
-
 }

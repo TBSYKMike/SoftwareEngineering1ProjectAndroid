@@ -82,7 +82,8 @@ public class TradingLists extends AppCompatActivity  {
                 Toast.makeText(TradingLists.this, "Selected :" + " " + newsData.getItem_id(), Toast.LENGTH_LONG).show();
                 value = newsData.getItem_id();
 
-                Singleton.getInstance().setItemOwn_id(value);
+              Singleton.getInstance().setItemId(value);
+              Singleton.getInstance().setMyEmail(newsData.getEmail());
                 Intent intent = new Intent(getApplicationContext(), CheckMyTrades.class);
                 startActivity(intent);
                 return false;
@@ -103,7 +104,7 @@ public class TradingLists extends AppCompatActivity  {
         });
     }
     public void getJSONMyItem(){
-    int userId=9;
+    int userId=Integer.parseInt(Singleton.getInstance().getItemOwn_id());
     String stringUserId=Integer.toString(userId);
     BackgroundTaskMyItems backgroundTaskMyItems =new BackgroundTaskMyItems();
     backgroundTaskMyItems.execute(stringUserId);
@@ -125,7 +126,7 @@ public class TradingLists extends AppCompatActivity  {
             jsonObjectMyItems =new JSONObject(ss);
             jsonArrayMyItems = jsonObjectMyItems.getJSONArray("server_response");
             int count=0;
-            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
+            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName,email;
             while (count< jsonArrayMyItems.length())
             {
                 JSONObject JO2= jsonArrayMyItems.getJSONObject(count);
@@ -141,8 +142,9 @@ public class TradingLists extends AppCompatActivity  {
                 item_winner_userID=JO2.getString("item_winner_userID");
                 item_user_userID=JO2.getString("item_user_userID");
                 accountName=JO2.getString("userName");
+                email=JO2.getString("email");
 
-                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
+                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName,email);
                 addsAdapterMyItems.add(user);
                 count++;
             }
@@ -367,7 +369,7 @@ public class TradingLists extends AppCompatActivity  {
 
         @Override
         protected void onPreExecute() {
-            login_check_url ="http://mybarter.net16.net/json_data_item_user_select1.php" ;
+            login_check_url ="http://mybarter.net16.net/json_data_item_user_select11.php" ;
             super.onPreExecute();
         }
         //http://mybarter.net16.net/json_data_item__select_to_OthersBid.php
@@ -449,7 +451,7 @@ public class TradingLists extends AppCompatActivity  {
         @Override
         protected void onPreExecute()
         {
-            setJson_url("http://mybarter.net16.net/json_data_new.php");
+            setJson_url("http://mybarter.net16.net/json_data_new11.php");
         }
 
         @Override

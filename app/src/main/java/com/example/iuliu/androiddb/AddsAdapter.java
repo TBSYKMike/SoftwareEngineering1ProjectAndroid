@@ -101,6 +101,8 @@ public class AddsAdapter extends ArrayAdapter {
 
 
         } catch (Exception e) {
+
+
             e.printStackTrace();
             System.out.println(temp1);
 

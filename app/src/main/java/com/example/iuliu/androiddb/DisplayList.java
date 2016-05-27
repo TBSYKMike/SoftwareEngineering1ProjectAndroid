@@ -32,13 +32,13 @@ public class DisplayList extends AppCompatActivity {
         listView.setAdapter(addsAdapter);
         json_string=getIntent().getExtras().getString("json_data");
         try {
-            ArrayList<Adds> listData = new ArrayList<>();
+            final ArrayList<Adds> listData = new ArrayList<>();
 
 
             jsonObject=new JSONObject(json_string);
             jsonArray=jsonObject.getJSONArray("server_response");
             int count=0;
-            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName;
+            String item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName,email;
             while (count<jsonArray.length())
             {
                 JSONObject JO=jsonArray.getJSONObject(count);
@@ -46,7 +46,7 @@ public class DisplayList extends AppCompatActivity {
                 item_name=JO.getString("item_name");
                 item_info=JO.getString("item_info");
                 item_picture_small=JO.getString("item_picture_small");
-               item_picture_large=JO.getString("item_picture_large");
+                item_picture_large=JO.getString("item_picture_large");
                 item_condition=JO.getString("item_condition");
                 item_date=JO.getString("item_date");
                 item_status=JO.getString("item_status");
@@ -54,8 +54,9 @@ public class DisplayList extends AppCompatActivity {
                 item_winner_userID=JO.getString("item_winner_userID");
                 item_user_userID=JO.getString("item_user_userID");
                 accountName=JO.getString("userName");
+                email=JO.getString("email");
 
-                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName);
+                Adds user=new Adds(item_id,item_name,item_info,item_picture_small,item_picture_large,item_condition,item_date,item_status,item_visit_count,item_winner_userID,item_user_userID,accountName,email);
                 addsAdapter.add(user);
                 count++;
 
@@ -66,10 +67,16 @@ public class DisplayList extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     Adds newsData = (Adds) listView.getItemAtPosition(position);
+                    int myPosition=   Integer.parseInt(Singleton.getInstance().getItemOwn_id());
+                 //   Adds newsMyData=(Adds) listView.getItemAtPosition(myPosition);
+
                     Toast.makeText(DisplayList.this, "Selected :" + " " + newsData.getItem_name(), Toast.LENGTH_LONG).show();
                     Singleton.getInstance().setItemId(newsData.getItem_id());
                     Singleton.getInstance().setNameItem(newsData.getItem_name());
                     Singleton.getInstance().setStringBigPictureUrl(newsData.getItem_picture_large());
+
+
+
                     Intent intent=new Intent (getApplicationContext(),New_Transaction.class);
 
                     startActivity(intent);

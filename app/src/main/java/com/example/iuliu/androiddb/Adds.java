@@ -16,6 +16,7 @@ public class Adds {
     private String item_winner_userID;
     private String item_user_userID;
     private String user_name;
+    private String email;
     public Adds(String item_id, String item_name, String item_picture_small){
         this.setItem_id(item_id);
         this.setItem_name(item_name);
@@ -23,7 +24,7 @@ public class Adds {
     }
 
     public Adds(String item_id, String item_name,String item_info, String item_picture_small, String item_picture_large,
-                String item_condition, String item_date, String item_status, String item_visit_count, String item_winner_userID, String item_user_userID, String user_name) {
+                String item_condition, String item_date, String item_status, String item_visit_count, String item_winner_userID, String item_user_userID, String user_name,String email) {
         this.setItem_id(item_id);
         this.setItem_name(item_name);
         this.setItem_info(item_info);
@@ -36,6 +37,7 @@ public class Adds {
         this.setItem_winner_userID(item_winner_userID);
         this.setItem_user_userID(item_user_userID);
         this.setUser_name(user_name);
+        this.setEmail(email);
     }
     public String getItem_id() {
         return item_id;
@@ -132,4 +134,6 @@ public class Adds {
     public void setUser_name(String user_name) {
         this.user_name = user_name;
     }
+    public String getEmail(){return email;}
+    public void setEmail(String email){this.email=email;}
 }
