@@ -1,7 +1,9 @@
 package com.example.iuliu.androiddb;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -10,6 +12,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 //import org.apache.commons.codec.binary.Base64;
 
@@ -44,6 +49,20 @@ public class AddNewAdvert extends AppCompatActivity {
     String imgSmall="";
     String Owner_ID;
 
+    private  boolean checkAndRequestPermissions() {
+
+        int permissionSendMessage = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);;
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),1);
+            return false;
+        }
+        return true;
+    }
 
 
 
@@ -99,7 +118,10 @@ public class AddNewAdvert extends AppCompatActivity {
     class btnTakePhotoClicker implements Button.OnClickListener{
         @Override
         public void onClick(View v){
-            dispatchTakePictureIntent();
+            if(checkAndRequestPermissions()) {
+                // carry on the normal flow, as the case of  permissions  granted.
+                dispatchTakePictureIntent();
+            }
         }
     }
 
