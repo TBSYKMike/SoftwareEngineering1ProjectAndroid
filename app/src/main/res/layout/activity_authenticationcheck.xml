@@ -22,7 +22,8 @@
         android:id="@+id/buttonSkickaSMS"
         android:layout_below="@+id/editTextMobilnummer"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:enabled="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -42,7 +43,8 @@
         android:id="@+id/textView0RandomNumber"
         android:layout_below="@+id/buttonSkickaSMS"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,7 +53,8 @@
         android:id="@+id/textView0PhoneNumber"
         android:layout_below="@+id/textView0RandomNumber"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,7 +63,8 @@
         android:id="@+id/textView0validateNumberOK"
         android:layout_below="@+id/textView0PhoneNumber"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,7 +73,8 @@
         android:id="@+id/textView0validateRandomNumberOK"
         android:layout_below="@+id/textView0validateNumberOK"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,7 +83,8 @@
         android:id="@+id/textView0checkSMSOn"
         android:layout_below="@+id/textView0validateRandomNumberOK"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -87,7 +93,8 @@
         android:id="@+id/buttonEnableSMSCheck"
         android:layout_below="@+id/textView0checkSMSOn"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -96,7 +103,8 @@
         android:id="@+id/buttonOpenCameraApp"
         android:layout_below="@+id/buttonEnableSMSCheck"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -107,7 +115,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="34dp"
-        android:onClick="enableBroadcastReceiver" />
+        android:onClick="enableBroadcastReceiver"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -117,7 +126,8 @@
         android:layout_below="@+id/buttonBR1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="disableBroadcastReceiver" />
+        android:onClick="disableBroadcastReceiver"
+        android:visibility="invisible" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -127,5 +137,22 @@
         android:id="@+id/buttonOpenLoadImageApp"
         android:layout_below="@+id/buttonOpenCameraApp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ett SMS kommer att skickas från din mobil* "
+        android:id="@+id/textView6"
+        android:layout_below="@+id/buttonSkickaSMS"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Eventuella kostnader kan tillkomma"
+        android:id="@+id/textView7"
+        android:layout_alignTop="@+id/textView0PhoneNumber"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
