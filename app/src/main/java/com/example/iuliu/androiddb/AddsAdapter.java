@@ -84,9 +84,9 @@ public class AddsAdapter extends ArrayAdapter {
         }
         try {
             Adds adds =(Adds)this.getItem(position);
-            userHolder.txt_item_name.setText(adds.getItem_name());
+            userHolder.txt_item_name.setText(adds.getItem_date());
             userHolder.txt_item_condition.setText(adds.getItem_condition());
-            userHolder.txt_item_date.setText(adds.getItem_date());
+            userHolder.txt_item_date.setText(adds.getItem_name());
             userHolder.txt_accountName.setText(adds.getUser_name());
 
             String imgLittleUrl = adds.getItem_picture_small();
