@@ -115,9 +115,15 @@ public class New_Transaction extends AppCompatActivity  {
             backgroundTask.execute(s, x);
         }
     }
+    public void createNewAnnonce(View view){
+        startActivity(new Intent(this, AddNewAdvert.class));
+    }
 
 
-
+    public void showLargePic(View view){
+        //Singleton.getInstance().setStringBigPictureUrl();
+        startActivity(new Intent(New_Transaction.this, ShowLargePicture.class));
+    }
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String login_check_url;
 
