@@ -158,18 +158,16 @@ public class CheckMyTrades extends AppCompatActivity {
             Toast.makeText(CheckMyTrades.this, "You must select one item", Toast.LENGTH_LONG).show();
         }
         else {
-          //  doAcceptBarted(stringIndex, stringOwnIndex);
-          //  doInactiveItems(stringIndex, stringOwnIndex);
+            doAcceptBarted(stringIndex, stringOwnIndex);
+            doInactiveItems(stringIndex, stringOwnIndex);
             Toast.makeText(CheckMyTrades.this, "You got a new barter" + stringIndex, Toast.LENGTH_LONG).show();
             myEmail = Singleton.getInstance().getMyEmail();
 
             this.sendEmail();
-         //   addsAdapter.reset();
+            addsAdapter.reset();
             stringIndex=test;
             super.onResume();
 
-            // Intent intent = new Intent(this, MainActivity.class);
-            // startActivity(intent);
         }
     }
 

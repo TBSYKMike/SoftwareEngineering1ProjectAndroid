@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -65,7 +66,10 @@ public class reportUserSection extends AppCompatActivity {
 
         comment = (EditText) findViewById(R.id.editTextResportMessage);
         connectionPostComment(comment.getText().toString(), ItemId, Singleton.getInstance().getItemOwn_id());
-finish();
+//finish();
+
+        Button button = (Button)findViewById(R.id.buttonSendReport);
+        button.setEnabled(false);
 
     }
 

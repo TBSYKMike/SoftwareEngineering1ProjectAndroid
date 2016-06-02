@@ -115,7 +115,7 @@ finish();
 
 
     public void createToast(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
 
