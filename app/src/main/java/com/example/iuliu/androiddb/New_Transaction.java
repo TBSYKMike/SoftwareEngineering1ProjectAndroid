@@ -29,7 +29,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class New_Transaction extends AppCompatActivity  {
+public class New_Transaction extends AppCompatActivity {
     Button createOffer;
     JSONObject jsonObject;
     JSONArray jsonArray;
@@ -38,22 +38,23 @@ public class New_Transaction extends AppCompatActivity  {
     ArrayList<Adds> arrayUsers;
     private String stringJSON;
     private TextView viewName;
-    private String temp1,temp2;
+    private String temp1, temp2;
     private String imgBigUrl;
 
     ImageView pictureView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new__transaction);
-       // createOffer=(Button)findViewById(R.id.button7);
+        // createOffer=(Button)findViewById(R.id.button7);
         stringJSON = Singleton.getInstance().getMyListonJSON();
         arrayUsers = new ArrayList<Adds>();
         listView = (ListView) findViewById(R.id.listView5);
-        viewName=(TextView) findViewById(R.id.textView2);
+        viewName = (TextView) findViewById(R.id.textView2);
         viewName.setText(Singleton.getInstance().getNameItem());
-        imgBigUrl=Singleton.getInstance().getStringBigPictureUrl();
-        pictureView=(ImageView)findViewById(R.id.imageViewBigPicture);
+        imgBigUrl = Singleton.getInstance().getStringBigPictureUrl();
+        pictureView = (ImageView) findViewById(R.id.imageViewBigPicture);
         addsNewAdapter = new AddsAdapterOnlyPicture(this, R.layout.row_layout_small_picture, arrayUsers);
         listView.setAdapter(addsNewAdapter);
 
@@ -80,20 +81,20 @@ public class New_Transaction extends AppCompatActivity  {
                     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                    int pos, long id) {
                         Adds newsData = (Adds) listView.getItemAtPosition(pos);
-                        temp1=Singleton.getInstance().getItemId();
-                        temp2=newsData.getItem_id();
+                        temp1 = Singleton.getInstance().getItemId();
+                        temp2 = newsData.getItem_id();
 
-                               // object.createOffer(temp1,temp2);
-                               createOffer(temp2, temp1);
-                               Toast.makeText(New_Transaction.this, "A new barter was created :" + " " + temp2+""+temp1, Toast.LENGTH_LONG).show();
-                               Log.v("long clicked", "pos: " + pos);
+                        // object.createOffer(temp1,temp2);
+                        createOffer(temp2, temp1);
+                        Toast.makeText(New_Transaction.this, "A new barter was created :" + " " + temp2 + "" + temp1, Toast.LENGTH_LONG).show();
+                        Log.v("long clicked", "pos: " + pos);
 
 
-                            return true;
+                        return true;
                     }
                 });
             }
-           Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
+            Picasso.with(this.getBaseContext()).load(imgBigUrl).into(pictureView);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,15 +108,14 @@ public class New_Transaction extends AppCompatActivity  {
 
     public void createOffer(String s, String x) {
 
-        if(s.equals(x)) {
-            Toast.makeText(New_Transaction.this, "It is now possible to make the deal :" + " " + temp1+""+temp2, Toast.LENGTH_LONG).show();
+        if (s.equals(x)) {
+            Toast.makeText(New_Transaction.this, "It is now possible to make the deal :" + " " + temp1 + "" + temp2, Toast.LENGTH_LONG).show();
 
-        }else{
+        } else {
             BackgroundTask backgroundTask = new BackgroundTask();
             backgroundTask.execute(s, x);
         }
     }
-
 
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
@@ -179,5 +179,21 @@ public class New_Transaction extends AppCompatActivity  {
         protected void onPostExecute(String result) {
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void showComments(View view) {
+        startActivity(new Intent(this, commentsSection.class));
+    }
+
+    public void showReport(View view) {
+        startActivity(new Intent(this, reportUserSection.class));
+    }
+
+    public void showLargePic(View view) {
+        System.out.println(imgBigUrl);
+        Intent i = new Intent(this, ShowLargePicture.class);
+        i.putExtra("largepic", imgBigUrl);
+        startActivity(i);
+
     }
 }

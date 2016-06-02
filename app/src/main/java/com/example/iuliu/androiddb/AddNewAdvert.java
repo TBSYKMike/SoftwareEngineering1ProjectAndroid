@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -118,10 +120,47 @@ public class AddNewAdvert extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+    /*    if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             galleryAddPic();
             setPic();
         }
+*/
+       /* if(requestCode == REQUEST_TAKE_PHOTO){
+                        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                        mImageView.setImageBitmap(thumbnail);
+        }
+*/
+
+
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = BITMAP_RESIZER(imageBitmap, 1000,1000);
+            mImageView.setImageBitmap(imageBitmap);
+
+
+
+
+            imgLarge = getStringImage(imageBitmap);
+
+            imageBitmap = imageBitmap.createScaledBitmap(imageBitmap,100,100,false);
+
+
+            imageBitmap = BITMAP_RESIZER(imageBitmap, 150,150);
+            //  imgSmall = encodeImage(bitmap);
+            imgSmall = getStringImage(imageBitmap);
+
+
+
+        }
+
+
+
+
+
+
+
+
     }
 
     class btnTakePhotoClicker implements Button.OnClickListener{
@@ -134,9 +173,16 @@ public class AddNewAdvert extends AppCompatActivity {
         }
     }
 
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, 1);
+        }
+    }
+
 
 // run camera app
-    private void dispatchTakePictureIntent() {
+    private void dispatchTakePictureIntent2() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         System.out.println("Inne i dispatch efter intent ACTION IMAGE CAPUTRE");
@@ -432,6 +478,35 @@ public String encodeImage(Bitmap image) {
     public void createToast(String text) {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
+
+
+
+    public Bitmap BITMAP_RESIZER(Bitmap bitmap,int newWidth,int newHeight) {
+        Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+
+        float ratioX = newWidth / (float) bitmap.getWidth();
+        float ratioY = newHeight / (float) bitmap.getHeight();
+        float middleX = newWidth / 2.0f;
+        float middleY = newHeight / 2.0f;
+
+        Matrix scaleMatrix = new Matrix();
+        scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
+
+        Canvas canvas = new Canvas(scaledBitmap);
+        canvas.setMatrix(scaleMatrix);
+        canvas.drawBitmap(bitmap, middleX - bitmap.getWidth() / 2, middleY - bitmap.getHeight() / 2, new Paint
+                (Paint.FILTER_BITMAP_FLAG));
+
+        return scaledBitmap;
+
+    }
+
+
+
+
+
+
+
 
 
 }
