@@ -40,6 +40,7 @@ public class New_Transaction extends AppCompatActivity  {
     private TextView viewName;
     private String temp1,temp2;
     private String imgBigUrl;
+    private TextView descriptionItem;
 
     ImageView pictureView;
     @Override
@@ -51,7 +52,9 @@ public class New_Transaction extends AppCompatActivity  {
         arrayUsers = new ArrayList<Adds>();
         listView = (ListView) findViewById(R.id.listView5);
         viewName=(TextView) findViewById(R.id.textView2);
+        descriptionItem=(TextView)findViewById(R.id.textView5);
         viewName.setText(Singleton.getInstance().getNameItem());
+        descriptionItem.setText(Singleton.getInstance().getDescriptionItem());
         imgBigUrl=Singleton.getInstance().getStringBigPictureUrl();
         pictureView=(ImageView)findViewById(R.id.imageViewBigPicture);
         addsNewAdapter = new AddsAdapterOnlyPicture(this, R.layout.row_layout_small_picture, arrayUsers);
@@ -120,7 +123,7 @@ public class New_Transaction extends AppCompatActivity  {
     }
 
 
-    
+
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String login_check_url;
 
