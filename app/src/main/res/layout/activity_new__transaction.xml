@@ -11,28 +11,14 @@
     <TextView
         android:id="@+id/txt_header"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:background="@color/red_bg_header"
         android:gravity="center"
         android:text="Barter app - new transaction"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/listView5"
-        android:layout_alignBottom="@+id/btn_add_employee" />
-    <ImageButton
-        android:id="@+id/btn_add_employee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        android:onClick="addItems"
-
-        android:background="@android:color/transparent"
-        android:contentDescription="@null"
-        android:src="@android:drawable/ic_menu_add" />
+        android:layout_alignEnd="@+id/listView5" />
 
     <Button
         android:layout_width="wrap_content"
@@ -55,19 +41,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button6"
-        android:layout_above="@+id/button4"
-        android:layout_alignEnd="@+id/button5" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="New Offer"
-        android:onClick="createOffer"
+        android:onClick="createNewAdvert"
         android:id="@+id/button7"
-        android:layout_alignTop="@+id/button6"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/button4"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/listView5" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -75,9 +54,9 @@
         android:id="@+id/imageViewBigPicture"
         android:tag="Big picture"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/button6"
-        android:layout_alignTop="@+id/listView5"
-        android:onClick="showLargePic" />
+        android:onClick="showLargePic"
+        android:layout_alignEnd="@+id/textView5"
+        android:layout_below="@+id/textView2" />
 
     <ListView
         android:layout_width="fill_parent"
@@ -86,16 +65,15 @@
         android:text="List View"
         android:longClickable="true"
         android:layout_toEndOf="@+id/button5"
-        android:layout_below="@+id/textView2" />
+        android:layout_below="@+id/txt_header" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="Name"
         android:id="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/txt_header"
-        android:layout_below="@+id/btn_add_employee" />
+        android:layout_below="@+id/txt_header"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -105,7 +83,7 @@
         android:id="@+id/textView5"
         android:layout_above="@+id/button7"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/button6"
-        android:layout_below="@+id/imageViewBigPicture" />
+        android:layout_below="@+id/imageViewBigPicture"
+        android:layout_toStartOf="@+id/listView5" />
 
 </RelativeLayout>

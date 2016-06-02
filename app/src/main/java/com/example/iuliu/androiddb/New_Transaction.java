@@ -117,6 +117,10 @@ public class New_Transaction extends AppCompatActivity {
         }
     }
 
+    public void createNewAdvert(View view){
+        startActivity(new Intent(New_Transaction.this, AddNewAdvert.class));
+    }
+
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String login_check_url;

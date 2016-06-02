@@ -14,7 +14,8 @@
             android:id="@+id/commentBox"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_above="@+id/sendComment" />
+            android:layout_above="@+id/sendComment"
+            android:inputType="text"/>
 
         <ListView
             android:layout_width="wrap_content"
@@ -29,8 +30,8 @@
             android:layout_height="wrap_content"
             android:text="Post"
             android:id="@+id/sendComment"
+            android:onClick="addComment"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="addComment" />
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>

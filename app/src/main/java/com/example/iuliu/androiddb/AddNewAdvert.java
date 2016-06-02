@@ -135,7 +135,12 @@ public class AddNewAdvert extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageBitmap = BITMAP_RESIZER(imageBitmap, 1000,1000);
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inScaled = false;
+            //imageBitmap = BitmapFactory.decodeResource(imageBitmap, mImageView.getId(), options);
+
+//            imageBitmap = BITMAP_RESIZER(imageBitmap, 1000,1000);
             mImageView.setImageBitmap(imageBitmap);
 
 
