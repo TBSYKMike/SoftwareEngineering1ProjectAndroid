@@ -120,10 +120,7 @@ public class New_Transaction extends AppCompatActivity  {
     }
 
 
-    public void showLargePic(View view){
-        //Singleton.getInstance().setStringBigPictureUrl();
-        startActivity(new Intent(New_Transaction.this, ShowLargePicture.class));
-    }
+    
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String login_check_url;
 
