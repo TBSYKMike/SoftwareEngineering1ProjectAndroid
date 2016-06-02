@@ -31,6 +31,7 @@ import org.apache.commons.codec.binary.Base64;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -136,9 +137,12 @@ public class AddNewAdvert extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inScaled = false;
+            //BitmapFactory.Options options = new BitmapFactory.Options();
+            //options.inScaled = false;
             //imageBitmap = BitmapFactory.decodeResource(imageBitmap, mImageView.getId(), options);
+
+
+
 
 //            imageBitmap = BITMAP_RESIZER(imageBitmap, 1000,1000);
             mImageView.setImageBitmap(imageBitmap);

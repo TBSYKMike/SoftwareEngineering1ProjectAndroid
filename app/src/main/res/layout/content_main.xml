@@ -14,28 +14,17 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/b1"
-        android:onClick="addContact"
-        android:layout_marginBottom="39dp"
-        android:layout_alignBottom="@+id/b2"
-        android:layout_alignStart="@+id/buttonLogOut" />
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
         android:text="View Items"
         android:id="@+id/b2"
         android:onClick="viewItems"
-        android:layout_marginTop="133dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/b1" />
+        android:layout_above="@+id/buttonLogOut"
+        android:layout_centerHorizontal="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Network Found"
         android:id="@+id/textView"
         android:gravity="center_horizontal"
-        android:layout_below="@+id/b1"
         android:layout_alignStart="@+id/b2" />
 
     <Button
@@ -46,6 +35,20 @@
         android:onClick="buttonPressLogout"
         android:layout_marginBottom="141dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignEnd="@+id/b2"
+        android:layout_alignStart="@+id/b2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Barter App"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="66dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:textSize="80dp"
+        android:textStyle="bold|italic"
+        android:textAlignment="center" />
 
 </RelativeLayout>

@@ -88,7 +88,7 @@ public class commentsSection extends AppCompatActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
                try{
                     jsonObject = new JSONObject(s);
                     jsonArray = jsonObject.getJSONArray(json_string);
@@ -146,7 +146,7 @@ public class commentsSection extends AppCompatActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
 
 
                 connectionReadComments(ItemId);

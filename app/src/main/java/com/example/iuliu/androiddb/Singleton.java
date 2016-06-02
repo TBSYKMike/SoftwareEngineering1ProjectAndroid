@@ -15,6 +15,7 @@ public class Singleton {
     private String stringBigPictureUrl;
     private String itemId;
     private String nameItem;
+    private String descriptionItem;
     private String myEmail;
     private String secondEmail;
     public Singleton(){
@@ -93,6 +94,14 @@ public class Singleton {
 
     public void seSecondEmail(String secondEmail) {
         this.secondEmail = secondEmail;
+    }
+
+    public String getDescriptionItem() {
+        return descriptionItem;
+    }
+
+    public void setDescriptionItem(String descriptionItem) {
+        this.descriptionItem = descriptionItem;
     }
 }
 
