@@ -20,7 +20,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        B1 = (Button)findViewById(R.id.b1);
         B2 = (Button)findViewById(R.id.b2);
         textView = (TextView)findViewById(R.id.textView);
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -36,10 +35,6 @@ public class MainActivity extends Activity {
 
     }
 
-    public void addContact(View view)
-    {
-    startActivity(new Intent(this, AddInfo.class));
-    }
     public void viewItems(View view)
     {
         startActivity(new Intent(this, TradingLists.class));
